@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://suryakant981.github.io/Surya.github.io/sitemap.xml
