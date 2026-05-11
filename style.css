@@ -1,5 +1,5 @@
 /* =========================================
-   SURYAKANT. | FULL WEBSITE STYLES (NEW ANIMATED LOGO)
+   SURYAKANT. | FULL WEBSITE STYLES (ANIMATED LOGO & BUTTON)
    ========================================= */
 
 /* --- Variables for Light/Dark Mode --- */
@@ -9,7 +9,7 @@
     --text-primary: #333333;
     --text-secondary: #555555;
     --nav-bg: #1a1a2e;
-    --accent-color: #e94560; /* The current button/accent color */
+    --accent-color: #e94560; /* The current standard button color */
     --card-bg: #ffffff;
 }
 
@@ -50,56 +50,29 @@ nav {
     z-index: 1000;
 }
 
-/* =========================================
-   NEW ALL-TIME ANIMATED & COLOR-CHANGING LOGO (FIXED)
-   ========================================= */
+/* --- Naya Animated aur Colorful Logo --- */
 .logo {
     font-size: 28px; 
     font-weight: 800;
     letter-spacing: 1px;
-    
-    /* Vibrant, Complex Base Gradient (required for smooth transitions) */
-    background: linear-gradient(
-        to right, 
-        #00c6ff 0%,   /* Cyan Blue */
-        #e94560 30%,  /* Pink Red */
-        #ff8a00 60%,  /* Orange */
-        #00c6ff 100%  /* Cyan Blue (Seamless transition point) */
-    );
-    background-size: 200% auto; /* Adds complexity to the shift */
-    
-    /* Standard Text Clipping Trick with Mobile Fallbacks */
-    color: transparent; 
+    background: linear-gradient(45deg, #ff6b81, #e94560, #ff8a00, #e52e71);
+    background-size: 300% 300%; 
     -webkit-background-clip: text;
-    background-clip: text;
     -webkit-text-fill-color: transparent;
-    
-    /* Optimized Animation: Continuous Hue Change & Background Scroll */
-    animation: 
-        fullAutoColorChange 6s linear infinite, /* Rotating the base colors dynamically */
-        continuousBackgroundScroll 4s linear infinite; /* Scrolling the gradient texture continuously */
-        
-    /* Interactive pop-up transition */
+    animation: shineText 4s ease infinite;
     transition: transform 0.3s ease;
     cursor: pointer;
 }
 
-/* Mouse over interaction */
 .logo:hover {
     transform: scale(1.1);
 }
 
-/* Keyframes for dynamic continuous Hue Rotation (Automatic Color Wheel Shifting) */
-@keyframes fullAutoColorChange {
-    0%   { filter: hue-rotate(0deg); }
-    100% { filter: hue-rotate(360deg); }
+@keyframes shineText {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
-
-/* Keyframes for continuous seamless Background Texture movement */
-@keyframes continuousBackgroundScroll {
-    to { background-position: 200% center; }
-}
-/* ========================================= */
 
 .nav-links {
     list-style: none;
@@ -143,7 +116,7 @@ nav {
     align-items: center;
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
     color: white;
-    padding-top: 100px; /* Offset for nav bar */
+    padding-top: 100px;
     padding-bottom: 50px;
 }
 
@@ -198,7 +171,7 @@ nav {
                 0 0 60px rgba(233, 69, 96, 0.3);
 }
 
-/* --- Animated Buttons --- */
+/* --- Standard Animated Buttons (Used for general CTA) --- */
 .btn {
     display: inline-block;
     padding: 12px 30px;
@@ -250,13 +223,52 @@ nav {
     box-shadow: 0 8px 25px rgba(220, 39, 67, 0.6);
 }
 
+/* =========================================
+   SPECIAL FULLY ANIMATED HIRE ME BUTTON (LOGO STYLE)
+   ========================================= */
+.hire-btn {
+    display: inline-block;
+    padding: 10px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none !important;
+    color: white !important; /* Force white text */
+    border: none;
+
+    /* SAME COLORFUL GRADIENT FROM THE LOGO TURN */
+    background: linear-gradient(45deg, #ff6b81, #e94560, #ff8a00, #e52e71);
+    background-size: 300% 300%; /* Stretch for animation */
+
+    /* Optimized Animation: Continuous seamless Background Scroll */
+    animation: shineTextButton 4s ease infinite;
+
+    /* Interactive pop-up and glow transition setup */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+/* Scale-up slightly, lift, and glow on hover */
+.hire-btn:hover {
+    transform: translateY(-4px) scale(1.05);
+    /* Add red/pink glow accent */
+    box-shadow: 0 8px 25px rgba(233, 69, 96, 0.5);
+}
+
+/* Keyframes for seamless Background Texture movement (specifically adjusted for button size) */
+@keyframes shineTextButton {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+/* ========================================= */
+
 /* --- Content Sections --- */
 .content-section {
-    padding: 120px 20px 80px 20px; /* Offset for fixed nav bar */
+    padding: 120px 20px 80px 20px;
     text-align: center;
     max-width: 900px;
     margin: 0 auto;
-    min-height: calc(100vh - 80px); /* Fill screen and push footer */
+    min-height: calc(100vh - 80px);
 }
 
 .bg-secondary {
@@ -323,7 +335,7 @@ footer {
 /* --- Mobile Responsiveness --- */
 @media (max-width: 768px) {
     .hero-container {
-        flex-direction: column-reverse; /* Put photo above text */
+        flex-direction: column-reverse;
         text-align: center;
         gap: 30px;
         padding-top: 20px;
