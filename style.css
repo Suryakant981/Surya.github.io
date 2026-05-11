@@ -131,6 +131,192 @@ nav {
     align-items: center;
 }
 
+/* --- Profile Photo --- */
+.profile-photo {
+    width: 340px;
+    height: 380px;
+    object-fit: cover;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 
+                0 0 40px rgba(233, 69, 96, 0.15);
+    transition: all 0.4s ease;
+}
+
+.profile-photo:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 30px 50px rgba(0, 0, 0, 0.6), 
+                0 0 60px rgba(233, 69, 96, 0.3);
+}
+
+/* =========================================
+   NEW ANIMATED BUTTONS
+   ========================================= */
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background: linear-gradient(45deg, var(--accent-color), #ff6b81);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    position: relative;
+    overflow: hidden; /* Shine effect ke liye zaroori */
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(233, 69, 96, 0.2);
+}
+
+/* Lift & Glow effect on hover */
+.btn:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(233, 69, 96, 0.5);
+}
+
+/* Shine Animation setup */
+.btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: all 0.5s ease;
+}
+
+/* Shine sweeps across on hover */
+.btn:hover::after {
+    left: 100%;
+}
+
+/* Instagram Button with Real Gradient */
+.social-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(220, 39, 67, 0.3);
+}
+
+.social-btn:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(220, 39, 67, 0.6);
+}
+
+/* ========================================= */
+
+/* --- Content Sections --- */
+.content-section {
+    padding: 120px 20px 80px 20px;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+    min-height: calc(100vh - 80px);
+}
+
+.bg-secondary {
+    background-color: var(--bg-secondary);
+    max-width: 100%;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+}
+
+p {
+    color: var(--text-secondary);
+}
+
+/* --- Project Grid --- */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-top: 40px;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.project-card {
+    background: var(--card-bg);
+    padding: 30px 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    text-align: center;
+    border-top: 4px solid var(--accent-color);
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    color: var(--accent-color);
+    margin-bottom: 15px;
+}
+
+.project-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: var(--text-primary);
+}
+
+/* --- Footer --- */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: var(--nav-bg);
+    color: white;
+    margin-top: 40px;
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+    .hero-container {
+        flex-direction: column-reverse;
+        text-align: center;
+        gap: 30px;
+        padding-top: 20px;
+    }
+
+    .hero-content {
+        text-align: center;
+    }
+
+    .profile-photo {
+        width: 280px;
+        height: 300px;
+    }
+                                }    flex: 1;
+    max-width: 600px;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.hero-image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 /* --- Profile Photo: Modern Rounded Square with Glow --- */
 .profile-photo {
     width: 340px;
