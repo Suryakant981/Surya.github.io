@@ -86,16 +86,32 @@ nav {
     color: var(--accent-color);
 }
 
-/* --- Hero Section --- */
+/* --- Hero Section (Updated for Image) --- */
 .hero {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
     color: white;
-    padding-top: 60px;
+    padding-top: 100px;
+    padding-bottom: 50px;
+}
+
+.hero-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.hero-content {
+    text-align: left;
+    flex: 1;
+    max-width: 600px;
 }
 
 .hero-content h1 {
@@ -106,9 +122,27 @@ nav {
 .hero-content p {
     font-size: 1.2rem;
     margin-bottom: 30px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
+}
+
+.hero-image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-photo {
+    width: 320px;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 8px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+}
+
+.profile-photo:hover {
+    transform: scale(0.98);
 }
 
 /* --- Buttons --- */
@@ -130,7 +164,7 @@ nav {
 .social-btn {
     display: inline-block;
     padding: 12px 25px;
-    background-color: #C13584; /* Instagram Brand Color */
+    background-color: #C13584;
     color: white;
     text-decoration: none;
     border-radius: 50px;
@@ -152,7 +186,7 @@ nav {
 
 .bg-secondary {
     background-color: var(--bg-secondary);
-    max-width: 100%; /* Spans full width for alternating sections */
+    max-width: 100%;
 }
 
 h2 {
@@ -209,4 +243,23 @@ footer {
     background-color: var(--nav-bg);
     color: white;
     margin-top: 40px;
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+    .hero-container {
+        flex-direction: column-reverse;
+        text-align: center;
+        gap: 30px;
+        padding-top: 20px;
+    }
+
+    .hero-content {
+        text-align: center;
+    }
+
+    .profile-photo {
+        width: 250px;
+        height: 250px;
+    }
 }
