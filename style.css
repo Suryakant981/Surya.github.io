@@ -182,10 +182,11 @@ nav {
 
 /* --- Content Sections --- */
 .content-section {
-    padding: 80px 20px;
+    padding: 120px 20px 80px 20px; /* Fixed: Added top padding so nav doesn't cover text */
     text-align: center;
     max-width: 900px;
     margin: 0 auto;
+    min-height: calc(100vh - 80px); /* Fixed: Keeps the footer pushed to the bottom of shorter pages */
 }
 
 .bg-secondary {
@@ -266,4 +267,4 @@ footer {
         width: 280px;
         height: 300px;
     }
-    }
+}
