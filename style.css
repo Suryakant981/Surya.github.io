@@ -1,15 +1,11 @@
-/* =========================================
-   SURYAKANT. | FULL WEBSITE STYLES (ANIMATED LOGO & BUTTON)
-   ========================================= */
-
-/* --- Variables for Light/Dark Mode --- */
+/* --- Variables --- */
 :root {
     --bg-primary: #ffffff;
     --bg-secondary: #f8f9fa;
     --text-primary: #333333;
     --text-secondary: #555555;
     --nav-bg: #1a1a2e;
-    --accent-color: #e94560; /* The current standard button color */
+    --accent-color: #e94560;
     --card-bg: #ffffff;
 }
 
@@ -22,331 +18,59 @@ body.dark-mode {
     --card-bg: #2a2a35;
 }
 
-/* --- Global Styles --- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 
-body {
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    line-height: 1.6;
-    transition: background-color 0.3s, color 0.3s;
-}
+body { background-color: var(--bg-primary); color: var(--text-primary); transition: 0.3s; }
 
 /* --- Navigation --- */
 nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 50px;
-    background-color: var(--nav-bg);
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 50px; background-color: var(--nav-bg);
+    position: fixed; width: 100%; top: 0; z-index: 1000;
 }
 
-/* --- Naya Animated aur Colorful Logo --- */
+/* --- LOGO (Automatic Color Change Fix) --- */
 .logo {
-    font-size: 28px; 
-    font-weight: 800;
-    letter-spacing: 1px;
+    font-size: 28px; font-weight: 800;
     background: linear-gradient(45deg, #ff6b81, #e94560, #ff8a00, #e52e71);
-    background-size: 300% 300%; 
+    background-size: 300% 300%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: shineText 4s ease infinite;
-    transition: transform 0.3s ease;
-    cursor: pointer;
+    /* Yeh hai automatic animation */
+    animation: auto-color 5s linear infinite;
+    transition: 0.3s; cursor: pointer;
 }
 
-.logo:hover {
-    transform: scale(1.1);
-}
-
-@keyframes shineText {
-    0% { background-position: 0% 50%; }
+@keyframes auto-color {
+    0% { background-position: 0% 50%; filter: hue-rotate(0deg); }
     50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    100% { background-position: 0% 50%; filter: hue-rotate(360deg); }
 }
 
-.nav-links {
-    list-style: none;
-    display: flex;
-    align-items: center;
-}
+.nav-links { list-style: none; display: flex; align-items: center; }
+.nav-links li { margin-left: 20px; }
+.nav-links a { color: #fff; text-decoration: none; transition: 0.3s; }
 
-.nav-links li {
-    margin-left: 20px;
-}
-
-.nav-links a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 16px;
-    transition: color 0.3s ease;
-}
-
-.nav-links a:hover {
-    color: var(--accent-color);
-}
-
-.theme-btn {
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-    font-size: 18px;
-    transition: color 0.3s;
-}
-
-.theme-btn:hover {
-    color: var(--accent-color);
-}
-
-/* --- Hero Section (Centered with Photo) --- */
-.hero {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-    color: white;
-    padding-top: 100px;
-    padding-bottom: 50px;
-}
-
-.hero-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 50px;
-    width: 90%;
-    max-width: 1100px;
-    margin: 0 auto;
-}
-
-.hero-content {
-    text-align: left;
-    flex: 1;
-    max-width: 600px;
-}
-
-.hero-content h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
-}
-
-.hero-content p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-}
-
-.hero-image-container {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* --- Profile Photo with Glowing Squared Shape --- */
-.profile-photo {
-    width: 340px;
-    height: 380px;
-    object-fit: cover;
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 
-                0 0 40px rgba(233, 69, 96, 0.15); /* Accent color glow */
-    transition: all 0.4s ease;
-}
-
-.profile-photo:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 30px 50px rgba(0, 0, 0, 0.6), 
-                0 0 60px rgba(233, 69, 96, 0.3);
-}
-
-/* --- Standard Animated Buttons (Used for general CTA) --- */
-.btn {
-    display: inline-block;
-    padding: 12px 30px;
-    background: linear-gradient(45deg, var(--accent-color), #ff6b81);
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: bold;
-    position: relative;
-    overflow: hidden; 
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(233, 69, 96, 0.2);
-}
-
-.btn:hover {
-    transform: translateY(-4px) scale(1.05);
-    box-shadow: 0 8px 25px rgba(233, 69, 96, 0.5);
-}
-
-.btn::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transition: all 0.5s ease;
-}
-
-.btn:hover::after {
-    left: 100%;
-}
-
-.social-btn {
-    display: inline-block;
-    padding: 12px 25px;
-    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-    color: white;
-    text-decoration: none;
-    border-radius: 50px;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(220, 39, 67, 0.3);
-}
-
-.social-btn:hover {
-    transform: translateY(-4px) scale(1.05);
-    box-shadow: 0 8px 25px rgba(220, 39, 67, 0.6);
-}
-
-/* =========================================
-   SPECIAL FULLY ANIMATED HIRE ME BUTTON (LOGO STYLE)
-   ========================================= */
+/* --- Hire Me Button (Logo Style) --- */
 .hire-btn {
-    display: inline-block;
-    padding: 10px 25px;
-    border-radius: 8px;
-    font-weight: bold;
-    text-decoration: none !important;
-    color: white !important; /* Force white text */
-    border: none;
-
-    /* SAME COLORFUL GRADIENT FROM THE LOGO TURN */
+    padding: 8px 20px; border-radius: 8px; font-weight: bold;
+    color: white !important; text-decoration: none;
     background: linear-gradient(45deg, #ff6b81, #e94560, #ff8a00, #e52e71);
-    background-size: 300% 300%; /* Stretch for animation */
-
-    /* Optimized Animation: Continuous seamless Background Scroll */
-    animation: shineTextButton 4s ease infinite;
-
-    /* Interactive pop-up and glow transition setup */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
+    background-size: 300% 300%;
+    animation: auto-color 5s linear infinite;
+    transition: 0.3s;
 }
 
-/* Scale-up slightly, lift, and glow on hover */
-.hire-btn:hover {
-    transform: translateY(-4px) scale(1.05);
-    /* Add red/pink glow accent */
-    box-shadow: 0 8px 25px rgba(233, 69, 96, 0.5);
-}
+.hire-btn:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4); }
 
-/* Keyframes for seamless Background Texture movement (specifically adjusted for button size) */
-@keyframes shineTextButton {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-/* ========================================= */
+/* --- Standard Styles --- */
+.hero { min-height: 100vh; display: flex; justify-content: center; align-items: center; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); color: white; padding-top: 100px; }
+.hero-container { display: flex; align-items: center; gap: 50px; width: 90%; max-width: 1100px; }
+.hero-content h1 { font-size: 3rem; margin-bottom: 20px; }
+.profile-photo { width: 340px; height: 380px; object-fit: cover; border-radius: 16px; box-shadow: 0 0 40px rgba(233, 69, 96, 0.2); }
+.btn { display: inline-block; padding: 12px 30px; background: var(--accent-color); color: white; text-decoration: none; border-radius: 8px; font-weight: bold; transition: 0.3s; }
+.btn:hover { transform: translateY(-3px); }
 
-/* --- Content Sections --- */
-.content-section {
-    padding: 120px 20px 80px 20px;
-    text-align: center;
-    max-width: 900px;
-    margin: 0 auto;
-    min-height: calc(100vh - 80px);
-}
+footer { text-align: center; padding: 20px; background-color: var(--nav-bg); color: white; margin-top: 40px; }
 
-.bg-secondary {
-    background-color: var(--bg-secondary);
-    max-width: 100%;
-}
-
-h2 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    color: var(--text-primary);
-}
-
-p {
-    color: var(--text-secondary);
-}
-
-/* --- Project Grid --- */
-.project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 25px;
-    margin-top: 40px;
-    max-width: 1000px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.project-card {
-    background: var(--card-bg);
-    padding: 30px 25px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    text-align: center;
-    border-top: 4px solid var(--accent-color);
-    transition: transform 0.3s ease;
-}
-
-.project-card:hover {
-    transform: translateY(-5px);
-}
-
-.card-icon {
-    font-size: 2.5rem;
-    color: var(--accent-color);
-    margin-bottom: 15px;
-}
-
-.project-card h3 {
-    font-size: 1.3rem;
-    margin-bottom: 15px;
-    color: var(--text-primary);
-}
-
-/* --- Footer --- */
-footer {
-    text-align: center;
-    padding: 20px;
-    background-color: var(--nav-bg);
-    color: white;
-    margin-top: 40px;
-}
-
-/* --- Mobile Responsiveness --- */
-@media (max-width: 768px) {
-    .hero-container {
-        flex-direction: column-reverse;
-        text-align: center;
-        gap: 30px;
-        padding-top: 20px;
-    }
-
-    .hero-content {
-        text-align: center;
-    }
-
-    .profile-photo {
-        width: 280px;
-        height: 300px;
-    }
-}
+@media (max-width: 768px) { .hero-container { flex-direction: column-reverse; text-align: center; } .nav-links { display: none; } }
