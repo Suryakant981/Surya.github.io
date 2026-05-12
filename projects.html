@@ -1,74 +1,123 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
 <style>
     .projects-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 25px;
-        padding: 20px;
-        font-family: sans-serif;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        padding: 40px 20px;
+        background-color: #f8f9fa;
     }
+
     .project-card {
         background: #ffffff;
-        border-radius: 12px;
-        padding: 20px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        border-bottom: 4px solid #6c63ff;
-        display: flex;
-        flex-direction: column;
-        transition: 0.3s;
+        border-radius: 15px;
+        width: 300px;
+        padding: 30px 20px;
+        text-align: center;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        border-bottom: 5px solid #007bff; /* Blue line for professional look */
+        transition: transform 0.3s ease;
     }
-    .project-card:hover { transform: translateY(-5px); }
-    .icon-section { font-size: 2rem; color: #6c63ff; margin-bottom: 10px; }
-    .project-card h3 { margin: 10px 0; color: #333; }
-    .project-card p { font-size: 0.9rem; color: #666; line-height: 1.5; flex-grow: 1; }
-    .tech-tags { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; margin: 15px 0; }
-    .tech-tags li { background: #f0f0f5; color: #6c63ff; padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: bold; }
-    .btn-primary { background: #6c63ff; color: white; text-decoration: none; padding: 10px; text-align: center; border-radius: 6px; font-weight: bold; }
+
+    .project-card:hover {
+        transform: translateY(-10px);
+    }
+
+    .icon-box {
+        font-size: 40px;
+        color: #007bff;
+        margin-bottom: 20px;
+    }
+
+    .project-card h3 {
+        font-size: 1.2rem;
+        color: #333;
+        margin-bottom: 15px;
+        font-weight: bold;
+    }
+
+    .project-card p {
+        font-size: 0.9rem;
+        color: #666;
+        line-height: 1.6;
+        height: 80px; /* Sabhi cards ka size ek jaisa rakhne ke liye */
+        overflow: hidden;
+    }
+
+    .tech-tags {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin: 20px 0;
+        flex-wrap: wrap;
+    }
+
+    .tech-tags span {
+        font-size: 0.75rem;
+        background: #e9ecef;
+        padding: 4px 10px;
+        border-radius: 5px;
+        color: #495057;
+    }
+
+    .btn-view {
+        display: block;
+        background: #007bff;
+        color: white;
+        text-decoration: none;
+        padding: 12px;
+        border-radius: 8px;
+        font-weight: bold;
+        margin-top: 10px;
+    }
 </style>
 
 <div class="projects-grid">
     
     <div class="project-card">
-        <div class="icon-section">🛡️</div>
+        <div class="icon-box"><i class="fas fa-shield-alt"></i></div>
         <h3>SENTINEL-X: Autonomous SOS</h3>
-        [span_0](start_span)[span_1](start_span)<p>Engineered a passive security protocol built on 'Dead Man’s Switch' logic that dispatches emergency alerts without user interaction[span_0](end_span)[span_1](end_span). [span_2](start_span)Works 100% offline via GPS & SMS[span_2](end_span).</p>
-        <ul class="tech-tags">
-            <li>Android SDK</li>
-            <li>SQLite</li>
-            <li>GPS/SMS API</li>
-        </ul>
-        <a href="https://autosentinel3tier.netlify.app" target="_blank" class="btn-primary">View Project</a>
+        <p>Engineered a passive security protocol using 'Dead Man’s Switch' logic for emergency alerts without user interaction. Works 100% offline via GPS & SMS.</p>
+        <div class="tech-tags">
+            <span>Android SDK</span>
+            <span>SQLite</span>
+            <span>GPS API</span>
+        </div>
+        <a href="https://autosentinel3tier.netlify.app" target="_blank" class="btn-view">View Project</a>
     </div>
 
     <div class="project-card">
-        <div class="icon-section">🎙️</div>
+        <div class="icon-box"><i class="fas fa-microphone"></i></div>
         <h3>Voice-Controlled AI</h3>
-        <p>Developing a local personal assistant using Python, Vosk, and PyAudio for offline speech recognition. Focuses on task automation and emotional support.</p>
-        <ul class="tech-tags">
-            <li>Python</li>
-            <li>Vosk</li>
-            <li>PyAudio</li>
-        </ul>
+        <p>Developing a local assistant using Python, Vosk, and PyAudio for offline speech recognition in English and Hindi.</p>
+        <div class="tech-tags">
+            <span>Python</span>
+            <span>Vosk</span>
+            <span>PyAudio</span>
+        </div>
     </div>
 
     <div class="project-card">
-        <div class="icon-section">🚛</div>
-        <h3>Cinematic 3D Environments</h3>
-        <p>Designing immersive nighttime street scenes with a focus on accurate physics and detailed Tata/Ashok Leyland truck aesthetics.</p>
-        <ul class="tech-tags">
-            <li>3D Design</li>
-            <li>Physics Engine</li>
-        </ul>
+        <div class="icon-box"><i class="fas fa-truck"></i></div>
+        <h3>Cinematic 3D Scenes</h3>
+        <p>Designing immersive street scenes with accurate physics featuring Tata and Ashok Leyland style trucks.</p>
+        <div class="tech-tags">
+            <span>3D Design</span>
+            <span>Physics</span>
+        </div>
     </div>
 
     <div class="project-card">
-        <div class="icon-section">🌐</div>
+        <div class="icon-box"><i class="fas fa-globe"></i></div>
         <h3>Web & SEO Optimization</h3>
-        <p>Building responsive web pages and managing search visibility using GitHub and Google Search Console during my internship.</p>
-        <ul class="tech-tags">
-            <li>HTML/CSS</li>
-            <li>Technical SEO</li>
-            <li>GitHub</li>
-        </ul>
+        <p>Building responsive web pages and managing search visibility via Google Search Console and GitHub.</p>
+        <div class="tech-tags">
+            <span>HTML/CSS</span>
+            <span>SEO</span>
+            <span>GitHub</span>
+        </div>
     </div>
 
 </div>
