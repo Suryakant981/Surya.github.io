@@ -204,3 +204,71 @@ footer { padding: 40px; background-color: var(--nav-bg); color: white; text-alig
     }
 }
 
+/* 1. Animation ka logic - jo colors ko move karega */
+@keyframes borderGlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 2. Project Grid Layout */
+.projects-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+/* 3. Card Design */
+.project-card {
+    background: #ffffff;
+    border-radius: 15px;
+    width: 310px;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+    position: relative; 
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* 4. Animated Top Border (Logo jaisa effect) */
+.project-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px; 
+    /* Aapke logo ke theme se milte-julte colors */
+    background: linear-gradient(90deg, #ff4b2b, #ff416c, #6c63ff, #00d2ff);
+    background-size: 300% 300%;
+    animation: borderGlow 4s linear infinite;
+}
+
+/* 5. Hover Effect */
+.project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(108, 99, 255, 0.2);
+}
+
+/* 6. Typography & Elements */
+.icon-box { font-size: 40px; color: #6c63ff; margin-bottom: 20px; }
+.project-card h3 { font-size: 1.25rem; color: #333; margin-bottom: 12px; }
+.project-card p { font-size: 0.9rem; color: #666; line-height: 1.6; height: 75px; overflow: hidden; }
+
+.tech-tags { display: flex; justify-content: center; gap: 8px; margin: 20px 0; flex-wrap: wrap; }
+.tech-tags span { font-size: 0.75rem; background: #f1f2f6; padding: 4px 10px; border-radius: 5px; color: #6c63ff; font-weight: bold; }
+
+.btn-view {
+    display: block;
+    background: #6c63ff;
+    color: #fff;
+    text-decoration: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+.btn-view:hover { background: #5149d1; }
