@@ -1,13 +1,21 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 <style>
+    /* 1. Animation Logic (Colors ko move karne ke liye) */
+    @keyframes borderGlow {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
     .projects-grid {
         display: flex;
         flex-wrap: wrap;
-        gap: 20px;
+        gap: 25px;
         justify-content: center;
         padding: 40px 20px;
         background-color: #f8f9fa;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     .project-card {
@@ -16,25 +24,44 @@
         width: 300px;
         padding: 30px 20px;
         text-align: center;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-        border-bottom: 5px solid #007bff; /* Blue line for professional look */
+        box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+        position: relative; /* Animation line ke liye zaruri hai */
+        overflow: hidden;
+        border: 1px solid #eee;
+        display: flex;
+        flex-direction: column;
         transition: transform 0.3s ease;
+    }
+
+    /* 2. Top Animated Border (Wahi pink/purple look jo aapne manga tha) */
+    .project-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 6px; 
+        background: linear-gradient(90deg, #ff4b2b, #ff416c, #6c63ff, #00d2ff);
+        background-size: 300% 300%;
+        animation: borderGlow 4s linear infinite;
+        z-index: 10;
     }
 
     .project-card:hover {
         transform: translateY(-10px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
     }
 
     .icon-box {
         font-size: 40px;
-        color: #007bff;
+        color: #d63384; /* Pinkish color like your theme */
         margin-bottom: 20px;
     }
 
     .project-card h3 {
-        font-size: 1.2rem;
+        font-size: 1.25rem;
         color: #333;
-        margin-bottom: 15px;
+        margin-bottom: 12px;
         font-weight: bold;
     }
 
@@ -42,35 +69,43 @@
         font-size: 0.9rem;
         color: #666;
         line-height: 1.6;
-        height: 80px; /* Sabhi cards ka size ek jaisa rakhne ke liye */
+        height: 80px; 
         overflow: hidden;
+        margin-bottom: 15px;
     }
 
     .tech-tags {
         display: flex;
         justify-content: center;
         gap: 8px;
-        margin: 20px 0;
+        margin-bottom: 20px;
         flex-wrap: wrap;
     }
 
     .tech-tags span {
         font-size: 0.75rem;
-        background: #e9ecef;
+        background: #f1f2f6;
         padding: 4px 10px;
         border-radius: 5px;
-        color: #495057;
+        color: #d63384;
+        font-weight: bold;
+        border: 1px solid #eee;
     }
 
     .btn-view {
         display: block;
-        background: #007bff;
+        background: #d63384; /* Matches the theme */
         color: white;
         text-decoration: none;
         padding: 12px;
         border-radius: 8px;
         font-weight: bold;
-        margin-top: 10px;
+        margin-top: auto;
+        transition: 0.3s;
+    }
+
+    .btn-view:hover {
+        background: #b02a6b;
     }
 </style>
 
@@ -78,8 +113,8 @@
     
     <div class="project-card">
         <div class="icon-box"><i class="fas fa-shield-alt"></i></div>
-        <h3>SENTINEL-X: Autonomous SOS</h3>
-        <p>Engineered a passive security protocol using 'Dead Man’s Switch' logic for emergency alerts without user interaction. Works 100% offline via GPS & SMS.</p>
+        <h3>SENTINEL-X: SOS System</h3>
+        <p>Engineered a passive security protocol built on 'Dead Man’s Switch' logic for emergency alerts. Works 100% offline via GPS & SMS.</p>
         <div class="tech-tags">
             <span>Android SDK</span>
             <span>SQLite</span>
@@ -105,7 +140,7 @@
         <p>Designing immersive street scenes with accurate physics featuring Tata and Ashok Leyland style trucks.</p>
         <div class="tech-tags">
             <span>3D Design</span>
-            <span>Physics</span>
+            <span>Physics Engine</span>
         </div>
     </div>
 
