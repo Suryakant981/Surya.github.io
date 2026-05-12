@@ -1,21 +1,71 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 <style>
-    /* 1. Animation Logic (Colors ko move karne ke liye) */
+    /* 1. Animation Logic */
     @keyframes borderGlow {
         0% { background-position: 0% 50%; }
         50% { background-position: 100% 50%; }
         100% { background-position: 0% 50%; }
     }
 
+    body { font-family: 'Segoe UI', sans-serif; background-color: #f8f9fa; margin: 0; }
+
+    /* 2. Hero Section (Updated Size & Photo) */
+    .hero-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding: 50px 10%;
+        background: #1a1a2e; /* Dark theme matching your screen */
+        color: white;
+        flex-wrap: wrap-reverse;
+    }
+
+    .hero-content { max-width: 600px; }
+
+    .hero-content p {
+        font-size: 1rem; /* Size decreased */
+        line-height: 1.6;
+        color: #d1d1d1;
+    }
+
+    .read-more-btn {
+        color: #ff416c;
+        cursor: pointer;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    /* Round Profile Photo Logic */
+    .profile-wrapper {
+        position: relative;
+        width: 180px;
+        height: 180px;
+    }
+
+    .profile-img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%; /* Round photo */
+        object-fit: cover;
+        border: 3px solid #ff416c;
+        transition: all 0.4s ease;
+        cursor: pointer;
+    }
+
+    /* Hover: Arrow le jane par pop-out look */
+    .profile-img:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 20px rgba(255, 65, 108, 0.6);
+    }
+
+    /* 3. Projects Grid Design */
     .projects-grid {
         display: flex;
         flex-wrap: wrap;
         gap: 25px;
         justify-content: center;
         padding: 40px 20px;
-        background-color: #f8f9fa;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     .project-card {
@@ -25,7 +75,7 @@
         padding: 30px 20px;
         text-align: center;
         box-shadow: 0 10px 25px rgba(0,0,0,0.06);
-        position: relative; /* Animation line ke liye zaruri hai */
+        position: relative;
         overflow: hidden;
         border: 1px solid #eee;
         display: flex;
@@ -33,126 +83,35 @@
         transition: transform 0.3s ease;
     }
 
-    /* 2. Top Animated Border (Wahi pink/purple look jo aapne manga tha) */
     .project-card::before {
         content: "";
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 6px; 
+        top: 0; left: 0;
+        width: 100%; height: 6px; 
         background: linear-gradient(90deg, #ff4b2b, #ff416c, #6c63ff, #00d2ff);
         background-size: 300% 300%;
         animation: borderGlow 4s linear infinite;
-        z-index: 10;
     }
 
-    .project-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-    }
-
-    .icon-box {
-        font-size: 40px;
-        color: #d63384; /* Pinkish color like your theme */
-        margin-bottom: 20px;
-    }
-
-    .project-card h3 {
-        font-size: 1.25rem;
-        color: #333;
-        margin-bottom: 12px;
-        font-weight: bold;
-    }
-
-    .project-card p {
-        font-size: 0.9rem;
-        color: #666;
-        line-height: 1.6;
-        height: 80px; 
-        overflow: hidden;
-        margin-bottom: 15px;
-    }
-
-    .tech-tags {
-        display: flex;
-        justify-content: center;
-        gap: 8px;
-        margin-bottom: 20px;
-        flex-wrap: wrap;
-    }
+    .project-card:hover { transform: translateY(-10px); }
+    .icon-box { font-size: 40px; color: #d63384; margin-bottom: 20px; }
+    .project-card h3 { font-size: 1.25rem; color: #333; margin-bottom: 12px; }
+    .project-card p { font-size: 0.9rem; color: #666; height: 80px; overflow: hidden; }
 
     .tech-tags span {
-        font-size: 0.75rem;
-        background: #f1f2f6;
-        padding: 4px 10px;
-        border-radius: 5px;
-        color: #d63384;
-        font-weight: bold;
-        border: 1px solid #eee;
+        font-size: 0.75rem; background: #f1f2f6; padding: 4px 10px;
+        border-radius: 5px; color: #d63384; font-weight: bold; margin: 2px;
     }
 
     .btn-view {
-        display: block;
-        background: #d63384; /* Matches the theme */
-        color: white;
-        text-decoration: none;
-        padding: 12px;
-        border-radius: 8px;
-        font-weight: bold;
-        margin-top: auto;
-        transition: 0.3s;
-    }
-
-    .btn-view:hover {
-        background: #b02a6b;
+        display: block; background: #d63384; color: white;
+        text-decoration: none; padding: 12px; border-radius: 8px;
+        font-weight: bold; margin-top: auto;
     }
 </style>
 
-<div class="projects-grid">
-    
-    <div class="project-card">
-        <div class="icon-box"><i class="fas fa-shield-alt"></i></div>
-        <h3>SENTINEL-X: SOS System</h3>
-        <p>Engineered a passive security protocol built on 'Dead Man’s Switch' logic for emergency alerts. Works 100% offline via GPS & SMS.</p>
-        <div class="tech-tags">
-            <span>Android SDK</span>
-            <span>SQLite</span>
-            <span>GPS API</span>
-        </div>
-        <a href="https://autosentinel3tier.netlify.app" target="_blank" class="btn-view">View Project</a>
-    </div>
-
-    <div class="project-card">
-        <div class="icon-box"><i class="fas fa-microphone"></i></div>
-        <h3>Voice-Controlled AI</h3>
-        <p>Developing a local assistant using Python, Vosk, and PyAudio for offline speech recognition in English and Hindi.</p>
-        <div class="tech-tags">
-            <span>Python</span>
-            <span>Vosk</span>
-            <span>PyAudio</span>
-        </div>
-    </div>
-
-    <div class="project-card">
-        <div class="icon-box"><i class="fas fa-truck"></i></div>
-        <h3>Cinematic 3D Scenes</h3>
-        <p>Designing immersive street scenes with accurate physics featuring Tata and Ashok Leyland style trucks.</p>
-        <div class="tech-tags">
-            <span>3D Design</span>
-            <span>Physics Engine</span>
-        </div>
-    </div>
-
-    <div class="project-card">
-        <div class="icon-box"><i class="fas fa-globe"></i></div>
-        <h3>Web & SEO Optimization</h3>
-        <p>Building responsive web pages and managing search visibility via Google Search Console and GitHub.</p>
-        <div class="tech-tags">
-            <span>HTML/CSS</span>
-            <span>SEO</span>
-            <span>GitHub</span>
-        </div>
-    </div>
-
-</div>
+<div class="hero-container">
+    <div class="hero-content">
+        <p id="hero-text">
+            "I am a results-driven **Final-Year BCA Student** and IT enthusiast dedicated to solving real-world challenges through technology. 
+            My expertise is highlighted by my project, **SENTINEL-X**—an autonomous 3-tier SOS system built on 'Dead Man’s
