@@ -1,274 +1,100 @@
-/* --- Global Variables --- */
-:root {
-    --bg-primary: #ffffff;
-    --bg-secondary: #f8f9fa;
-    --text-primary: #333333;
-    --text-secondary: #555555;
-    --nav-bg: #1a1a2e;
-    --accent-color: #e94560;
-    --card-bg: #ffffff;
-}
-
-body.dark-mode {
-    --bg-primary: #121212;
-    --bg-secondary: #1e1e1e;
-    --text-primary: #f1f1f1;
-    --text-secondary: #cccccc;
-    --nav-bg: #0f0f1a;
-    --card-bg: #2a2a35;
-}
-
-/* --- Base Styles --- */
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-body { background-color: var(--bg-primary); color: var(--text-primary); transition: 0.3s; line-height: 1.6; }
-
-/* --- Navigation --- */
-nav {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 15px 50px; background-color: var(--nav-bg);
-    position: fixed; width: 100%; top: 0; z-index: 1000;
-}
-
-/* --- Animated Logo --- */
-.logo {
-    font-size: 28px; font-weight: 800;
-    background: linear-gradient(45deg, #ff6b81, #e94560, #ff8a00, #e52e71);
-    background-size: 300% 300%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: auto-color 5s linear infinite;
-    cursor: pointer;
-}
-
-.nav-links { list-style: none; display: flex; align-items: center; }
-.nav-links li { margin-left: 20px; }
-.nav-links a { color: #fff; text-decoration: none; font-size: 15px; }
-
-/* --- Hire Me Button (Nav & Hero) --- */
-.hire-btn {
-    padding: 10px 22px; border-radius: 8px; font-weight: bold;
-    color: white !important; text-decoration: none;
-    background: linear-gradient(45deg, #ff6b81, #e94560, #ff8a00, #e52e71);
-    background-size: 300% 300%;
-    animation: auto-color 5s linear infinite;
-    box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3);
-}
-
-@keyframes auto-color {
-    0% { background-position: 0% 50%; filter: hue-rotate(0deg); }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; filter: hue-rotate(360deg); }
-}
-
-/* --- Hero Section --- */
-.hero { 
-    min-height: 100vh; display: flex; justify-content: center; align-items: center; 
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); 
-    color: white; padding-top: 80px; 
-}
-.hero-container { display: flex; align-items: center; gap: 40px; width: 90%; max-width: 1100px; }
-.hero-content { flex: 1; }
-.hero-content h1 { font-size: 2.8rem; margin-bottom: 15px; }
-.profile-photo { 
-    width: 320px; height: 350px; object-fit: cover; border-radius: 20px; 
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 2px solid rgba(255,255,255,0.1);
-}
-
-/* --- Professional Grid --- */
-.content-section { padding: 80px 20px; text-align: center; max-width: 1100px; margin: 0 auto; }
-.bg-secondary { background-color: var(--bg-secondary); max-width: 100%; }
-
-.project-grid { 
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-    gap: 25px; margin-top: 40px; 
-}
-.project-card { 
-    background: var(--card-bg); padding: 40px 30px; border-radius: 15px; 
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05); transition: 0.3s;
-    border-top: 5px solid var(--accent-color);
-}
-.project-card:hover { transform: translateY(-10px); }
-.card-icon { font-size: 2.5rem; color: var(--accent-color); margin-bottom: 20px; }
-
-.btn { 
-    display: inline-block; padding: 12px 28px; background-color: var(--accent-color); 
-    color: white; text-decoration: none; border-radius: 8px; font-weight: bold; transition: 0.3s; 
-}
-
-/* --- Footer --- */
-footer { padding: 40px; background-color: var(--nav-bg); color: white; text-align: center; }
-
-/* --- Mobile Responsive --- */
-@media (max-width: 768px) {
-    .hero-container { flex-direction: column-reverse; text-align: center; }
-    .nav-links { display: none; }
-    .hero-content h1 { font-size: 2rem; }
-    nav { padding: 15px 20px; }
-}
-
-/* Container jo charon projects ko grid mein set karega */
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-    padding: 40px 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-/* Har ek Project Card ki styling */
-.project-card {
-    background: #ffffff; /* Safed background cards ke liye */
-    border-radius: 12px;
-    padding: 25px;
-    text-align: left;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s ease;
-    border-bottom: 4px solid #6c63ff; /* Niche ek stylish line */
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-/* Hover karne par effect */
-.project-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 40px rgba(108, 99, 255, 0.2);
-}
-
-/* Icon Section */
-.icon-section {
-    font-size: 2.5rem;
-    color: #6c63ff; /* Purple theme */
-    margin-bottom: 15px;
-}
-
-/* Project Titles */
-.project-card h3 {
-    font-size: 1.3rem;
-    color: #2d3436;
-    margin-bottom: 12px;
-    font-weight: 700;
-}
-
-/* Project Description */
-.project-card p {
-    font-size: 0.95rem;
-    color: #636e72;
-    line-height: 1.6;
-    flex-grow: 1; /* Description ko barabar jagah dega */
-}
-
-/* Technical Tags (Chote badges) */
-.tech-tags {
-    list-style: none;
-    padding: 0;
-    margin: 20px 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.tech-tags li {
-    background: #f1f2f6;
-    color: #6c63ff;
-    padding: 4px 10px;
-    border-radius: 5px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-}
-
-/* "View Project" Button */
-.btn-primary {
-    display: block;
-    background: #6c63ff;
-    color: #fff;
-    text-align: center;
-    padding: 12px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: background 0.3s ease;
-    margin-top: 10px;
-}
-
-.btn-primary:hover {
-    background: #5149d1;
-}
-
-/* Mobile responsive ke liye chhota adjustment */
-@media (max-width: 600px) {
-    .projects-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* 1. Animation ka logic - jo colors ko move karega */
+/* Animation for the top border line */
 @keyframes borderGlow {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
 
-/* 2. Project Grid Layout */
 .projects-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 25px;
+    gap: 20px;
     justify-content: center;
-    padding: 40px 20px;
+    padding: 30px 10px;
 }
 
-/* 3. Card Design */
 .project-card {
-    background: #ffffff;
-    border-radius: 15px;
+    background: #ffffff; /* Pure white background like your image */
+    border-radius: 15px; /* Rounded corners */
     width: 310px;
-    padding: 30px 20px;
+    padding: 25px;
     text-align: center;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
-    position: relative; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Light shadow */
+    position: relative;
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #e0e0e0; /* Subtle border */
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
 }
 
-/* 4. Animated Top Border (Logo jaisa effect) */
+/* The Animated Top Border - Matching your theme */
 .project-card::before {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 6px; 
-    /* Aapke logo ke theme se milte-julte colors */
-    background: linear-gradient(90deg, #ff4b2b, #ff416c, #6c63ff, #00d2ff);
-    background-size: 300% 300%;
-    animation: borderGlow 4s linear infinite;
+    height: 5px; /* Matches the thickness in your image */
+    background: linear-gradient(90deg, #ff4b2b, #ff416c, #6c63ff); /* Pink/Purple Gradient */
+    background-size: 200% 200%;
+    animation: borderGlow 3s linear infinite;
 }
 
-/* 5. Hover Effect */
 .project-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 35px rgba(108, 99, 255, 0.2);
+    transform: translateY(-8px);
 }
 
-/* 6. Typography & Elements */
-.icon-box { font-size: 40px; color: #6c63ff; margin-bottom: 20px; }
-.project-card h3 { font-size: 1.25rem; color: #333; margin-bottom: 12px; }
-.project-card p { font-size: 0.9rem; color: #666; line-height: 1.6; height: 75px; overflow: hidden; }
+/* Styling for content inside cards */
+.icon-box { 
+    font-size: 35px; 
+    color: #d63384; /* Pinkish color like your icons */
+    margin-bottom: 15px; 
+}
 
-.tech-tags { display: flex; justify-content: center; gap: 8px; margin: 20px 0; flex-wrap: wrap; }
-.tech-tags span { font-size: 0.75rem; background: #f1f2f6; padding: 4px 10px; border-radius: 5px; color: #6c63ff; font-weight: bold; }
+.project-card h3 { 
+    font-size: 1.2rem; 
+    color: #333; 
+    margin-bottom: 10px; 
+}
 
+.project-card p { 
+    font-size: 0.85rem; 
+    color: #666; 
+    line-height: 1.5; 
+    margin-bottom: 15px;
+}
+
+/* Technology List */
+.tech-tags { 
+    list-style: none; 
+    padding: 0; 
+    margin-bottom: 20px; 
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: center; 
+    gap: 5px; 
+}
+
+.tech-tags li { 
+    font-size: 0.75rem; 
+    background: #f8f9fa; 
+    color: #d63384; 
+    padding: 3px 8px; 
+    border-radius: 4px; 
+    border: 1px solid #eee;
+}
+
+/* Button style matching your site's theme */
 .btn-view {
-    display: block;
-    background: #6c63ff;
-    color: #fff;
     text-decoration: none;
-    padding: 12px;
-    border-radius: 8px;
-    font-weight: 600;
+    color: #d63384;
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-top: auto;
     transition: 0.3s;
 }
-.btn-view:hover { background: #5149d1; }
+
+.btn-view:hover {
+    letter-spacing: 1px;
+}
