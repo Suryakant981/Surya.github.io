@@ -1,54 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suryakant | Projects</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-    <nav>
-        <div class="logo">Suryakant.</div>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="projects.html">Projects</a></li>
-            <li><button id="mode-toggle" class="theme-btn"><i class="fas fa-moon"></i></button></li>
+<div class="projects-grid">
+    
+    <div class="project-card">
+        <div class="icon-section"><i class="fas fa-shield-alt"></i></div>
+        <h3>SENTINEL-X: Autonomous SOS</h3>
+        [span_0](start_span)[span_1](start_span)<p>Engineered a passive security protocol built on 'Dead Man’s Switch' logic that dispatches emergency alerts without user interaction[span_0](end_span)[span_1](end_span). [span_2](start_span)[span_3](start_span)Works 100% offline via GPS & SMS[span_2](end_span)[span_3](end_span).</p>
+        <ul class="tech-tags">
+            <li>Android SDK</li>
+            <li>SQLite</li>
+            <li>GPS/SMS API</li>
         </ul>
-    </nav>
+        <a href="https://autosentinel3tier.netlify.app" target="_blank" class="btn-primary">View Project</a>
+    </div>
 
-    <section class="content-section bg-secondary">
-        <h2>Technical Projects</h2>
-        <p>A showcase of my recent development and creative work.</p>
-        
-        <div class="project-grid">
-            <div class="project-card">
-                <i class="fas fa-microphone-alt card-icon"></i>
-                <h3>Voice-Controlled AI Assistant</h3>
-                <p>Developing a local personal assistant using Python. The system integrates Vosk and PyAudio to handle offline speech recognition in both English and Hindi.</p>
-            </div>
-            
-            <div class="project-card">
-                <i class="fas fa-truck card-icon"></i>
-                <h3>Cinematic 3D Environments</h3>
-                <p>Designing immersive nighttime street scenes with a focus on accurate physics and detailed commercial vehicle aesthetics, specifically featuring Tata and Ashok Leyland trucks.</p>
-            </div>
-            
-            <div class="project-card">
-                <i class="fas fa-code card-icon"></i>
-                <h3>Web & SEO Optimization</h3>
-                <p>Building responsive web portfolios hosted via GitHub Pages and ensuring proper search engine indexing using custom sitemaps and robots.txt configurations.</p>
-            </div>
-        </div>
-    </section>
+    <div class="project-card">
+        <div class="icon-section"><i class="fas fa-microphone"></i></div>
+        <h3>Voice-Controlled AI Assistant</h3>
+        <p>Developing a local personal assistant using Python, Vosk, and PyAudio for offline speech recognition in English and Hindi. Focuses on task automation and emotional support.</p>
+        <ul class="tech-tags">
+            <li>Python</li>
+            <li>Vosk</li>
+            <li>PyAudio</li>
+        </ul>
+    </div>
 
-    <footer>
-        <p>&copy; 2026 Suryakant. All rights reserved.</p>
-    </footer>
+    <div class="project-card">
+        <div class="icon-section"><i class="fas fa-truck"></i></div>
+        <h3>Cinematic 3D Environments</h3>
+        <p>Designing immersive nighttime street scenes with a focus on accurate physics and detailed commercial vehicle aesthetics, specifically featuring Tata and Ashok Leyland style trucks.</p>
+        <ul class="tech-tags">
+            <li>3D Design</li>
+            <li>Physics Engine</li>
+        </ul>
+    </div>
 
-    <script src="script.js"></script>
-</body>
-</html>
+    <div class="project-card">
+        <div class="icon-section"><i class="fas fa-search"></i></div>
+        <h3>Web & SEO Optimization</h3>
+        <p>Building responsive web portfolio pages and ensuring proper search visibility using custom sitemaps and robots.txt via Google Search Console. Managed via GitHub repositories.</p>
+        <ul class="tech-tags">
+            <li>HTML/CSS</li>
+            <li>Technical SEO</li>
+            <li>GitHub</li>
+        </ul>
+    </div>
+
+</div>
