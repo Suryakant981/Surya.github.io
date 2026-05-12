@@ -6,58 +6,68 @@
     <title>Surya | Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body style="margin:0; font-family: sans-serif; background-color: #1a1a2e; color: white;">
+<body style="margin: 0; padding: 0; font-family: 'Arial', sans-serif; background-color: #1a1a2e; color: white;">
 
-    <div style="padding: 100px 10% 50px 10%; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;">
+    <nav style="display: flex; justify-content: space-between; align-items: center; padding: 20px 10%; background: #16213e;">
+        <h2 style="margin: 0; color: #ff416c;">Surya</h2>
+        <div style="display: flex; gap: 20px;">
+            <a href="#" style="color: white; text-decoration: none;">Home</a>
+            <a href="#" style="color: white; text-decoration: none;">About</a>
+            <a href="#" style="color: white; text-decoration: none;">Projects</a>
+            <a href="#" style="color: #ff416c; text-decoration: none; font-weight: bold;">Hire Me</a>
+        </div>
+    </nav>
+
+    <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; padding: 100px 10%; gap: 30px;">
         
-        <div style="flex: 1; min-width: 300px;">
-            <h1 style="font-size: 2.5rem; line-height: 1.3; margin-bottom: 20px;">
-                "I am a results-driven **Final-Year BCA Student** and IT enthusiast dedicated to solving real-world challenges through technology. 
-                My expertise is highlighted by my project, <span style="color: #ff416c;">SENTINEL-X</span>—an autonomous 3-tier SOS system 
+        <div style="flex: 1; min-width: 320px;">
+            <h1 style="font-size: 2.2rem; line-height: 1.4; margin: 0;">
+                "I am a results-driven <span style="color: #ff416c;">Final-Year BCA Student</span> and IT enthusiast dedicated to solving real-world challenges through technology. 
+                My expertise is highlighted by my project, <span style="color: #00d2ff;">SENTINEL-X</span>—an autonomous 3-tier SOS system 
                 built on 'Dead Man’s Switch' logic...
                 <span id="dots">...</span>
-                <span id="more" style="display: none;"> that functions without internet connectivity. With a solid foundation in IT Administration, Technical SEO, and Python, I focus on creating clean, scalable, and resilient solutions.</span>
-                <a href="javascript:void(0)" onclick="readMore()" id="myBtn" style="color: #ff416c; text-decoration: none; font-size: 1.2rem; font-weight: bold; cursor: pointer; display: block; margin-top: 10px;">Read More ↓</a>
+                <span id="more-text" style="display: none;"> that functions without internet connectivity. With a solid foundation in IT Administration, Technical SEO, and Python, I focus on creating clean, scalable, and resilient solutions.</span>
+                <a href="javascript:void(0)" onclick="toggleBio()" id="bioBtn" style="color: #ff416c; text-decoration: none; font-size: 1.2rem; display: block; margin-top: 15px; font-weight: bold; cursor: pointer;">Read More ↓</a>
             </h1>
         </div>
 
-        <div style="flex: 0.5; display: flex; justify-content: center; padding: 20px;">
-            <div style="width: 220px; height: 220px; border-radius: 50%; overflow: hidden; border: 5px solid #ff416c; box-shadow: 0 0 20px rgba(255, 65, 108, 0.5); transition: 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+        <div style="flex: 0.5; display: flex; justify-content: center;">
+            <div style="width: 250px; height: 250px; border-radius: 50%; overflow: hidden; border: 5px solid #ff416c; box-shadow: 0 0 30px rgba(255, 65, 108, 0.4); transition: 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                 <img src="profile.jpg" alt="Surya" style="width: 100%; height: 100%; object-fit: cover; cursor: pointer;" onclick="window.open(this.src)">
             </div>
         </div>
     </div>
 
-    <h2 style="text-align: center; margin-top: 50px; font-size: 2rem;">Featured Projects</h2>
-    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 20px;">
+    <h2 style="text-align: center; margin-top: 50px; font-size: 2.5rem; color: #ff416c;">Featured Projects</h2>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; padding: 40px 10%;">
         
-        <div style="background: white; color: #333; padding: 20px; border-radius: 15px; width: 280px; position: relative; border-top: 6px solid #ff416c;">
-            <h3>SENTINEL-X</h3>
-            <p style="font-size: 0.9rem;">Offline SOS system using GPS & SMS APIs.</p>
-            <a href="https://autosentinel3tier.netlify.app" target="_blank" style="color: #ff416c; font-weight: bold; text-decoration: none;">View Project</a>
+        <div style="background: white; color: #333; padding: 30px; border-radius: 20px; width: 300px; box-shadow: 0 10px 20px rgba(0,0,0,0.2); position: relative; border-top: 8px solid #ff416c;">
+            <h3 style="margin-top: 0;">SENTINEL-X</h3>
+            <p style="font-size: 0.95rem; line-height: 1.5;">Passive security protocol with 'Dead Man’s Switch' logic. Works offline via GPS & SMS.</p>
+            <a href="https://autosentinel3tier.netlify.app" target="_blank" style="display: inline-block; margin-top: 10px; color: #ff416c; font-weight: bold; text-decoration: none;">View Project →</a>
         </div>
 
-        <div style="background: white; color: #333; padding: 20px; border-radius: 15px; width: 280px; border-top: 6px solid #6c63ff;">
-            <h3>Voice-Controlled AI</h3>
-            <p style="font-size: 0.9rem;">Local assistant using Python & Vosk.</p>
+        <div style="background: white; color: #333; padding: 30px; border-radius: 20px; width: 300px; box-shadow: 0 10px 20px rgba(0,0,0,0.2); border-top: 8px solid #00d2ff;">
+            <h3 style="margin-top: 0;">Voice AI</h3>
+            <p style="font-size: 0.95rem; line-height: 1.5;">Offline personal assistant using Python, Vosk, and PyAudio for English & Hindi.</p>
         </div>
 
     </div>
 
     <script>
-        function readMore() {
+        function toggleBio() {
             var dots = document.getElementById("dots");
-            var moreText = document.getElementById("more");
-            var btnText = document.getElementById("myBtn");
+            var moreText = document.getElementById("more-text");
+            var btnText = document.getElementById("bioBtn");
 
             if (dots.style.display === "none") {
                 dots.style.display = "inline";
-                btnText.innerHTML = "Read More ↓";
-                moreText.style.display = "none";
-            } else {
-                dots.style.display = "none";
                 btnText.innerHTML = "Read Less ↑";
                 moreText.style.display = "inline";
+            } else {
+                dots.style.display = "none";
+                btnText.innerHTML = "Read More ↓";
+                moreText.style.display = "none";
             }
         }
     </script>
