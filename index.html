@@ -6,7 +6,6 @@
     <title>Suryakant | Home</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
     <link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
@@ -25,9 +24,19 @@
     <section class="hero">
         <div class="hero-container">
             <div class="hero-content">
-                <h1>"I am a results-driven Final-Year BCA Student and IT enthusiast dedicated to solving real-world challenges through technology. My expertise is highlighted by my project, SENTINEL-X—an autonomous 3-tier SOS system built on 'Dead Man’s Switch' logic that functions without internet connectivity.  
-​With a solid foundation in IT Administration, Technical SEO, and Python, I focus on creating clean, scalable, and resilient web solutions. Backed by a one-year ADCA and Tally certification, plus professional experience from an internship at Codec Technologies, I bridge the gap between technical innovation and administrative precision. I am ready to contribute my problem-solving skills to a dynamic team."</h1>
-                <p>Focused on IT administration, office management, and building clean web solutions.</p>
+                <h1>BCA Student & IT Enthusiast</h1>
+                
+                <p>
+                    I am a results-driven Final-Year BCA Student dedicated to solving real-world challenges through technology. 
+                    <span id="dots">...</span>
+                    <span id="more-text">
+                        My expertise is highlighted by SENTINEL-X—an autonomous 3-tier SOS system built on 'Dead Man’s Switch' logic. 
+                        With a solid foundation in IT Administration, Technical SEO, and Python, I bridge the gap between technical 
+                        innovation and administrative precision.
+                    </span>
+                    <button onclick="readMoreFunc()" id="readMoreBtn" class="read-more-btn">Read More</button>
+                </p>
+
                 <div class="hero-btns" style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 25px;">
                     <a href="projects.html" class="btn">View My Work</a>
                     <a href="suryakant-resume.pdf" target="_blank" class="hire-btn">
@@ -98,6 +107,23 @@
         <p>&copy; 2026 Suryakant. All rights reserved.</p>
     </footer>
 
+    <script>
+        function readMoreFunc() {
+            var dots = document.getElementById("dots");
+            var moreText = document.getElementById("more-text");
+            var btnText = document.getElementById("readMoreBtn");
+
+            if (dots.style.display === "none") {
+                dots.style.display = "inline";
+                btnText.innerHTML = "Read More";
+                moreText.style.display = "none";
+            } else {
+                dots.style.display = "none";
+                btnText.innerHTML = "Read Less";
+                moreText.style.display = "inline";
+            }
+        }
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
