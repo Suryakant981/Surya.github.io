@@ -135,3 +135,23 @@ footer { padding: 40px; background-color: var(--nav-bg); color: white; text-alig
     .hero-content h1 { font-size: 1.8rem; }
     nav { padding: 15px 20px; }
 }
+/* Styling for the circular frame wrapper */
+.profile-pic-wrapper {
+    width: 320px;       [span_3](start_span)/* Set frame width as 320px[span_3](end_span) */
+    height: 320px;      [span_4](start_span)/* Set frame height as 320px[span_4](end_span) to keep it square */
+    border-radius: 50%; /* MAKE IT PERFECTLY ROUND by setting radius to 50% */
+    overflow: hidden;   [span_5](start_span)/* Mask any parts of image outside the round frame[span_5](end_span) */
+    display: flex;       /* Use flexbox to center image vertically/horizontally */
+    justify-content: center; /* Center horizontally */
+    align-items: center;     /* Center vertically */
+    border: 5px solid #fff;  [span_6](start_span)/* Optional: Add a thick white border for nice finish[span_6](end_span) */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5); [span_7](start_span)/* Optional: Shadow for professional look[span_7](end_span) */
+}
+
+[span_8](start_span)/* Ensure the image inside scales correctly and is centered[span_8](end_span) */
+.profile-photo {
+    width: 100%;        [span_9](start_span)/* Image width takes full width of round frame[span_9](end_span) */
+    height: 100%;       [span_10](start_span)/* Image height takes full height of round frame[span_10](end_span) */
+    object-fit: cover;  [span_11](start_span)/* Scale image to fit within frame[span_11](end_span) without stretching */
+    object-position: center top; /* Optional: Center focusing on top of image (for face) */
+    }
