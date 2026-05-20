@@ -136,22 +136,58 @@ footer { padding: 40px; background-color: var(--nav-bg); color: white; text-alig
     nav { padding: 15px 20px; }
 }
 /* Styling for the circular frame wrapper */
-.profile-pic-wrapper {
-    width: 320px;       [span_3](start_span)/* Set frame width as 320px[span_3](end_span) */
-    height: 320px;      [span_4](start_span)/* Set frame height as 320px[span_4](end_span) to keep it square */
-    border-radius: 50%; /* MAKE IT PERFECTLY ROUND by setting radius to 50% */
-    overflow: hidden;   [span_5](start_span)/* Mask any parts of image outside the round frame[span_5](end_span) */
-    display: flex;       /* Use flexbox to center image vertically/horizontally */
-    justify-content: center; /* Center horizontally */
-    align-items: center;     /* Center vertically */
-    border: 5px solid #fff;  [span_6](start_span)/* Optional: Add a thick white border for nice finish[span_6](end_span) */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5); [span_7](start_span)/* Optional: Shadow for professional look[span_7](end_span) */
+/* --- Circular Profile Photo & Hover Overlay Styling --- */
+.hero-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-[span_8](start_span)/* Ensure the image inside scales correctly and is centered[span_8](end_span) */
+.profile-pic-wrapper {
+    position: relative; /* Overlay ko andar set karne ke liye */
+    width: 300px;       /* Aapki screen ke hisaab se perfect width */
+    height: 300px;      /* Perfect height (Square) */
+    border-radius: 50%; /* PHOTO KO PERFECT ROUND KARNE KE LIYE */
+    overflow: hidden;   /* Corners ko mask karne ke liye */
+    border: 4px solid var(--accent-color); /* Boundary par aapka pink/red accent color */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    transition: transform 0.4s ease;
+}
+
+/* Hover karne par halka sa zoom effect */
+.profile-pic-wrapper:hover {
+    transform: scale(1.03);
+}
+
 .profile-photo {
-    width: 100%;        [span_9](start_span)/* Image width takes full width of round frame[span_9](end_span) */
-    height: 100%;       [span_10](start_span)/* Image height takes full height of round frame[span_10](end_span) */
-    object-fit: cover;  [span_11](start_span)/* Scale image to fit within frame[span_11](end_span) without stretching */
-    object-position: center top; /* Optional: Center focusing on top of image (for face) */
-    }
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top; /* Face par focus rakhne ke liye */
+    display: block;
+}
+
+/* Overlay box jo shuruat mein chhupa rahega */
+.profile-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(26, 26, 46, 0.85); /* Nav-bg jaisa dark overlay alpha ke saath */
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0; /* Shuruat mein hidden */
+    transition: opacity 0.3s ease;
+    font-weight: bold;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 1px;
+}
+
+/* JAB MOUSE CURSOR JAYEGA TOH OVERLAY SHOW HOGA */
+.profile-pic-wrapper:hover .profile-overlay {
+    opacity: 1;
+    cursor: pointer;
