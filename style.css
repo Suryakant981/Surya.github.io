@@ -191,3 +191,57 @@ footer { padding: 40px; background-color: var(--nav-bg); color: white; text-alig
 .profile-pic-wrapper:hover .profile-overlay {
     opacity: 1;
     cursor: pointer;
+/* --- Circular Profile Photo & Hover Overlay Styling --- */
+.hero-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-pic-wrapper {
+    position: relative;
+    width: 300px;       
+    height: 300px;      
+    border-radius: 50%; /* Perfect Round */
+    overflow: hidden;   
+    border: 4px solid var(--accent-color); 
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    transition: transform 0.4s ease;
+}
+
+.profile-pic-wrapper:hover {
+    transform: scale(1.03);
+}
+
+.profile-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top; 
+    display: block;
+}
+
+.profile-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(26, 26, 46, 0.85); 
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0; /* Shuruat mein hidden */
+    transition: opacity 0.3s ease;
+    font-weight: bold;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 1px;
+}
+
+/* Cursor jaane par overlay dikhega */
+.profile-pic-wrapper:hover .profile-overlay {
+    opacity: 1;
+    cursor: pointer;
+}
