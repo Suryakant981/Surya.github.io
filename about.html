@@ -6,60 +6,213 @@
     <title>Suryakant | About Me</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=2">
+    
+    <style>
+        /* Preloader */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #1a1a2e; z-index: 9999; display: flex; justify-content: center; align-items: center;
+            transition: opacity 0.5s ease, visibility 0.5s;
+        }
+        .loader span {
+            font-size: 4rem; font-weight: 800;
+            background: linear-gradient(45deg, #ff6b81, #e94560, #ff8a00, #e52e71);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; filter: drop-shadow(0 0 10px rgba(233, 69, 96, 0.5)); }
+            50% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 25px rgba(233, 69, 96, 0.9)); }
+            100% { transform: scale(1); opacity: 0.8; filter: drop-shadow(0 0 10px rgba(233, 69, 96, 0.5)); }
+        }
+
+        /* Floating Background Icons */
+        .floating-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: -1; overflow: hidden;
+        }
+        .float-icon {
+            position: absolute; color: rgba(233, 69, 96, 0.05); font-size: 8rem;
+            animation: floatAnim 10s ease-in-out infinite;
+        }
+        .icon-1 { top: 10%; left: 5%; animation-delay: 0s; }
+        .icon-2 { top: 60%; left: 80%; animation-delay: 2s; }
+        .icon-3 { top: 80%; left: 10%; animation-delay: 4s; }
+        .icon-4 { top: 20%; left: 75%; animation-delay: 1s; }
+        
+        @keyframes floatAnim {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(15deg); }
+        }
+
+        /* Typewriter Effect */
+        .typewriter-container h2 {
+            display: inline-block; overflow: hidden; white-space: nowrap;
+            border-right: 3px solid var(--accent-color);
+            animation: typing 2.5s steps(30, end), blink-caret .75s step-end infinite;
+        }
+        @keyframes typing { from { width: 0 } to { width: 100% } }
+        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--accent-color); } }
+
+        /* Journey Timeline */
+        .timeline {
+            position: relative; max-width: 800px; margin: 50px auto; padding-left: 40px; text-align: left;
+        }
+        .timeline::before {
+            content: ''; position: absolute; top: 0; left: 15px; height: 100%; width: 4px;
+            background: linear-gradient(to bottom, var(--accent-color), #ff8a00);
+            border-radius: 10px;
+        }
+        .timeline-item {
+            position: relative; margin-bottom: 40px; opacity: 0; transform: translateX(-30px);
+            transition: all 0.6s ease-out;
+        }
+        .timeline-item.show { opacity: 1; transform: translateX(0); }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -34px; top: 5px; width: 16px; height: 16px;
+            background: var(--bg-primary); border: 4px solid var(--accent-color);
+            border-radius: 50%; box-shadow: 0 0 10px var(--accent-color);
+        }
+        .timeline-content {
+            background: var(--card-bg); padding: 25px; border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08); border-left: 4px solid var(--accent-color);
+        }
+        .timeline-content h3 { color: var(--accent-color); margin-bottom: 10px; font-size: 1.2rem; }
+        .timeline-content p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; }
+    </style>
 </head>
 <body>
 
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader">
+            <span>About Me</span>
+        </div>
+    </div>
+
+    <!-- Floating Background Objects -->
+    <div class="floating-bg">
+        <i class="fab fa-python float-icon icon-1"></i>
+        <i class="fas fa-database float-icon icon-2"></i>
+        <i class="fab fa-html5 float-icon icon-3"></i>
+        <i class="fas fa-shield-alt float-icon icon-4"></i>
+    </div>
+
     <nav>
-        <div class="logo">Suryakant.</div>
+        <div class="logo">Surya</div>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
+            <li><a href="about.html" class="active">About</a></li>
             <li><a href="projects.html">Projects</a></li>
+            <li><a href="suryakant-resume.jpg" target="_blank" class="hire-btn">Hire Me</a></li>
             <li><button id="mode-toggle" class="theme-btn"><i class="fas fa-moon"></i></button></li>
         </ul>
     </nav>
 
-    <section class="content-section">
-        <h2>About Me</h2>
-        <p>I am a student balancing academic preparation with deep dives into software development and creative technologies. My focus spans from writing clean Python scripts to optimizing web presence through technical SEO and Google Search Console. I enjoy tackling complex logic and bringing imaginative, physics-based ideas to life.​"I am a Final-Year BCA Student with a deep passion for IT Infrastructure and Software Development. My journey in technology is driven by a desire to create autonomous solutions that solve critical real-world problems. This ambition led to the development of SENTINEL-X, a context-aware 3-tier autonomous SOS system that utilizes 'Dead Man’s Switch' logic to ensure user safety and hardware security without relying on active internet connectivity.  
-​My technical background is comprehensive, featuring a one-year Advanced Diploma in Computer Applications (ADCA) and proficiency in Tally. I have a strong command over Python and Web Development, skills I further polished during a professional internship at Codec Technologies where I focused on responsive design and technical SEO.
-​Beyond coding, I have experience in IT Administration and Office Management, allowing me to approach projects with both a technical and an organizational mindset. Whether it’s managing complex databases with SQLite or configuring local execution environments for AI projects, I am committed to building efficient, reliable, and scalable technology." </p>
-    </section>
+    <section class="content-section" style="padding-top: 120px;">
+        <div class="typewriter-container">
+            <h2><span style="color: var(--text-primary);">></span> System.out.println("About Me");</h2>
+        </div>
+        <p style="margin-top: 20px; max-width: 700px; margin-left: auto; margin-right: auto;">Scroll down to explore my academic journey, technical background, and professional experiences.</p>
 
-    <section class="content-section bg-secondary">
-        <h2>Experience & Certifications</h2>
-        
-        <div class="project-grid">
-            <div class="project-card">
-                <i class="fas fa-laptop-code card-icon"></i>
-                <h3>Web Developer Intern</h3>
-                <p><strong>Codec Technologies</strong> | 1-Month Internship</p>
-                <br>
-                <p>Built responsive web layouts using HTML, CSS, Bootstrap, and JavaScript. Gained practical experience with modern frameworks like React, integrated REST APIs, and learned backend fundamentals using Node.js and MongoDB. Successfully deployed full-stack web applications utilizing Git version control and platforms like Netlify/Heroku.</p>
-                <br>
-                
-                <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 15px;">
-                    <a href="codec-certificate.pdf" target="_blank" class="btn">View Certificate</a>
-                    <a href="codec-lor.pdf" target="_blank" class="btn">View LOR</a>
+        <!-- Animated Journey Timeline -->
+        <div class="timeline">
+            
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>Academic & Creative Focus</h3>
+                    <p>I am a student balancing academic preparation with deep dives into software development and creative technologies. My focus spans from writing clean Python scripts to optimizing web presence through technical SEO and Google Search Console. I enjoy tackling complex logic and bringing imaginative, physics-based ideas to life[cite: 4].</p>
                 </div>
             </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>Final-Year BCA & SENTINEL-X</h3>
+                    <p>I am a Final-Year BCA Student with a deep passion for IT Infrastructure and Software Development. My journey in technology is driven by a desire to create autonomous solutions that solve critical real-world problems. This ambition led to the development of SENTINEL-X, a context-aware 3-tier autonomous SOS system that utilizes 'Dead Man’s Switch' logic to ensure user safety and hardware security without relying on active internet connectivity[cite: 4].</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>Technical Background & Administration</h3>
+                    <p>My technical background is comprehensive, featuring a one-year Advanced Diploma in Computer Applications (ADCA) and proficiency in Tally. I have a strong command over Python and Web Development... Beyond coding, I have experience in IT Administration and Office Management, allowing me to approach projects with both a technical and an organizational mindset. Whether it’s managing complex databases with SQLite or configuring local execution environments for AI projects, I am committed to building efficient, reliable, and scalable technology[cite: 4].</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3><i class="fas fa-laptop-code" style="margin-right: 8px;"></i>Web Developer Intern @ Codec Technologies</h3>
+                    <p><strong>1-Month Internship</strong><br><br>Built responsive web layouts using HTML, CSS, Bootstrap, and JavaScript. Gained practical experience with modern frameworks like React, integrated REST APIs, and learned backend fundamentals using Node.js and MongoDB. Successfully deployed full-stack web applications utilizing Git version control and platforms like Netlify/Heroku[cite: 4].</p>
+                    <div style="display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap;">
+                        <a href="codec-certificate.pdf" target="_blank" class="btn" style="padding: 8px 15px; font-size: 0.85rem;">View Certificate</a>
+                        <a href="codec-lor.pdf" target="_blank" class="btn" style="padding: 8px 15px; font-size: 0.85rem; background-color: #2a2a4a;">View LOR</a>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <section class="content-section">
+    <section class="content-section bg-secondary">
         <h2>Let's Connect</h2>
-        <p>Whether you want to discuss AI, Python development, or just say hi, feel free to reach out!</p>
+        <p>Whether you want to discuss AI, Python development, or just say hi, feel free to reach out[cite: 4]!</p>
         <br>
-        <a href="https://instagram.com/itz_introvert_pankaj" target="_blank" class="social-btn">
-            <i class="fab fa-instagram"></i> Instagram
-        </a>
+        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+            <a href="https://instagram.com/itz_introvert_pankaj" target="_blank" class="btn" style="background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);">
+                <i class="fab fa-instagram"></i> Instagram
+            </a>
+            <a href="mailto:suryakantc981@gmail.com" class="btn" style="background-color: #ea4335;">
+                <i class="fas fa-envelope"></i> Email Me
+            </a>
+        </div>
     </section>
 
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/917860636624?text=Hi%20Suryakant,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!" 
+       target="_blank" 
+       style="position: fixed; bottom: 20px; right: 20px; background-color: #25d366; color: white; padding: 15px 20px; border-radius: 50px; font-size: 20px; box-shadow: 2px 2px 10px rgba(0,0,0,0.3); z-index: 1000; text-decoration: none;">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
     <footer>
-        <p>&copy; 2026 Suryakant. All rights reserved.</p>
+        <div style="margin-bottom: 15px;">
+            <a href="https://github.com/Suryakant981" target="_blank" style="color: white; margin: 0 15px; font-size: 22px;"><i class="fab fa-github"></i></a>
+            <a href="https://linkedin.com/in/suryakant-chaudhary-8a0926291" target="_blank" style="color: white; margin: 0 15px; font-size: 22px;"><i class="fab fa-linkedin"></i></a>
+            <a href="https://instagram.com/itz_introvert_pankaj" target="_blank" style="color: white; margin: 0 15px; font-size: 22px;"><i class="fab fa-instagram"></i></a>
+        </div>
+        <p>&copy; 2026 Suryakant. All rights reserved[cite: 4].</p>
     </footer>
 
+    <script>
+        // Preloader Logic
+        window.addEventListener('load', function() {
+            var preloader = document.getElementById('preloader');
+            setTimeout(function() {
+                preloader.style.opacity = '0';
+                setTimeout(function() {
+                    preloader.style.visibility = 'hidden';
+                }, 500);
+            }, 800);
+        });
+
+        // Timeline Scroll Animation Logic
+        document.addEventListener("DOMContentLoaded", function() {
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            timelineItems.forEach(item => {
+                observer.observe(item);
+            });
+        });
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
