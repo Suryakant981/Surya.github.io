@@ -7,8 +7,96 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css?v=2">
+    
+    <style>
+        /* Preloader Animation */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #1a1a2e; z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
+            transition: opacity 0.5s ease, visibility 0.5s;
+        }
+        .loader span {
+            font-size: 4rem; font-weight: 800;
+            background: linear-gradient(45deg, #ff6b81, #e94560, #ff8a00, #e52e71);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; filter: drop-shadow(0 0 10px rgba(233, 69, 96, 0.5)); }
+            50% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 25px rgba(233, 69, 96, 0.9)); }
+            100% { transform: scale(1); opacity: 0.8; filter: drop-shadow(0 0 10px rgba(233, 69, 96, 0.5)); }
+        }
+
+        /* 3D Flip Flashcard CSS */
+        .flashcard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        .flashcard-container {
+            perspective: 1000px; /* 3D effect ke liye */
+        }
+        .flashcard {
+            width: 100%;
+            height: 400px;
+            position: relative;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+        .flashcard-container:hover .flashcard {
+            transform: rotateY(180deg);
+        }
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .flashcard-front {
+            background: var(--card-bg);
+            border-top: 5px solid var(--accent-color);
+        }
+        .flashcard-front h3 { margin-top: 20px; font-size: 1.3rem; }
+        .flashcard-front p { margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem; }
+        
+        .flashcard-back {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            transform: rotateY(180deg);
+            border: 2px solid var(--accent-color);
+        }
+        .flashcard-back p { font-size: 0.9rem; margin-bottom: 15px; line-height: 1.6; color: #dcdcdc; }
+        .flashcard-back .skills-text { color: #ff6b81; font-weight: bold; font-size: 0.85rem; margin-bottom: 20px; }
+        
+        /* Staggered Entrance Animation */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s forwards;
+        }
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
 <body>
+
+    <div id="preloader">
+        <div class="loader">
+            <span>Projects</span>
+        </div>
+    </div>
 
     <nav>
         <div class="logo">Surya</div>
@@ -23,54 +111,80 @@
 
     <section class="content-section" style="padding-top: 120px;">
         <h1>My Projects</h1>
-        <p>A collection of my academic work, internships, and technical explorations.</p>
+        <p>A collection of my academic work, internships, and technical explorations. (Hover cards to flip)</p>
         
-        <div class="project-grid" style="margin-top: 50px;">
+        <div class="flashcard-grid">
 
-            <div class="project-card">
-                <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
-                <h3>RAKSHA SURAKSHA: Tactical Command System</h3>
-                <p>A military-grade personal safety Android application featuring a 3-Tier security architecture. Co-developed with S. Jaya Kumar, it utilizes offline SQLite Vaults, native SMS APIs, and gravity sensors to track stolen devices and route off-grid tactical maps.</p>
-                
-                <div style="margin-top: 12px; font-weight: bold; color: var(--accent-color); font-size: 0.9rem;">
-                    Skills: Native Java, Firebase, SQLite, OSM Maps
-                </div>
-                <br>
-                <a href="https://Rakshasuraksha.github.io" target="_blank" class="btn">Live Demo</a>
-            </div>
-
-            <!-- Internship Card with PDF Report Button -->
-            <div class="project-card" id="web-intern">
-                <div class="card-icon"><i class="fas fa-briefcase"></i></div>
-                <h3>Web Developer Intern @ Codec Technologies</h3>
-                <p>Completed a 1-month AICTE & ICAC approved professional internship. Developed a dynamic "Restaurant Website" mini-project featuring a responsive frontend and data fetched directly from a MySQL database.</p>
-                <div style="margin-top: 15px; font-weight: bold; color: var(--accent-color);">
-                    Skills: HTML, CSS, JavaScript, PHP, MySQL
-                </div>
-                <br>
-                <a href="internship report.pptx" target="_blank" class="btn">View Report</a>
-            </div>
-
-            <div class="project-card" id="web-seo">
-                <div class="card-icon"><i class="fas fa-search-location"></i></div>
-                <h3>SEO & Search Console Integration</h3>
-                <p>Configured Search Console for personal portfolio hosting on GitHub Pages. Improved site indexing and fixed sitemap fetch errors for better visibility.</p>
-                <div style="margin-top: 15px; font-weight: bold; color: var(--accent-color);">
-                    Skills: Technical SEO, Google Search Console, GitHub
+            <div class="flashcard-container fade-in-up" style="animation-delay: 0.1s;">
+                <div class="flashcard">
+                    <div class="flashcard-front">
+                        <i class="fas fa-shield-alt" style="font-size: 4rem; color: #d81b60;"></i>
+                        <h3>RAKSHA SURAKSHA</h3>
+                        <p>Tactical Command System</p>
+                    </div>
+                    <div class="flashcard-back">
+                        <h3>Project Info</h3>
+                        <p>A military-grade personal safety Android application featuring a 3-Tier security architecture. Co-developed with S. Jaya Kumar, it utilizes offline SQLite Vaults, native SMS APIs, and gravity sensors to track stolen devices.</p>
+                        <div class="skills-text">Native Java | Firebase | SQLite | OSM Maps</div>
+                        <a href="https://Rakshasuraksha.github.io" target="_blank" class="btn" style="padding: 8px 15px; font-size: 0.9rem;">Live Demo</a>
+                    </div>
                 </div>
             </div>
 
-            <div class="project-card" id="office-admin">
-                <div class="card-icon"><i class="fas fa-file-excel"></i></div>
-                <h3>Office Administration Systems</h3>
-                <p>Developed proficiency in data management using Tally and MS Excel. Applied ADCA principles to organize professional documents and accounts.</p>
-                <div style="margin-top: 15px; font-weight: bold; color: var(--accent-color);">
-                    Skills: Tally, MS Office, Data Management
+            <div class="flashcard-container fade-in-up" style="animation-delay: 0.3s;">
+                <div class="flashcard">
+                    <div class="flashcard-front">
+                        <i class="fas fa-briefcase" style="font-size: 4rem; color: #fbbc05;"></i>
+                        <h3>Web Developer Intern</h3>
+                        <p>@ Codec Technologies</p>
+                    </div>
+                    <div class="flashcard-back">
+                        <h3>Project Info</h3>
+                        <p>Completed a 1-month AICTE & ICAC approved professional internship. Developed a dynamic "Restaurant Website" mini-project featuring a responsive frontend and data fetched directly from a MySQL database.</p>
+                        <div class="skills-text">HTML | CSS | JavaScript | PHP | MySQL</div>
+                        <a href="internship report.pptx" target="_blank" class="btn" style="padding: 8px 15px; font-size: 0.9rem;">View Report</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flashcard-container fade-in-up" style="animation-delay: 0.5s;">
+                <div class="flashcard">
+                    <div class="flashcard-front">
+                        <i class="fas fa-search-location" style="font-size: 4rem; color: #4479a1;"></i>
+                        <h3>SEO Integration</h3>
+                        <p>Search Console</p>
+                    </div>
+                    <div class="flashcard-back">
+                        <h3>Project Info</h3>
+                        <p>Configured Search Console for personal portfolio hosting on GitHub Pages. Improved site indexing and fixed sitemap fetch errors for better visibility.</p>
+                        <div class="skills-text">Technical SEO | Search Console | GitHub</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flashcard-container fade-in-up" style="animation-delay: 0.7s;">
+                <div class="flashcard">
+                    <div class="flashcard-front">
+                        <i class="fas fa-file-excel" style="font-size: 4rem; color: #34a853;"></i>
+                        <h3>Office Admin Systems</h3>
+                        <p>Data Management</p>
+                    </div>
+                    <div class="flashcard-back">
+                        <h3>Project Info</h3>
+                        <p>Developed proficiency in data management using Tally and MS Excel. Applied ADCA principles to organize professional documents and accounts.</p>
+                        <div class="skills-text">Tally | MS Office | Data Management</div>
+                    </div>
                 </div>
             </div>
 
         </div>
     </section>
+
+    <a href="https://wa.me/917860636624?text=Hi%20Suryakant,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!" 
+       target="_blank" 
+       style="position: fixed; bottom: 20px; right: 20px; background-color: #25d366; color: white; padding: 15px 20px; border-radius: 50px; font-size: 20px; box-shadow: 2px 2px 10px rgba(0,0,0,0.3); z-index: 1000; text-decoration: none;">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
     <footer>
         <div style="margin-bottom: 15px;">
@@ -81,6 +195,17 @@
         <p>&copy; 2026 Suryakant. All rights reserved.</p>
     </footer>
 
+    <script>
+        window.addEventListener('load', function() {
+            var preloader = document.getElementById('preloader');
+            setTimeout(function() {
+                preloader.style.opacity = '0';
+                setTimeout(function() {
+                    preloader.style.visibility = 'hidden';
+                }, 500);
+            }, 800); // 0.8 seconds loader timing
+        });
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
