@@ -1,4 +1,4 @@
-\<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -27,25 +27,6 @@
             100% { transform: scale(1); opacity: 0.8; filter: drop-shadow(0 0 10px rgba(233, 69, 96, 0.5)); }
         }
 
-        /* Floating Background Icons */
-        .floating-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: -1; overflow: hidden;
-        }
-        .float-icon {
-            position: absolute; color: rgba(233, 69, 96, 0.05); font-size: 8rem;
-            animation: floatAnim 10s ease-in-out infinite;
-        }
-        .icon-1 { top: 10%; left: 5%; animation-delay: 0s; }
-        .icon-2 { top: 60%; left: 80%; animation-delay: 2s; }
-        .icon-3 { top: 80%; left: 10%; animation-delay: 4s; }
-        .icon-4 { top: 20%; left: 75%; animation-delay: 1s; }
-        
-        @keyframes floatAnim {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-30px) rotate(15deg); }
-        }
-
         /* Typewriter Effect */
         .typewriter-container h2 {
             display: inline-block; overflow: hidden; white-space: nowrap;
@@ -55,31 +36,56 @@
         @keyframes typing { from { width: 0 } to { width: 100% } }
         @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--accent-color); } }
 
-        /* Journey Timeline */
-        .timeline {
-            position: relative; max-width: 800px; margin: 50px auto; padding-left: 40px; text-align: left;
+        /* 3D Main Intro Card */
+        .intro-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border-left: 5px solid var(--accent-color);
+            margin: 40px auto;
+            max-width: 900px;
+            text-align: left;
+            transform-style: preserve-3d;
         }
-        .timeline::before {
-            content: ''; position: absolute; top: 0; left: 15px; height: 100%; width: 4px;
-            background: linear-gradient(to bottom, var(--accent-color), #ff8a00);
-            border-radius: 10px;
+        .intro-card p {
+            font-size: 1.05rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: 15px;
+            transform: translateZ(20px); /* Brings text forward in 3D space */
         }
-        .timeline-item {
-            position: relative; margin-bottom: 40px; opacity: 0; transform: translateX(-30px);
-            transition: all 0.6s ease-out;
+
+        /* 3D Flip Flashcard CSS */
+        .flashcard-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px; margin-top: 40px;
         }
-        .timeline-item.show { opacity: 1; transform: translateX(0); }
-        .timeline-item::before {
-            content: ''; position: absolute; left: -34px; top: 5px; width: 16px; height: 16px;
-            background: var(--bg-primary); border: 4px solid var(--accent-color);
-            border-radius: 50%; box-shadow: 0 0 10px var(--accent-color);
+        .flashcard-container { perspective: 1000px; }
+        .flashcard {
+            width: 100%; height: 420px; position: relative;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d; cursor: pointer;
         }
-        .timeline-content {
-            background: var(--card-bg); padding: 25px; border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08); border-left: 4px solid var(--accent-color);
+        .flashcard-container:hover .flashcard { transform: rotateY(180deg); }
+        
+        .flashcard-front, .flashcard-back {
+            position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+            border-radius: 15px; padding: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
         }
-        .timeline-content h3 { color: var(--accent-color); margin-bottom: 10px; font-size: 1.2rem; }
-        .timeline-content p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; }
+        .flashcard-front { background: var(--card-bg); border-top: 5px solid var(--accent-color); }
+        .flashcard-front h3 { margin-top: 15px; font-size: 1.4rem; }
+        
+        .flashcard-back {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white; transform: rotateY(180deg); border: 2px solid var(--accent-color);
+        }
+        .flashcard-back p { font-size: 0.95rem; margin-bottom: 15px; line-height: 1.5; color: #dcdcdc; }
+        
+        /* Entrance Animations */
+        .fade-in-up {
+            opacity: 0; transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-up.show { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body>
@@ -89,14 +95,6 @@
         <div class="loader">
             <span>About Me</span>
         </div>
-    </div>
-
-    <!-- Floating Background Objects -->
-    <div class="floating-bg">
-        <i class="fab fa-python float-icon icon-1"></i>
-        <i class="fas fa-database float-icon icon-2"></i>
-        <i class="fab fa-html5 float-icon icon-3"></i>
-        <i class="fas fa-shield-alt float-icon icon-4"></i>
     </div>
 
     <nav>
@@ -114,39 +112,58 @@
         <div class="typewriter-container">
             <h2><span style="color: var(--text-primary);">></span> System.out.println("About Me");</h2>
         </div>
-        <p style="margin-top: 20px; max-width: 700px; margin-left: auto; margin-right: auto;">Scroll down to explore my academic journey, technical background, and professional experiences.</p>
 
-        <!-- Animated Journey Timeline -->
-        <div class="timeline">
+        <!-- 3D Tilt Intro Card -->
+        <div class="intro-card fade-in-up" data-tilt data-tilt-max="3" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.1">
+            <p>I am a Final-Year BCA Student with a deep passion for IT Infrastructure and Software Development. My journey in technology is driven by a desire to create autonomous solutions that solve critical real-world problems. This ambition led to the development of <strong>SENTINEL-X</strong>, a context-aware 3-tier autonomous SOS system that utilizes 'Dead Man’s Switch' logic to ensure user safety and hardware security without relying on active internet connectivity[cite: 3].</p>
             
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <h3>Academic & Creative Focus</h3>
-                    <p>I am a student balancing academic preparation with deep dives into software development and creative technologies. My focus spans from writing clean Python scripts to optimizing web presence through technical SEO and Google Search Console. I enjoy tackling complex logic and bringing imaginative, physics-based ideas to life.</p>
+            <p>My technical background is comprehensive, featuring a one-year Advanced Diploma in Computer Applications (ADCA) and proficiency in Tally. I have a strong command over Python and Web Development, skills I further polished during a professional internship at Codec Technologies where I focused on responsive design and technical SEO[cite: 3].</p>
+            
+            <p>Beyond coding, I have experience in IT Administration and Office Management, allowing me to approach projects with both a technical and an organizational mindset. Whether it’s managing complex databases with SQLite or configuring local execution environments for AI projects, I am committed to building efficient, reliable, and scalable technology[cite: 3].</p>
+        </div>
+    </section>
+
+    <!-- 3D Flashcards for Experience -->
+    <section class="content-section bg-secondary">
+        <h2>Experience & Certifications</h2>
+        <p>Hover over the cards to view details and certificates.</p>
+        
+        <div class="flashcard-grid">
+            
+            <!-- Flashcard 1: Codec Internship -->
+            <div class="flashcard-container fade-in-up">
+                <div class="flashcard">
+                    <!-- Front -->
+                    <div class="flashcard-front">
+                        <i class="fas fa-laptop-code" style="font-size: 4rem; color: #fbbc05;"></i>
+                        <h3>Web Developer Intern</h3>
+                        <p style="margin-top: 10px; color: var(--text-secondary);">Codec Technologies</p>
+                    </div>
+                    <!-- Back -->
+                    <div class="flashcard-back">
+                        <h3>1-Month Internship</h3>
+                        <p style="margin-top: 10px;">Built responsive web layouts using HTML, CSS, Bootstrap, and JavaScript. Integrated REST APIs, learned backend fundamentals (Node.js/MongoDB), and successfully deployed full-stack web applications utilizing Git[cite: 3].</p>
+                        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 15px;">
+                            <a href="codec-certificate.pdf" target="_blank" class="btn" style="padding: 8px 15px; font-size: 0.85rem;">Certificate</a>
+                            <a href="codec-lor.pdf" target="_blank" class="btn" style="padding: 8px 15px; font-size: 0.85rem; background-color: #2a2a4a;">LOR</a>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <h3>Final-Year BCA & SENTINEL-X</h3>
-                    <p>I am a Final-Year BCA Student with a deep passion for IT Infrastructure and Software Development. My journey in technology is driven by a desire to create autonomous solutions that solve critical real-world problems. This ambition led to the development of SENTINEL-X, a context-aware 3-tier autonomous SOS system that utilizes 'Dead Man’s Switch' logic to ensure user safety and hardware security without relying on active internet connectivity.</p>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <h3>Technical Background & Administration</h3>
-                    <p>My technical background is comprehensive, featuring a one-year Advanced Diploma in Computer Applications (ADCA) and proficiency in Tally. I have a strong command over Python and Web Development... Beyond coding, I have experience in IT Administration and Office Management, allowing me to approach projects with both a technical and an organizational mindset. Whether it’s managing complex databases with SQLite or configuring local execution environments for AI projects, I am committed to building efficient, reliable, and scalable technology.</p>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <h3><i class="fas fa-laptop-code" style="margin-right: 8px;"></i>Web Developer Intern @ Codec Technologies</h3>
-                    <p><strong>1-Month Internship</strong><br><br>Built responsive web layouts using HTML, CSS, Bootstrap, and JavaScript. Gained practical experience with modern frameworks like React, integrated REST APIs, and learned backend fundamentals using Node.js and MongoDB. Successfully deployed full-stack web applications utilizing Git version control and platforms like Netlify/Heroku.</p>
-                    <div style="display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap;">
-                        <a href="codec-certificate.pdf" target="_blank" class="btn" style="padding: 8px 15px; font-size: 0.85rem;">View Certificate</a>
-                        <a href="codec-lor.pdf" target="_blank" class="btn" style="padding: 8px 15px; font-size: 0.85rem; background-color: #2a2a4a;">View LOR</a>
+            <!-- Flashcard 2: Certifications / Admin -->
+            <div class="flashcard-container fade-in-up" style="transition-delay: 0.2s;">
+                <div class="flashcard">
+                    <!-- Front -->
+                    <div class="flashcard-front">
+                        <i class="fas fa-certificate" style="font-size: 4rem; color: #d81b60;"></i>
+                        <h3>ADCA Certification</h3>
+                        <p style="margin-top: 10px; color: var(--text-secondary);">IT Administration</p>
+                    </div>
+                    <!-- Back -->
+                    <div class="flashcard-back">
+                        <h3>Technical Diploma</h3>
+                        <p style="margin-top: 10px;">Completed a one-year Advanced Diploma in Computer Applications (ADCA). Developed strong proficiency in Tally, Office Management, and foundational IT Infrastructure to approach projects with an organizational mindset[cite: 3].</p>
                     </div>
                 </div>
             </div>
@@ -154,18 +171,13 @@
         </div>
     </section>
 
-    <section class="content-section bg-secondary">
+    <section class="content-section">
         <h2>Let's Connect</h2>
         <p>Whether you want to discuss AI, Python development, or just say hi, feel free to reach out!</p>
         <br>
-        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-            <a href="https://instagram.com/itz_introvert_pankaj" target="_blank" class="btn" style="background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);">
-                <i class="fab fa-instagram"></i> Instagram
-            </a>
-            <a href="mailto:suryakantc981@gmail.com" class="btn" style="background-color: #ea4335;">
-                <i class="fas fa-envelope"></i> Email Me
-            </a>
-        </div>
+        <a href="https://instagram.com/itz_introvert_pankaj" target="_blank" class="social-btn btn" style="background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); border: none;">
+            <i class="fab fa-instagram"></i> Instagram
+        </a>
     </section>
 
     <!-- WhatsApp Floating Button -->
@@ -184,33 +196,30 @@
         <p>&copy; 2026 Suryakant. All rights reserved.</p>
     </footer>
 
+    <!-- Scripts for 3D Tilt and Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
     <script>
-        // Preloader Logic
+        // Preloader
         window.addEventListener('load', function() {
             var preloader = document.getElementById('preloader');
             setTimeout(function() {
                 preloader.style.opacity = '0';
-                setTimeout(function() {
-                    preloader.style.visibility = 'hidden';
-                }, 500);
+                setTimeout(function() { preloader.style.visibility = 'hidden'; }, 500);
             }, 800);
         });
 
-        // Timeline Scroll Animation Logic
+        // Scroll Fade-in Animation Logic
         document.addEventListener("DOMContentLoaded", function() {
-            const timelineItems = document.querySelectorAll('.timeline-item');
-            
+            const elements = document.querySelectorAll('.fade-in-up');
             const observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('show');
                     }
                 });
-            }, { threshold: 0.2 });
+            }, { threshold: 0.1 }); // Triggers when 10% of element is visible
 
-            timelineItems.forEach(item => {
-                observer.observe(item);
-            });
+            elements.forEach(el => observer.observe(el));
         });
     </script>
     <script src="script.js"></script>
