@@ -32,6 +32,7 @@
             display: inline-block; overflow: hidden; white-space: nowrap;
             border-right: 3px solid var(--accent-color);
             animation: typing 2.5s steps(30, end), blink-caret .75s step-end infinite;
+            font-size: 2.5rem;
         }
         @keyframes typing { from { width: 0 } to { width: 100% } }
         @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--accent-color); } }
@@ -50,7 +51,7 @@
         }
         .intro-card p {
             font-size: 1.05rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: 15px;
-            transform: translateZ(20px); /* Brings text forward in 3D space */
+            transform: translateZ(20px);
         }
 
         /* 3D Flip Flashcard CSS */
@@ -109,17 +110,18 @@
     </nav>
 
     <section class="content-section" style="padding-top: 120px;">
+        <!-- Clean Heading with Typewriter Effect -->
         <div class="typewriter-container">
-            <h2><span style="color: var(--text-primary);">></span> System.out.println("About Me");</h2>
+            <h2>About Me</h2>
         </div>
 
-        <!-- 3D Tilt Intro Card -->
+        <!-- 3D Tilt Intro Card (CLEANED - NO GARBAGE TEXT) -->
         <div class="intro-card fade-in-up" data-tilt data-tilt-max="3" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.1">
-            <p>I am a Final-Year BCA Student with a deep passion for IT Infrastructure and Software Development. My journey in technology is driven by a desire to create autonomous solutions that solve critical real-world problems. This ambition led to the development of <strong>SENTINEL-X</strong>, a context-aware 3-tier autonomous SOS system that utilizes 'Dead Man’s Switch' logic to ensure user safety and hardware security without relying on active internet connectivity[cite: 3].</p>
+            <p>I am a Final-Year BCA Student with a deep passion for IT Infrastructure and Software Development. My journey in technology is driven by a desire to create autonomous solutions that solve critical real-world problems. This ambition led to the development of <strong>SENTINEL-X</strong>, a context-aware 3-tier autonomous SOS system that utilizes 'Dead Man’s Switch' logic to ensure user safety and hardware security without relying on active internet connectivity.</p>
             
-            <p>My technical background is comprehensive, featuring a one-year Advanced Diploma in Computer Applications (ADCA) and proficiency in Tally. I have a strong command over Python and Web Development, skills I further polished during a professional internship at Codec Technologies where I focused on responsive design and technical SEO[cite: 3].</p>
+            <p>My technical background is comprehensive, featuring a one-year Advanced Diploma in Computer Applications (ADCA) and proficiency in Tally. I have a strong command over Python and Web Development, skills I further polished during a professional internship at Codec Technologies where I focused on responsive design and technical SEO.</p>
             
-            <p>Beyond coding, I have experience in IT Administration and Office Management, allowing me to approach projects with both a technical and an organizational mindset. Whether it’s managing complex databases with SQLite or configuring local execution environments for AI projects, I am committed to building efficient, reliable, and scalable technology[cite: 3].</p>
+            <p>Beyond coding, I have experience in IT Administration and Office Management, allowing me to approach projects with both a technical and an organizational mindset. Whether it’s managing complex databases with SQLite or configuring local execution environments for AI projects, I am committed to building efficient, reliable, and scalable technology.</p>
         </div>
     </section>
 
@@ -142,7 +144,7 @@
                     <!-- Back -->
                     <div class="flashcard-back">
                         <h3>1-Month Internship</h3>
-                        <p style="margin-top: 10px;">Built responsive web layouts using HTML, CSS, Bootstrap, and JavaScript. Integrated REST APIs, learned backend fundamentals (Node.js/MongoDB), and successfully deployed full-stack web applications utilizing Git[cite: 3].</p>
+                        <p style="margin-top: 10px;">Built responsive web layouts using HTML, CSS, Bootstrap, and JavaScript. Integrated REST APIs, learned backend fundamentals (Node.js/MongoDB), and successfully deployed full-stack web applications utilizing Git.</p>
                         <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 15px;">
                             <a href="codec-certificate.pdf" target="_blank" class="btn" style="padding: 8px 15px; font-size: 0.85rem;">Certificate</a>
                             <a href="codec-lor.pdf" target="_blank" class="btn" style="padding: 8px 15px; font-size: 0.85rem; background-color: #2a2a4a;">LOR</a>
@@ -163,7 +165,7 @@
                     <!-- Back -->
                     <div class="flashcard-back">
                         <h3>Technical Diploma</h3>
-                        <p style="margin-top: 10px;">Completed a one-year Advanced Diploma in Computer Applications (ADCA). Developed strong proficiency in Tally, Office Management, and foundational IT Infrastructure to approach projects with an organizational mindset[cite: 3].</p>
+                        <p style="margin-top: 10px;">Completed a one-year Advanced Diploma in Computer Applications (ADCA). Developed strong proficiency in Tally, Office Management, and foundational IT Infrastructure to approach projects with an organizational mindset.</p>
                     </div>
                 </div>
             </div>
@@ -217,7 +219,7 @@
                         entry.target.classList.add('show');
                     }
                 });
-            }, { threshold: 0.1 }); // Triggers when 10% of element is visible
+            }, { threshold: 0.1 });
 
             elements.forEach(el => observer.observe(el));
         });
