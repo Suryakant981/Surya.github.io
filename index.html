@@ -6,12 +6,48 @@
     <title>Suryakant | Home</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=3">
+    <link rel="stylesheet" href="style.css?v=2">
+    
+    <!-- ADDED: Preloader and Particles CSS -->
+    <style>
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #1a1a2e; /* Dark theme background */
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease, visibility 0.5s;
+        }
+        .loader span {
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ff6b81, #e94560, #ff8a00, #e52e71);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; filter: drop-shadow(0 0 10px rgba(233, 69, 96, 0.5)); }
+            50% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 25px rgba(233, 69, 96, 0.9)); }
+            100% { transform: scale(1); opacity: 0.8; filter: drop-shadow(0 0 10px rgba(233, 69, 96, 0.5)); }
+        }
+        .hero { position: relative; overflow: hidden; }
+        .hero-container { position: relative; z-index: 2; }
+    </style>
 </head>
 <body>
 
-    <div id="particles-js"></div>
-    <canvas id="hero-canvas"></canvas>
+    <!-- ADDED: Preloader Element -->
+    <div id="preloader">
+        <div class="loader">
+            <span>Surya</span>
+        </div>
+    </div>
 
     <nav>
         <div class="logo">Surya</div>
@@ -25,33 +61,38 @@
     </nav>
 
     <section class="hero">
+        <!-- ADDED: Particles Background -->
+        <div id="particles-js" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 1;"></div>
+        
         <div class="hero-container">
             <div class="hero-content">
-                <h1>Hey I'm Surya, I'm pursuing BCA from Bangalore University</h1>
-
+                <!-- Updated Title -->
+                <h1>Hey I'm Surya, I'm pursuing BCA from Bangalore  University </h1>
+                
                 <p>
-                    I am a results-driven 6th Semester BCA Student dedicated to solving real-world challenges through technology.
+                    I am a results-driven 6th Semester BCA Student dedicated to solving real-world challenges through technology. 
                     <span id="dots">...</span>
                     <span id="more-text">
-                        My expertise is highlighted by <strong>RAKSHA SURAKSHA</strong>—a military-grade personal safety Android application featuring a 3-Tier security architecture.
+                        My expertise is highlighted by <strong>RAKSHA SURAKSHA</strong>—a military-grade personal safety Android application featuring a 3-Tier security architecture. 
                         Co-developed with S. Jaya Kumar, this tactical command system utilizes native Java, Firebase, and offline SQLite Vaults to track devices and route off-grid maps without internet dependence.
                     </span>
                     <button onclick="readMoreFunc()" id="readMoreBtn" class="read-more-btn">Read More</button>
                 </p>
 
-                <div class="hero-btns">
+                <div class="hero-btns" style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 25px;">
                     <a href="projects.html" class="btn">View My Work</a>
                     <a href="suryakant-resume.jpg" target="_blank" class="hire-btn">
-                        <i class="fas fa-file-download"></i> Resume
+                        <i class="fas fa-file-download"></i> Hire Me / Resume
                     </a>
                 </div>
             </div>
-
+            
             <div class="hero-image-container">
-                <div class="profile-pic-wrapper">
+                <!-- ADDED: data-tilt for 3D hover effect -->
+                <div class="profile-pic-wrapper" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.5">
                     <img src="profile.jpg" alt="Suryakant's Profile Picture" class="profile-photo">
                     <div class="profile-overlay">
-                        <i class="fas fa-user-tie"></i>
+                        <i class="fas fa-user-tie" style="font-size: 2rem; margin-bottom: 8px;"></i>
                         <span>Suryakant</span>
                     </div>
                 </div>
@@ -59,67 +100,85 @@
         </div>
     </section>
 
+    <!-- NAYA SKILLS VISUALIZER YAHAN ADD KIYA HAI -->
     <section class="content-section">
         <h2>Technical Skills</h2>
-        <p class="section-subtitle">Here is a visual representation of my primary skills and proficiencies.</p>
-
-        <div class="skills-box">
-            <div class="skill-item">
-                <div class="skill-head">
-                    <span><i class="fab fa-html5 html"></i>HTML / CSS / JavaScript</span>
+        <p style="margin-bottom: 40px;">Here is a visual representation of my primary skills and proficiencies.</p>
+        
+        <div style="max-width: 800px; margin: 0 auto; text-align: left; padding: 20px; border-radius: 15px; background: rgba(128, 128, 128, 0.05); border: 1px solid rgba(128, 128, 128, 0.1);">
+            
+            <div style="margin-bottom: 25px;">
+                <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 8px;">
+                    <span><i class="fab fa-html5" style="color: #e34f26; margin-right: 10px; font-size: 1.2rem;"></i>HTML / CSS / JavaScript</span>
                     <span>90%</span>
                 </div>
-                <div class="skill-bar"><div class="skill-fill" style="width: 90%"></div></div>
+                <div style="background: rgba(128, 128, 128, 0.2); border-radius: 10px; height: 12px; overflow: hidden;">
+                    <div style="background: linear-gradient(90deg, #ff4d4d, #d81b60); height: 100%; width: 90%; border-radius: 10px; transition: width 1s ease-in-out;"></div>
+                </div>
             </div>
 
-            <div class="skill-item">
-                <div class="skill-head">
-                    <span><i class="fab fa-java java"></i>Native Java / Android</span>
+            <div style="margin-bottom: 25px;">
+                <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 8px;">
+                    <span><i class="fab fa-java" style="color: #5382a1; margin-right: 10px; font-size: 1.2rem;"></i>Native Java / Android</span>
                     <span>85%</span>
                 </div>
-                <div class="skill-bar"><div class="skill-fill" style="width: 85%"></div></div>
+                <div style="background: rgba(128, 128, 128, 0.2); border-radius: 10px; height: 12px; overflow: hidden;">
+                    <div style="background: linear-gradient(90deg, #ff4d4d, #d81b60); height: 100%; width: 85%; border-radius: 10px; transition: width 1s ease-in-out;"></div>
+                </div>
             </div>
 
-            <div class="skill-item">
-                <div class="skill-head">
-                    <span><i class="fab fa-python python"></i>Python & Voice AI Libraries</span>
+            <div style="margin-bottom: 25px;">
+                <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 8px;">
+                    <span><i class="fab fa-python" style="color: #3776ab; margin-right: 10px; font-size: 1.2rem;"></i>Python & Voice AI Libraries</span>
                     <span>80%</span>
                 </div>
-                <div class="skill-bar"><div class="skill-fill" style="width: 80%"></div></div>
+                <div style="background: rgba(128, 128, 128, 0.2); border-radius: 10px; height: 12px; overflow: hidden;">
+                    <div style="background: linear-gradient(90deg, #ff4d4d, #d81b60); height: 100%; width: 80%; border-radius: 10px; transition: width 1s ease-in-out;"></div>
+                </div>
             </div>
 
-            <div class="skill-item">
-                <div class="skill-head">
-                    <span><i class="fas fa-search-location seo"></i>Technical SEO & Search Console</span>
+            <div style="margin-bottom: 25px;">
+                <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 8px;">
+                    <span><i class="fas fa-search-location" style="color: #fbbc05; margin-right: 10px; font-size: 1.2rem;"></i>Technical SEO & Search Console</span>
                     <span>85%</span>
                 </div>
-                <div class="skill-bar"><div class="skill-fill" style="width: 85%"></div></div>
+                <div style="background: rgba(128, 128, 128, 0.2); border-radius: 10px; height: 12px; overflow: hidden;">
+                    <div style="background: linear-gradient(90deg, #ff4d4d, #d81b60); height: 100%; width: 85%; border-radius: 10px; transition: width 1s ease-in-out;"></div>
+                </div>
             </div>
 
-            <div class="skill-item">
-                <div class="skill-head">
-                    <span><i class="fas fa-database db"></i>MySQL / SQLite Vaults</span>
+            <div style="margin-bottom: 10px;">
+                <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 8px;">
+                    <span><i class="fas fa-database" style="color: #4479a1; margin-right: 10px; font-size: 1.2rem;"></i>MySQL / SQLite Vaults</span>
                     <span>80%</span>
                 </div>
-                <div class="skill-bar"><div class="skill-fill" style="width: 80%"></div></div>
+                <div style="background: rgba(128, 128, 128, 0.2); border-radius: 10px; height: 12px; overflow: hidden;">
+                    <div style="background: linear-gradient(90deg, #ff4d4d, #d81b60); height: 100%; width: 80%; border-radius: 10px; transition: width 1s ease-in-out;"></div>
+                </div>
             </div>
+
         </div>
     </section>
+    <!-- SKILLS VISUALIZER END -->
 
     <section class="content-section bg-secondary">
         <h2>Featured Projects</h2>
-        <p class="section-subtitle">A quick look at my technical and academic accomplishments.</p>
+        <p style="margin-bottom: 40px;">A quick look at my technical and academic accomplishments.</p>
         <div class="project-grid">
-            <div class="project-card">
+            <!-- ADDED: data-tilt for 3D hover effect -->
+            <div class="project-card" data-tilt data-tilt-max="10" data-tilt-speed="400">
                 <i class="fas fa-briefcase card-icon"></i>
                 <h3>Web Intern</h3>
                 <p>Completed a 1-month professional internship at Codec Technologies with an LOR.</p>
+                <br>
                 <a href="about.html" class="btn">Learn More</a>
             </div>
-            <div class="project-card">
+            <!-- ADDED: data-tilt for 3D hover effect -->
+            <div class="project-card" data-tilt data-tilt-max="10" data-tilt-speed="400">
                 <i class="fas fa-globe card-icon"></i>
                 <h3>SEO & Hosting</h3>
                 <p>Optimized portfolio structures for better search visibility and cloud hosting.</p>
+                <br>
                 <a href="projects.html" class="btn">Learn More</a>
             </div>
         </div>
@@ -128,26 +187,66 @@
         </div>
     </section>
 
-    <a href="https://wa.me/917860636624?text=Hi%20Suryakant,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!"
-       target="_blank"
-       class="whatsapp-btn">
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/917860636624?text=Hi%20Suryakant,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!" 
+       target="_blank" 
+       style="position: fixed; bottom: 20px; right: 20px; background-color: #25d366; color: white; padding: 15px 20px; border-radius: 50px; font-size: 20px; box-shadow: 2px 2px 10px rgba(0,0,0,0.3); z-index: 1000; text-decoration: none;">
         <i class="fab fa-whatsapp"></i>
     </a>
-
+    
     <footer>
-        <div class="social-links">
-            <a href="https://github.com/Suryakant981" target="_blank"><i class="fab fa-github"></i></a>
-            <a href="https://linkedin.com/in/suryakant-chaudhary-8a0926291" target="_blank"><i class="fab fa-linkedin"></i></a>
-            <a href="https://instagram.com/itz_introvert_pankaj" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="mailto:suryakantc981@gmail.com"><i class="fas fa-envelope"></i></a>
+        <div style="margin-bottom: 15px;">
+            <a href="https://github.com/Suryakant981" target="_blank" style="color: white; margin: 0 15px; font-size: 22px;"><i class="fab fa-github"></i></a>
+            <a href="https://linkedin.com/in/suryakant-chaudhary-8a0926291" target="_blank" style="color: white; margin: 0 15px; font-size: 22px;"><i class="fab fa-linkedin"></i></a>
+            <a href="https://instagram.com/itz_introvert_pankaj" target="_blank" style="color: white; margin: 0 15px; font-size: 22px;"><i class="fab fa-instagram"></i></a>
+            <a href="mailto:suryakantc981@gmail.com" style="color: white; margin: 0 15px; font-size: 22px;"><i class="fas fa-envelope"></i></a>
         </div>
         <p>&copy; 2026 Suryakant All rights reserved.</p>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+    <!-- ADDED: Live Effects Scripts (Particles.js & Vanilla-Tilt.js) -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+
     <script>
+        // 1. Preloader Logic
+        window.addEventListener('load', function() {
+            var preloader = document.getElementById('preloader');
+            setTimeout(function() {
+                preloader.style.opacity = '0';
+                setTimeout(function() {
+                    preloader.style.visibility = 'hidden';
+                }, 500);
+            }, 800); // 0.8 seconds tak load hoga
+        });
+
+        // 2. Particles.js Configuration
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 60, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#e94560" }, // Accent color se match karta hua
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.5, "random": true },
+                "size": { "value": 3, "random": true },
+                "line_linked": { "enable": true, "distance": 150, "color": "#e94560", "opacity": 0.4, "width": 1 },
+                "move": { "enable": true, "speed": 2, "direction": "none", "random": true, "out_mode": "out" }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": { "enable": true, "mode": "grab" }, // Hover par nodes judenge
+                    "onclick": { "enable": true, "mode": "push" }, // Click par aur nodes nikalenge
+                    "resize": true
+                },
+                "modes": {
+                    "grab": { "distance": 150, "line_linked": { "opacity": 1 } },
+                    "push": { "particles_nb": 4 }
+                }
+            },
+            "retina_detect": true
+        });
+
+        // Read More Button Logic
         function readMoreFunc() {
             var dots = document.getElementById("dots");
             var moreText = document.getElementById("more-text");
