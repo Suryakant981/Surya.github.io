@@ -1,123 +1,272 @@
-// --- 1. DARK/LIGHT MODE WITH MEMORY ---
-const btn = document.getElementById('mode-toggle');
-const icon = btn ? btn.querySelector('i') : null;
-
-// Page load hone par check karo ki user ne pehle kaunsa theme chuna tha
-if (localStorage.getItem('theme') === 'dark') {
-    document.body.classList.add('dark-mode');
-    if (icon) {
-        icon.classList.remove('fa-moon');
-        icon.classList.add('fa-sun');
-    }
+/* --- Global Variables --- */
+:root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --text-primary: #333333;
+    --text-secondary: #555555;
+    --nav-bg: #1a1a2e;
+    --accent-color: #e94560;
+    --card-bg: #ffffff;
+    --transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-// Toggle Button Click Event
-if (btn) {
-    btn.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        
-        // Icon change aur memory save
-        if (document.body.classList.contains('dark-mode')) {
-            localStorage.setItem('theme', 'dark');
-            if (icon) {
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
-            }
-        } else {
-            localStorage.setItem('theme', 'light');
-            if (icon) {
-                icon.classList.remove('fa-sun');
-                icon.classList.add('fa-moon');
-            }
-        }
-    });
+body.dark-mode {
+    --bg-primary: #121212;
+    --bg-secondary: #1e1e1e;
+    --text-primary: #f1f1f1;
+    --text-secondary: #cccccc;
+    --nav-bg: #0f0f1a;
+    --card-bg: #2a2a35;
 }
 
-// --- 2. DYNAMIC CSS FOR CURSOR & SCROLL BAR ---
-// HTML/CSS edit karne ki zaroorat nahi, JS khud styles inject karega
-const dynamicStyles = document.createElement('style');
-dynamicStyles.innerHTML = `
-    /* Scroll Progress Bar */
-    #scroll-progress {
-        position: fixed; top: 0; left: 0; width: 0%; height: 4px;
-        background: linear-gradient(to right, #ff6b81, #e94560);
-        z-index: 10001; box-shadow: 0 0 10px #e94560;
+/* --- Base --- */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+html { scroll-behavior: smooth; }
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background-color var(--transition), color var(--transition);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* --- Scrollbar --- */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--accent-color); border-radius: 10px; }
+
+/* --- Navigation --- */
+nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px 50px;
+    background: rgba(26, 26, 46, 0.95);
+    backdrop-filter: blur(10px);
+    position: fixed; width: 100%; top: 0; z-index: 1000;
+    border-bottom: 1px solid rgba(233, 69, 96, 0.2);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+}
+
+/* Hamburger Menu */
+.hamburger {
+    display: none; flex-direction: column;
+    cursor: pointer; gap: 5px; padding: 5px;
+}
+.hamburger span {
+    width: 25px; height: 3px;
+    background: white; border-radius: 3px;
+    transition: var(--transition);
+}
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 8px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -8px); }
+
+.logo {
+    font-size: 28px; font-weight: 800;
+    background: linear-gradient(45deg, #ff6b81, #e94560, #ff8a00, #e52e71);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: auto-color 5s linear infinite;
+    cursor: pointer;
+}
+
+.nav-links { list-style: none; display: flex; align-items: center; gap: 5px; }
+.nav-links li { margin-left: 15px; }
+.nav-links a {
+    color: #fff; text-decoration: none; font-size: 15px;
+    padding: 5px 10px; border-radius: 5px;
+    transition: var(--transition);
+}
+.nav-links a:hover, .nav-links a.active { color: var(--accent-color); }
+
+/* --- Buttons --- */
+.hire-btn {
+    padding: 10px 22px; border-radius: 8px; font-weight: bold;
+    color: white !important; text-decoration: none;
+    background: linear-gradient(45deg, #ff6b81, #e94560, #ff8a00, #e52e71);
+    background-size: 300% 300%;
+    animation: auto-color 5s linear infinite;
+    box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3);
+    transition: var(--transition);
+}
+.hire-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(233, 69, 96, 0.5); }
+
+.btn {
+    display: inline-block; padding: 12px 28px;
+    background-color: var(--accent-color);
+    color: white; text-decoration: none; border-radius: 8px;
+    font-weight: bold; transition: var(--transition);
+    border: none; cursor: pointer;
+    position: relative; overflow: hidden;
+}
+.btn::after {
+    content: ''; position: absolute;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 0; height: 0;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    transition: width 0.6s, height 0.6s;
+}
+.btn:hover::after { width: 300px; height: 300px; }
+.btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4); }
+
+@keyframes auto-color {
+    0% { background-position: 0% 50%; filter: hue-rotate(0deg); }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; filter: hue-rotate(360deg); }
+}
+
+/* --- Hero Section --- */
+.hero {
+    min-height: 100vh; display: flex;
+    justify-content: center; align-items: center;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    color: white; padding-top: 80px;
+    position: relative; overflow: hidden;
+}
+.hero-container {
+    display: flex; align-items: center;
+    gap: 40px; width: 90%; max-width: 1100px;
+    position: relative; z-index: 2;
+}
+.hero-content h1 { font-size: 2.2rem; margin-bottom: 10px; line-height: 1.2; }
+.hero-content p { font-size: 1rem; margin-bottom: 20px; max-width: 550px; }
+
+/* Read More */
+#more-text { display: none; }
+.read-more-btn {
+    background: none; border: none; color: #00c6ff;
+    cursor: pointer; font-weight: bold;
+    text-decoration: underline; font-size: 0.9rem;
+}
+
+/* --- Profile Photo --- */
+.hero-image-container {
+    display: flex; justify-content: center; align-items: center;
+    flex-shrink: 0;
+}
+.profile-pic-wrapper {
+    position: relative; width: 300px; height: 300px;
+    border-radius: 50%; overflow: hidden;
+    border: 4px solid var(--accent-color);
+    box-shadow: 0 10px 40px rgba(233, 69, 96, 0.4),
+                0 0 0 8px rgba(233, 69, 96, 0.1);
+    transition: var(--transition);
+    animation: profilePulse 3s ease-in-out infinite;
+}
+@keyframes profilePulse {
+    0%, 100% { box-shadow: 0 10px 40px rgba(233,69,96,0.4), 0 0 0 8px rgba(233,69,96,0.1); }
+    50% { box-shadow: 0 10px 40px rgba(233,69,96,0.6), 0 0 0 12px rgba(233,69,96,0.2); }
+}
+.profile-photo { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+.profile-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(26, 26, 46, 0.88); color: #fff;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    opacity: 0; transition: var(--transition);
+}
+.profile-pic-wrapper:hover .profile-overlay { opacity: 1; cursor: pointer; }
+
+/* --- Sections --- */
+.content-section {
+    padding: 80px 20px; text-align: center;
+    max-width: 1100px; margin: 0 auto;
+}
+.bg-secondary {
+    background-color: var(--bg-secondary);
+    width: 100%; max-width: 100%;
+    padding: 80px 20px;
+}
+
+/* --- Project Cards --- */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px; margin-top: 40px;
+}
+.project-card {
+    background: var(--card-bg); padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    transition: var(--transition);
+    border-top: 5px solid var(--accent-color);
+    position: relative; overflow: hidden;
+}
+.project-card::before {
+    content: ''; position: absolute;
+    top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(233,69,96,0.05), transparent);
+    transition: left 0.5s ease;
+}
+.project-card:hover::before { left: 100%; }
+.project-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+.card-icon { font-size: 2.5rem; color: var(--accent-color); margin-bottom: 20px; }
+
+/* --- Theme Toggle --- */
+.theme-btn {
+    background: none; border: 1px solid rgba(255,255,255,0.2);
+    color: white; padding: 8px 12px; border-radius: 5px;
+    cursor: pointer; transition: var(--transition);
+}
+.theme-btn:hover { background: rgba(255,255,255,0.1); }
+
+/* --- Footer --- */
+footer {
+    padding: 40px; background-color: var(--nav-bg);
+    color: white; text-align: center;
+}
+footer a { transition: var(--transition); }
+footer a:hover { color: var(--accent-color) !important; transform: scale(1.2); display: inline-block; }
+
+/* ============================
+   MOBILE RESPONSIVE - FULL
+   ============================ */
+@media screen and (max-width: 900px) {
+    nav { padding: 15px 25px; }
+
+    /* Show Hamburger */
+    .hamburger { display: flex; }
+
+    /* Mobile Nav Menu */
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: fixed;
+        top: 65px; left: 0; right: 0;
+        background: rgba(26, 26, 46, 0.98);
+        backdrop-filter: blur(10px);
+        padding: 20px 0;
+        text-align: center;
+        border-bottom: 1px solid rgba(233,69,96,0.3);
+        z-index: 999;
+        gap: 0;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
+    .nav-links.open { display: flex; }
+    .nav-links li { margin: 8px 0 !important; }
+    .nav-links a { font-size: 16px; padding: 10px 20px; display: block; }
 
-    /* Custom Cursor Styles (Hide default cursor on desktop) */
-    @media (min-width: 768px) {
-        body { cursor: none; }
-        a, button, input, textarea { cursor: none !important; }
-        
-        .cursor-dot {
-            width: 8px; height: 8px; background-color: var(--accent-color);
-            position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
-            border-radius: 50%; z-index: 10000; pointer-events: none;
-            box-shadow: 0 0 10px var(--accent-color);
-        }
-        
-        .cursor-outline {
-            width: 30px; height: 30px; border: 2px solid var(--accent-color);
-            position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
-            border-radius: 50%; z-index: 9999; pointer-events: none;
-            transition: width 0.2s, height 0.2s, background-color 0.2s;
-        }
-        
-        /* Cursor Hover Effect */
-        .cursor-hover {
-            width: 50px; height: 50px; background-color: rgba(233, 69, 96, 0.1);
-        }
+    .hero-container {
+        flex-direction: column-reverse;
+        text-align: center; gap: 30px;
+        padding: 20px 0;
     }
-`;
-document.head.appendChild(dynamicStyles);
+    .hero-content { display: flex; flex-direction: column; align-items: center; }
+    .profile-pic-wrapper { width: 220px !important; height: 220px !important; }
+    .hero-content h1 { font-size: 1.8rem; }
+}
 
-// --- 3. SCROLL PROGRESS BAR LOGIC ---
-const scrollBar = document.createElement('div');
-scrollBar.id = 'scroll-progress';
-document.body.appendChild(scrollBar);
+@media screen and (max-width: 600px) {
+    nav { padding: 12px 15px; }
+    .logo { font-size: 22px; }
+    .hero-content h1 { font-size: 1.5rem; }
+    .profile-pic-wrapper { width: 180px !important; height: 180px !important; }
+    .content-section { padding: 50px 15px; }
+    .btn { padding: 10px 20px; font-size: 0.9rem; }
+    footer { padding: 30px 15px; }
 
-window.addEventListener('scroll', () => {
-    let scrollDistance = window.scrollY;
-    let totalHeight = document.body.scrollHeight - window.innerHeight;
-    let progress = (scrollDistance / totalHeight) * 100;
-    scrollBar.style.width = Math.min(Math.max(progress, 0), 100) + "%";
-});
-
-// --- 4. CUSTOM NEON CURSOR LOGIC (For Desktop Only) ---
-if (window.innerWidth >= 768) {
-    const cursorDot = document.createElement('div');
-    const cursorOutline = document.createElement('div');
-
-    cursorDot.classList.add('cursor-dot');
-    cursorOutline.classList.add('cursor-outline');
-
-    document.body.appendChild(cursorDot);
-    document.body.appendChild(cursorOutline);
-
-    window.addEventListener('mousemove', function (e) {
-        const posX = e.clientX;
-        const posY = e.clientY;
-
-        // Dot follows instantly
-        cursorDot.style.left = `${posX}px`;
-        cursorDot.style.top = `${posY}px`;
-
-        // Outline follows with a slight delay for smooth effect
-        cursorOutline.animate({
-            left: `${posX}px`,
-            top: `${posY}px`
-        }, { duration: 400, fill: "forwards" });
-    });
-
-    // Add Hover Effect to all Links and Buttons
-    const interactiveElements = document.querySelectorAll('a, button, .flashcard-container, .profile-pic-wrapper');
-    
-    interactiveElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            cursorOutline.classList.add('cursor-hover');
-        });
-        el.addEventListener('mouseleave', () => {
-            cursorOutline.classList.remove('cursor-hover');
-        });
-    });
+    div[style*="max-width: 800px"] {
+        padding: 15px !important;
+    }
 }
