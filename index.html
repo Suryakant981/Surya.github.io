@@ -1,123 +1,703 @@
-// --- 1. DARK/LIGHT MODE WITH MEMORY ---
-const btn = document.getElementById('mode-toggle');
-const icon = btn ? btn.querySelector('i') : null;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suryakant | Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css?v=3">
+    <style>
+        /* ===== PRELOADER ===== */
+        #preloader {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: #1a1a2e;
+            z-index: 99999;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            transition: opacity 0.8s ease, visibility 0.8s;
+        }
+        .loader-text {
+            font-size: 4rem; font-weight: 800;
+            background: linear-gradient(45deg, #ff6b81, #e94560, #ff8a00, #e52e71);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse 1.5s ease-in-out infinite, auto-color 3s linear infinite;
+        }
+        .loader-bar {
+            width: 200px; height: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px; margin-top: 20px; overflow: hidden;
+        }
+        .loader-bar-fill {
+            height: 100%; width: 0%;
+            background: linear-gradient(90deg, #ff6b81, #e94560);
+            border-radius: 10px;
+            animation: loadBar 1.5s ease forwards;
+        }
+        @keyframes loadBar {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(233,69,96,0.5)); }
+            50% { transform: scale(1.1); filter: drop-shadow(0 0 25px rgba(233,69,96,0.9)); }
+        }
+        @keyframes auto-color {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-// Page load hone par check karo ki user ne pehle kaunsa theme chuna tha
-if (localStorage.getItem('theme') === 'dark') {
-    document.body.classList.add('dark-mode');
-    if (icon) {
-        icon.classList.remove('fa-moon');
-        icon.classList.add('fa-sun');
-    }
-}
+        /* ===== HERO ===== */
+        .hero { position: relative; overflow: hidden; }
+        .hero-container { position: relative; z-index: 2; }
 
-// Toggle Button Click Event
-if (btn) {
-    btn.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        
-        // Icon change aur memory save
-        if (document.body.classList.contains('dark-mode')) {
-            localStorage.setItem('theme', 'dark');
-            if (icon) {
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
+        /* ===== GLITCH EFFECT ===== */
+        .glitch {
+            position: relative;
+            animation: glitch-skew 4s infinite linear alternate-reverse;
+        }
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+        }
+        .glitch::before {
+            color: #ff6b81;
+            animation: glitch-effect-1 3s infinite;
+            clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+            transform: translate(-4px, 0);
+        }
+        .glitch::after {
+            color: #00c6ff;
+            animation: glitch-effect-2 3s infinite;
+            clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+            transform: translate(4px, 0);
+        }
+        @keyframes glitch-effect-1 {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-3px, 2px); }
+            40% { transform: translate(3px, -2px); }
+            60% { transform: translate(-3px, 0); }
+            80% { transform: translate(3px, 2px); }
+        }
+        @keyframes glitch-effect-2 {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(3px, -2px); }
+            40% { transform: translate(-3px, 2px); }
+            60% { transform: translate(3px, 0); }
+            80% { transform: translate(-3px, -2px); }
+        }
+        @keyframes glitch-skew {
+            0%, 100% { transform: skewX(0deg); }
+            50% { transform: skewX(0.5deg); }
+        }
+
+        /* ===== TYPING EFFECT ===== */
+        .typing-text {
+            color: #ff6b81;
+            border-right: 3px solid #ff6b81;
+            animation: blink 0.7s step-end infinite;
+            font-weight: 700;
+        }
+        @keyframes blink {
+            0%, 100% { border-color: #ff6b81; }
+            50% { border-color: transparent; }
+        }
+
+        /* ===== SCROLL REVEAL ===== */
+        .reveal {
+            opacity: 0; transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.active {
+            opacity: 1; transform: translateY(0);
+        }
+
+        /* ===== 3D FLIP CARDS ===== */
+        .flashcard-section {
+            padding: 80px 20px; text-align: center;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+        .flashcard-section h2 {
+            color: white; font-size: 2.5rem; margin-bottom: 15px;
+        }
+        .flashcard-section p {
+            color: rgba(255,255,255,0.7); margin-bottom: 50px;
+        }
+        .flashcard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px; max-width: 1100px; margin: 0 auto;
+        }
+        .flashcard-container {
+            height: 280px; perspective: 1000px; cursor: pointer;
+        }
+        .flashcard-inner {
+            position: relative; width: 100%; height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .flashcard-container:hover .flashcard-inner,
+        .flashcard-container.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+        .flashcard-front, .flashcard-back {
+            position: absolute; width: 100%; height: 100%;
+            backface-visibility: hidden; border-radius: 20px;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            padding: 30px;
+        }
+        .flashcard-front {
+            background: linear-gradient(135deg, #1e1e3a, #2a2a4a);
+            border: 1px solid rgba(233, 69, 96, 0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3),
+                        inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+        .flashcard-back {
+            background: linear-gradient(135deg, #e94560, #ff6b81);
+            transform: rotateY(180deg);
+            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.4);
+        }
+        .flashcard-front i {
+            font-size: 3rem; color: #e94560;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 10px rgba(233,69,96,0.5));
+        }
+        .flashcard-front h3 {
+            color: white; font-size: 1.3rem; text-align: center;
+        }
+        .flashcard-front span {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.85rem; margin-top: 10px;
+        }
+        .flashcard-back p {
+            color: white; text-align: center;
+            font-size: 1rem; line-height: 1.7;
+        }
+        .flashcard-back i {
+            font-size: 2rem; color: white;
+            margin-bottom: 15px; opacity: 0.8;
+        }
+
+        /* ===== STATS SECTION ===== */
+        .stats-section {
+            padding: 60px 20px;
+            background: var(--bg-secondary);
+            text-align: center;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 30px; max-width: 900px; margin: 40px auto 0;
+        }
+        .stat-card {
+            padding: 30px 20px;
+            background: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+        .stat-card:hover { transform: translateY(-8px); }
+        .stat-number {
+            font-size: 3rem; font-weight: 800;
+            background: linear-gradient(45deg, #ff6b81, #e94560);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .stat-label {
+            font-size: 0.9rem; color: var(--text-secondary);
+            margin-top: 8px; font-weight: 600;
+        }
+
+        /* ===== FLOATING ELEMENTS ===== */
+        .floating-shapes {
+            position: absolute; width: 100%; height: 100%;
+            top: 0; left: 0; overflow: hidden; z-index: 0;
+            pointer-events: none;
+        }
+        .shape {
+            position: absolute; border-radius: 50%;
+            opacity: 0.08;
+            animation: floatShape 8s ease-in-out infinite;
+        }
+        .shape-1 { width: 300px; height: 300px; background: #e94560; top: -100px; right: -100px; animation-delay: 0s; }
+        .shape-2 { width: 200px; height: 200px; background: #00c6ff; bottom: 50px; left: -50px; animation-delay: 3s; }
+        .shape-3 { width: 150px; height: 150px; background: #ff8a00; top: 50%; right: 10%; animation-delay: 1.5s; }
+        @keyframes floatShape {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(10deg); }
+        }
+
+        /* ===== SKILLS SECTION ENHANCED ===== */
+        .skill-bar-fill {
+            height: 100%; border-radius: 10px;
+            background: linear-gradient(90deg, #ff4d4d, #d81b60);
+            width: 0%;
+            transition: width 1.5s ease-in-out;
+            position: relative; overflow: hidden;
+        }
+        .skill-bar-fill::after {
+            content: '';
+            position: absolute; top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* ===== NEON GLOW EFFECT ===== */
+        .neon-text {
+            text-shadow: 0 0 10px rgba(233,69,96,0.5),
+                         0 0 20px rgba(233,69,96,0.3),
+                         0 0 40px rgba(233,69,96,0.2);
+        }
+
+        /* ===== MOBILE RESPONSIVE EXTRA ===== */
+        @media (max-width: 768px) {
+            .flashcard-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
             }
-        } else {
-            localStorage.setItem('theme', 'light');
-            if (icon) {
-                icon.classList.remove('fa-sun');
-                icon.classList.add('fa-moon');
+            .flashcard-container { height: 220px; }
+            .flashcard-front h3 { font-size: 1rem; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            .loader-text { font-size: 2.5rem; }
+            .glitch { font-size: 1.6rem !important; }
+        }
+        @media (max-width: 480px) {
+            .flashcard-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PRELOADER -->
+    <div id="preloader">
+        <div class="loader-text">Surya</div>
+        <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="logo">Surya</div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="suryakant-resume.jpg" target="_blank" class="hire-btn">Hire Me</a></li>
+            <li><button id="mode-toggle" class="theme-btn"><i class="fas fa-moon"></i></button></li>
+        </ul>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div id="particles-js" style="position:absolute;width:100%;height:100%;top:0;left:0;z-index:1;"></div>
+        
+        <!-- Floating Shapes -->
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+
+        <div class="hero-container">
+            <div class="hero-content reveal">
+                <h1 class="glitch" data-text="Hey I'm Surya 👋" style="font-size:2.2rem; margin-bottom:10px;">
+                    Hey I'm Surya 👋
+                </h1>
+                <h2 style="font-size:1.3rem; color:rgba(255,255,255,0.8); margin-bottom:15px; font-weight:400;">
+                    I'm a <span class="typing-text" id="typing"></span>
+                </h2>
+                <p style="color:rgba(255,255,255,0.75); max-width:550px; margin-bottom:20px;">
+                    I am a results-driven 6th Semester BCA Student from Bangalore University, dedicated to solving real-world challenges through technology.
+                    <span id="dots">...</span>
+                    <span id="more-text">
+                        My expertise is highlighted by <strong>RAKSHA SURAKSHA</strong>—a military-grade personal safety Android application featuring a 3-Tier security architecture. 
+                        Co-developed with S. Jaya Kumar, this tactical command system utilizes native Java, Firebase, and offline SQLite Vaults to track devices and route off-grid maps without internet dependence.
+                    </span>
+                    <button onclick="readMoreFunc()" id="readMoreBtn" class="read-more-btn">Read More</button>
+                </p>
+                <div style="display:flex; gap:15px; flex-wrap:wrap; margin-top:25px;">
+                    <a href="projects.html" class="btn">🚀 View My Work</a>
+                    <a href="suryakant-resume.jpg" target="_blank" class="hire-btn">
+                        <i class="fas fa-file-download"></i> Hire Me / Resume
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-image-container reveal">
+                <div class="profile-pic-wrapper" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.5">
+                    <img src="profile.jpg" alt="Suryakant" class="profile-photo">
+                    <div class="profile-overlay">
+                        <i class="fas fa-user-tie" style="font-size:2rem; margin-bottom:8px;"></i>
+                        <span>Suryakant</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS SECTION -->
+    <section class="stats-section reveal">
+        <h2 class="neon-text" style="font-size:2rem; margin-bottom:5px;">By The Numbers</h2>
+        <p style="color:var(--text-secondary);">A snapshot of my journey so far</p>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" data-count="6">0</div>
+                <div class="stat-label">📚 Semesters Completed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-count="5">0</div>
+                <div class="stat-label">🚀 Projects Built</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-count="1">0</div>
+                <div class="stat-label">💼 Internship Done</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-count="5">0</div>
+                <div class="stat-label">🛠️ Skills Mastered</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section class="content-section reveal">
+        <h2>Technical Skills</h2>
+        <p style="margin-bottom:40px; color:var(--text-secondary);">Visual representation of my skills & proficiencies</p>
+        
+        <div style="max-width:800px; margin:0 auto; text-align:left; padding:30px; border-radius:20px; background:rgba(128,128,128,0.05); border:1px solid rgba(128,128,128,0.1); box-shadow: 0 10px 40px rgba(0,0,0,0.08);">
+            
+            <div style="margin-bottom:25px;">
+                <div style="display:flex; justify-content:space-between; font-weight:bold; margin-bottom:8px;">
+                    <span><i class="fab fa-html5" style="color:#e34f26; margin-right:10px;"></i>HTML / CSS / JavaScript</span>
+                    <span style="color:var(--accent-color);">90%</span>
+                </div>
+                <div style="background:rgba(128,128,128,0.2); border-radius:10px; height:12px; overflow:hidden;">
+                    <div class="skill-bar-fill" data-width="90"></div>
+                </div>
+            </div>
+
+            <div style="margin-bottom:25px;">
+                <div style="display:flex; justify-content:space-between; font-weight:bold; margin-bottom:8px;">
+                    <span><i class="fab fa-java" style="color:#5382a1; margin-right:10px;"></i>Native Java / Android</span>
+                    <span style="color:var(--accent-color);">85%</span>
+                </div>
+                <div style="background:rgba(128,128,128,0.2); border-radius:10px; height:12px; overflow:hidden;">
+                    <div class="skill-bar-fill" data-width="85"></div>
+                </div>
+            </div>
+
+            <div style="margin-bottom:25px;">
+                <div style="display:flex; justify-content:space-between; font-weight:bold; margin-bottom:8px;">
+                    <span><i class="fab fa-python" style="color:#3776ab; margin-right:10px;"></i>Python & Voice AI</span>
+                    <span style="color:var(--accent-color);">80%</span>
+                </div>
+                <div style="background:rgba(128,128,128,0.2); border-radius:10px; height:12px; overflow:hidden;">
+                    <div class="skill-bar-fill" data-width="80"></div>
+                </div>
+            </div>
+
+            <div style="margin-bottom:25px;">
+                <div style="display:flex; justify-content:space-between; font-weight:bold; margin-bottom:8px;">
+                    <span><i class="fas fa-search-location" style="color:#fbbc05; margin-right:10px;"></i>Technical SEO</span>
+                    <span style="color:var(--accent-color);">85%</span>
+                </div>
+                <div style="background:rgba(128,128,128,0.2); border-radius:10px; height:12px; overflow:hidden;">
+                    <div class="skill-bar-fill" data-width="85"></div>
+                </div>
+            </div>
+
+            <div>
+                <div style="display:flex; justify-content:space-between; font-weight:bold; margin-bottom:8px;">
+                    <span><i class="fas fa-database" style="color:#4479a1; margin-right:10px;"></i>MySQL / SQLite</span>
+                    <span style="color:var(--accent-color);">80%</span>
+                </div>
+                <div style="background:rgba(128,128,128,0.2); border-radius:10px; height:12px; overflow:hidden;">
+                    <div class="skill-bar-fill" data-width="80"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3D FLASH CARDS SECTION -->
+    <section class="flashcard-section reveal">
+        <h2>✨ What I Bring To The Table</h2>
+        <p>Hover over the cards to discover more about my expertise!</p>
+        <div class="flashcard-grid">
+
+            <div class="flashcard-container">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h3>Android Development</h3>
+                        <span>Hover to know more ↻</span>
+                    </div>
+                    <div class="flashcard-back">
+                        <i class="fas fa-mobile-alt"></i>
+                        <p>Built military-grade Android apps using Native Java, Firebase & SQLite with offline capabilities.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flashcard-container">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <i class="fas fa-globe"></i>
+                        <h3>Web Development</h3>
+                        <span>Hover to know more ↻</span>
+                    </div>
+                    <div class="flashcard-back">
+                        <i class="fas fa-globe"></i>
+                        <p>Expert in HTML5, CSS3 & JavaScript. Built responsive, SEO-optimized websites with modern UI/UX.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flashcard-container">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <i class="fas fa-search"></i>
+                        <h3>SEO Specialist</h3>
+                        <span>Hover to know more ↻</span>
+                    </div>
+                    <div class="flashcard-back">
+                        <i class="fas fa-search"></i>
+                        <p>Technical SEO, Google Search Console, sitemap optimization & structured data implementation.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flashcard-container">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <i class="fas fa-brain"></i>
+                        <h3>AI & Automation</h3>
+                        <span>Hover to know more ↻</span>
+                    </div>
+                    <div class="flashcard-back">
+                        <i class="fas fa-brain"></i>
+                        <p>Python-based Voice AI, automation scripts & intelligent system design for real-world problems.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flashcard-container">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Security Systems</h3>
+                        <span>Hover to know more ↻</span>
+                    </div>
+                    <div class="flashcard-back">
+                        <i class="fas fa-shield-alt"></i>
+                        <p>Designed 3-Tier security architecture for RAKSHA SURAKSHA with encrypted offline data vaults.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flashcard-container">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <i class="fas fa-database"></i>
+                        <h3>Database Design</h3>
+                        <span>Hover to know more ↻</span>
+                    </div>
+                    <div class="flashcard-back">
+                        <i class="fas fa-database"></i>
+                        <p>MySQL & SQLite database design, optimization & offline sync for high-performance applications.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FEATURED PROJECTS -->
+    <section class="content-section bg-secondary reveal">
+        <h2>Featured Projects</h2>
+        <p style="margin-bottom:40px; color:var(--text-secondary);">A quick look at my technical accomplishments</p>
+        <div class="project-grid">
+            <div class="project-card" data-tilt data-tilt-max="10" data-tilt-speed="400">
+                <i class="fas fa-briefcase card-icon"></i>
+                <h3>Web Intern</h3>
+                <p>Completed a 1-month professional internship at Codec Technologies with an LOR.</p>
+                <br>
+                <a href="about.html" class="btn">Learn More</a>
+            </div>
+            <div class="project-card" data-tilt data-tilt-max="10" data-tilt-speed="400">
+                <i class="fas fa-globe card-icon"></i>
+                <h3>SEO & Hosting</h3>
+                <p>Optimized portfolio structures for better search visibility and cloud hosting.</p>
+                <br>
+                <a href="projects.html" class="btn">Learn More</a>
+            </div>
+        </div>
+        <div style="margin-top:50px;">
+            <a href="projects.html" class="btn">View All My Work 🚀</a>
+        </div>
+    </section>
+
+    <!-- WHATSAPP BUTTON -->
+    <a href="https://wa.me/917860636624?text=Hi%20Suryakant,%20I%20saw%20your%20portfolio!" 
+       target="_blank" 
+       style="position:fixed; bottom:20px; right:20px; background:#25d366; color:white; padding:15px 20px; border-radius:50px; font-size:20px; box-shadow:2px 2px 10px rgba(0,0,0,0.3); z-index:1000; text-decoration:none; animation: pulse-wa 2s infinite;">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    <style>
+        @keyframes pulse-wa {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(37,211,102,0.4); }
+            50% { box-shadow: 0 0 0 15px rgba(37,211,102,0); }
+        }
+    </style>
+
+    <!-- FOOTER -->
+    <footer>
+        <div style="margin-bottom:15px;">
+            <a href="https://github.com/Suryakant981" target="_blank" style="color:white; margin:0 15px; font-size:22px;"><i class="fab fa-github"></i></a>
+            <a href="https://linkedin.com/in/suryakant-chaudhary-8a0926291" target="_blank" style="color:white; margin:0 15px; font-size:22px;"><i class="fab fa-linkedin"></i></a>
+            <a href="https://instagram.com/itz_introvert_pankaj" target="_blank" style="color:white; margin:0 15px; font-size:22px;"><i class="fab fa-instagram"></i></a>
+            <a href="mailto:suryakantc981@gmail.com" style="color:white; margin:0 15px; font-size:22px;"><i class="fas fa-envelope"></i></a>
+        </div>
+        <p>&copy; 2026 Suryakant. All rights reserved.</p>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+    <script>
+        // 1. PRELOADER
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                var pre = document.getElementById('preloader');
+                pre.style.opacity = '0';
+                setTimeout(function() { pre.style.visibility = 'hidden'; }, 500);
+            }, 1500);
+        });
+
+        // 2. PARTICLES
+        particlesJS("particles-js", {
+            particles: {
+                number: { value: 70, density: { enable: true, value_area: 800 } },
+                color: { value: ["#e94560", "#00c6ff", "#ff8a00"] },
+                shape: { type: "circle" },
+                opacity: { value: 0.6, random: true },
+                size: { value: 3, random: true },
+                line_linked: { enable: true, distance: 150, color: "#e94560", opacity: 0.3, width: 1 },
+                move: { enable: true, speed: 2, random: true, out_mode: "out" }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "repulse" },
+                    onclick: { enable: true, mode: "push" },
+                    resize: true
+                },
+                modes: {
+                    repulse: { distance: 100 },
+                    push: { particles_nb: 5 }
+                }
+            },
+            retina_detect: true
+        });
+
+        // 3. TYPING EFFECT
+        const typingEl = document.getElementById('typing');
+        const words = ['BCA Student 🎓', 'Android Developer 📱', 'Web Developer 💻', 'SEO Specialist 🔍', 'AI Enthusiast 🤖'];
+        let wordIndex = 0, charIndex = 0, isDeleting = false;
+
+        function typeWriter() {
+            const current = words[wordIndex];
+            if (isDeleting) {
+                typingEl.textContent = current.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingEl.textContent = current.substring(0, charIndex + 1);
+                charIndex++;
+            }
+            if (!isDeleting && charIndex === current.length) {
+                setTimeout(() => isDeleting = true, 1500);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % words.length;
+            }
+            setTimeout(typeWriter, isDeleting ? 60 : 120);
+        }
+        typeWriter();
+
+        // 4. SCROLL REVEAL
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+        reveals.forEach(el => observer.observe(el));
+
+        // 5. SKILL BARS ANIMATION
+        const skillBars = document.querySelectorAll('.skill-bar-fill');
+        const skillObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const width = entry.target.getAttribute('data-width');
+                    entry.target.style.width = width + '%';
+                }
+            });
+        }, { threshold: 0.3 });
+        skillBars.forEach(bar => skillObserver.observe(bar));
+
+        // 6. COUNTER ANIMATION
+        const counters = document.querySelectorAll('.stat-number');
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseInt(entry.target.getAttribute('data-count'));
+                    let count = 0;
+                    const timer = setInterval(() => {
+                        count++;
+                        entry.target.textContent = count + '+';
+                        if (count >= target) clearInterval(timer);
+                    }, 200);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        counters.forEach(c => counterObserver.observe(c));
+
+        // 7. READ MORE
+        function readMoreFunc() {
+            var dots = document.getElementById("dots");
+            var more = document.getElementById("more-text");
+            var btn = document.getElementById("readMoreBtn");
+            if (dots.style.display === "none") {
+                dots.style.display = "inline";
+                btn.innerHTML = "Read More";
+                more.style.display = "none";
+            } else {
+                dots.style.display = "none";
+                btn.innerHTML = "Read Less";
+                more.style.display = "inline";
             }
         }
-    });
-}
 
-// --- 2. DYNAMIC CSS FOR CURSOR & SCROLL BAR ---
-// HTML/CSS edit karne ki zaroorat nahi, JS khud styles inject karega
-const dynamicStyles = document.createElement('style');
-dynamicStyles.innerHTML = `
-    /* Scroll Progress Bar */
-    #scroll-progress {
-        position: fixed; top: 0; left: 0; width: 0%; height: 4px;
-        background: linear-gradient(to right, #ff6b81, #e94560);
-        z-index: 10001; box-shadow: 0 0 10px #e94560;
-    }
-
-    /* Custom Cursor Styles (Hide default cursor on desktop) */
-    @media (min-width: 768px) {
-        body { cursor: none; }
-        a, button, input, textarea { cursor: none !important; }
-        
-        .cursor-dot {
-            width: 8px; height: 8px; background-color: var(--accent-color);
-            position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
-            border-radius: 50%; z-index: 10000; pointer-events: none;
-            box-shadow: 0 0 10px var(--accent-color);
-        }
-        
-        .cursor-outline {
-            width: 30px; height: 30px; border: 2px solid var(--accent-color);
-            position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
-            border-radius: 50%; z-index: 9999; pointer-events: none;
-            transition: width 0.2s, height 0.2s, background-color 0.2s;
-        }
-        
-        /* Cursor Hover Effect */
-        .cursor-hover {
-            width: 50px; height: 50px; background-color: rgba(233, 69, 96, 0.1);
-        }
-    }
-`;
-document.head.appendChild(dynamicStyles);
-
-// --- 3. SCROLL PROGRESS BAR LOGIC ---
-const scrollBar = document.createElement('div');
-scrollBar.id = 'scroll-progress';
-document.body.appendChild(scrollBar);
-
-window.addEventListener('scroll', () => {
-    let scrollDistance = window.scrollY;
-    let totalHeight = document.body.scrollHeight - window.innerHeight;
-    let progress = (scrollDistance / totalHeight) * 100;
-    scrollBar.style.width = Math.min(Math.max(progress, 0), 100) + "%";
-});
-
-// --- 4. CUSTOM NEON CURSOR LOGIC (For Desktop Only) ---
-if (window.innerWidth >= 768) {
-    const cursorDot = document.createElement('div');
-    const cursorOutline = document.createElement('div');
-
-    cursorDot.classList.add('cursor-dot');
-    cursorOutline.classList.add('cursor-outline');
-
-    document.body.appendChild(cursorDot);
-    document.body.appendChild(cursorOutline);
-
-    window.addEventListener('mousemove', function (e) {
-        const posX = e.clientX;
-        const posY = e.clientY;
-
-        // Dot follows instantly
-        cursorDot.style.left = `${posX}px`;
-        cursorDot.style.top = `${posY}px`;
-
-        // Outline follows with a slight delay for smooth effect
-        cursorOutline.animate({
-            left: `${posX}px`,
-            top: `${posY}px`
-        }, { duration: 400, fill: "forwards" });
-    });
-
-    // Add Hover Effect to all Links and Buttons
-    const interactiveElements = document.querySelectorAll('a, button, .flashcard-container, .profile-pic-wrapper');
-    
-    interactiveElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            cursorOutline.classList.add('cursor-hover');
+        // 8. FLASHCARD TOUCH SUPPORT (Mobile)
+        document.querySelectorAll('.flashcard-container').forEach(card => {
+            card.addEventListener('click', () => {
+                card.classList.toggle('flipped');
+            });
         });
-        el.addEventListener('mouseleave', () => {
-            cursorOutline.classList.remove('cursor-hover');
-        });
-    });
-}
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
