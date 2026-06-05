@@ -163,4 +163,27 @@ footer { padding: 40px; background-color: var(--nav-bg); color: white; text-alig
     .content-section span { font-size: 0.8rem !important; }
     
     .project-grid { grid-template-columns: 1fr !important; }
+
+    /* =========================================
+   FORCE CLEAN TEXT - NO GRADIENTS OR GLOW
+   ========================================= */
+h1, h2, h3, h4, p, span, .logo, .hero-content h1, .typewriter-container h2 {
+    background: none !important;
+    -webkit-text-fill-color: currentcolor !important;
+    -webkit-background-clip: border-box !important;
+    background-clip: border-box !important;
+    animation: none !important; /* Roke auto-color ya pulse animation ko */
+    text-shadow: none !important; /* Agar koi glowing shadow hai toh use hatayega */
+}
+
+/* Ensure Heading is Solid White */
+.hero-content h1 {
+    color: #ffffff !important;
+}
+
+/* Ensure Logo is Solid Accent Color */
+.logo {
+    color: var(--accent-color) !important;
+}
+    
 }
