@@ -6,7 +6,8 @@
     <title>Suryakant | About Me</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=2">
+    <!-- Version 5 for breaking the cache -->
+    <link rel="stylesheet" href="style.css?v=5">
     
     <style>
         /* Preloader */
@@ -16,52 +17,36 @@
             transition: opacity 0.5s ease, visibility 0.5s;
         }
         .loader span {
-            font-size: 4rem; font-weight: 800;
-            background: linear-gradient(45deg, #ff6b81, #e94560, #ff8a00, #e52e71);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.8; filter: drop-shadow(0 0 10px rgba(233, 69, 96, 0.5)); }
-            50% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 25px rgba(233, 69, 96, 0.9)); }
-            100% { transform: scale(1); opacity: 0.8; filter: drop-shadow(0 0 10px rgba(233, 69, 96, 0.5)); }
+            font-size: 3rem; font-weight: 800;
+            color: #ffffff;
+            letter-spacing: 2px;
         }
 
-        /* Typewriter Effect */
-        .typewriter-container h2 {
-            display: inline-block; overflow: hidden; white-space: nowrap;
-            border-right: 3px solid var(--accent-color);
-            animation: typing 2.5s steps(30, end), blink-caret .75s step-end infinite;
-            font-size: 2.5rem;
-        }
-        @keyframes typing { from { width: 0 } to { width: 100% } }
-        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--accent-color); } }
-
-        /* 3D Main Intro Card */
+        /* Clean 3D Main Intro Card */
         .intro-card {
             background: var(--card-bg);
             padding: 40px;
             border-radius: 15px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             border-left: 5px solid var(--accent-color);
-            margin: 40px auto;
+            margin: 20px auto 40px;
             max-width: 900px;
             text-align: left;
             transform-style: preserve-3d;
         }
         .intro-card p {
             font-size: 1.05rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: 15px;
-            transform: translateZ(20px);
+            transform: translateZ(10px);
         }
 
-        /* 3D Flip Flashcard CSS */
+        /* 3D Flip Flashcard CSS - Cleaned Up */
         .flashcard-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px; margin-top: 40px;
         }
         .flashcard-container { perspective: 1000px; }
         .flashcard {
-            width: 100%; height: 420px; position: relative;
+            width: 100%; height: 380px; position: relative;
             transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             transform-style: preserve-3d; cursor: pointer;
         }
@@ -69,24 +54,32 @@
         
         .flashcard-front, .flashcard-back {
             position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
-            border-radius: 15px; padding: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-radius: 15px; padding: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.08);
             display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
         }
         .flashcard-front { background: var(--card-bg); border-top: 5px solid var(--accent-color); }
-        .flashcard-front h3 { margin-top: 15px; font-size: 1.4rem; }
+        .flashcard-front h3 { margin-top: 15px; font-size: 1.3rem; color: var(--text-primary); }
         
         .flashcard-back {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: white; transform: rotateY(180deg); border: 2px solid var(--accent-color);
+            background: var(--accent-color); /* Solid Color matching your theme */
+            color: white; transform: rotateY(180deg);
         }
-        .flashcard-back p { font-size: 0.95rem; margin-bottom: 15px; line-height: 1.5; color: #dcdcdc; }
+        .flashcard-back p { font-size: 0.95rem; margin-bottom: 15px; line-height: 1.6; color: #ffffff; }
+        .flashcard-back h3 { color: #ffffff; margin-bottom: 10px; }
         
         /* Entrance Animations */
         .fade-in-up {
-            opacity: 0; transform: translateY(40px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
         .fade-in-up.show { opacity: 1; transform: translateY(0); }
+
+        /* Mobile specific fixes */
+        @media screen and (max-width: 768px) {
+            .intro-card { padding: 25px 20px; }
+            .intro-card p { font-size: 0.95rem; }
+            .flashcard { height: 320px; }
+        }
     </style>
 </head>
 <body>
@@ -98,6 +91,7 @@
         </div>
     </div>
 
+    <!-- Navigation -->
     <nav>
         <div class="logo">Surya</div>
         <ul class="nav-links">
@@ -109,14 +103,14 @@
         </ul>
     </nav>
 
+    <!-- Main About Section -->
     <section class="content-section" style="padding-top: 120px;">
-        <!-- Clean Heading with Typewriter Effect -->
-        <div class="typewriter-container">
-            <h2>About Me</h2>
-        </div>
+        
+        <!-- Clean Solid Heading (Removed Typewriter effect) -->
+        <h2 style="font-size: 2.5rem; margin-bottom: 10px; color: var(--text-primary);">About Me</h2>
 
-        <!-- 3D Tilt Intro Card (CLEANED - NO GARBAGE TEXT) -->
-        <div class="intro-card fade-in-up" data-tilt data-tilt-max="3" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.1">
+        <!-- Clean 3D Tilt Intro Card -->
+        <div class="intro-card fade-in-up" data-tilt data-tilt-max="2" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.05">
             <p>I am a Final-Year BCA Student with a deep passion for IT Infrastructure and Software Development. My journey in technology is driven by a desire to create autonomous solutions that solve critical real-world problems. This ambition led to the development of <strong>SENTINEL-X</strong>, a context-aware 3-tier autonomous SOS system that utilizes 'Dead Man’s Switch' logic to ensure user safety and hardware security without relying on active internet connectivity.</p>
             
             <p>My technical background is comprehensive, featuring a one-year Advanced Diploma in Computer Applications (ADCA) and proficiency in Tally. I have a strong command over Python and Web Development, skills I further polished during a professional internship at Codec Technologies where I focused on responsive design and technical SEO.</p>
@@ -127,8 +121,8 @@
 
     <!-- 3D Flashcards for Experience -->
     <section class="content-section bg-secondary">
-        <h2>Experience & Certifications</h2>
-        <p>Hover over the cards to view details and certificates.</p>
+        <h2 style="color: var(--text-primary);">Experience & Certifications</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 20px;">Hover over the cards to view details and certificates.</p>
         
         <div class="flashcard-grid">
             
@@ -137,17 +131,17 @@
                 <div class="flashcard">
                     <!-- Front -->
                     <div class="flashcard-front">
-                        <i class="fas fa-laptop-code" style="font-size: 4rem; color: #fbbc05;"></i>
+                        <i class="fas fa-laptop-code" style="font-size: 3.5rem; color: var(--accent-color);"></i>
                         <h3>Web Developer Intern</h3>
                         <p style="margin-top: 10px; color: var(--text-secondary);">Codec Technologies</p>
                     </div>
                     <!-- Back -->
                     <div class="flashcard-back">
                         <h3>1-Month Internship</h3>
-                        <p style="margin-top: 10px;">Built responsive web layouts using HTML, CSS, Bootstrap, and JavaScript. Integrated REST APIs, learned backend fundamentals (Node.js/MongoDB), and successfully deployed full-stack web applications utilizing Git.</p>
+                        <p>Built responsive web layouts using HTML, CSS, Bootstrap, and JavaScript. Integrated REST APIs, learned backend fundamentals (Node.js/MongoDB), and successfully deployed full-stack web applications utilizing Git.</p>
                         <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 15px;">
-                            <a href="codec-certificate.pdf" target="_blank" class="btn" style="padding: 8px 15px; font-size: 0.85rem;">Certificate</a>
-                            <a href="codec-lor.pdf" target="_blank" class="btn" style="padding: 8px 15px; font-size: 0.85rem; background-color: #2a2a4a;">LOR</a>
+                            <a href="codec-certificate.pdf" target="_blank" class="btn" style="padding: 8px 15px; font-size: 0.85rem; background-color: #ffffff; color: var(--text-primary);">Certificate</a>
+                            <a href="codec-lor.pdf" target="_blank" class="btn" style="padding: 8px 15px; font-size: 0.85rem; background-color: #1a1a2e; color: #ffffff;">LOR</a>
                         </div>
                     </div>
                 </div>
@@ -158,14 +152,14 @@
                 <div class="flashcard">
                     <!-- Front -->
                     <div class="flashcard-front">
-                        <i class="fas fa-certificate" style="font-size: 4rem; color: #d81b60;"></i>
+                        <i class="fas fa-certificate" style="font-size: 3.5rem; color: var(--accent-color);"></i>
                         <h3>ADCA Certification</h3>
                         <p style="margin-top: 10px; color: var(--text-secondary);">IT Administration</p>
                     </div>
                     <!-- Back -->
                     <div class="flashcard-back">
                         <h3>Technical Diploma</h3>
-                        <p style="margin-top: 10px;">Completed a one-year Advanced Diploma in Computer Applications (ADCA). Developed strong proficiency in Tally, Office Management, and foundational IT Infrastructure to approach projects with an organizational mindset.</p>
+                        <p>Completed a one-year Advanced Diploma in Computer Applications (ADCA). Developed strong proficiency in Tally, Office Management, and foundational IT Infrastructure to approach projects with an organizational mindset.</p>
                     </div>
                 </div>
             </div>
@@ -173,12 +167,14 @@
         </div>
     </section>
 
+    <!-- Connect Section -->
     <section class="content-section">
-        <h2>Let's Connect</h2>
-        <p>Whether you want to discuss AI, Python development, or just say hi, feel free to reach out!</p>
-        <br>
-        <a href="https://instagram.com/itz_introvert_pankaj" target="_blank" class="social-btn btn" style="background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); border: none;">
-            <i class="fab fa-instagram"></i> Instagram
+        <h2 style="color: var(--text-primary);">Let's Connect</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 25px;">Whether you want to discuss AI, Python development, or just say hi, feel free to reach out!</p>
+        
+        <!-- Clean Solid Button for Instagram (Removed Gradient) -->
+        <a href="https://www.instagram.com/itz_introvert_pankaj/" target="_blank" class="btn" style="font-size: 1.1rem; padding: 12px 30px;">
+            <i class="fab fa-instagram" style="margin-right: 8px;"></i> Instagram
         </a>
     </section>
 
@@ -189,11 +185,12 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
+    <!-- Footer -->
     <footer>
         <div style="margin-bottom: 15px;">
             <a href="https://github.com/Suryakant981" target="_blank" style="color: white; margin: 0 15px; font-size: 22px;"><i class="fab fa-github"></i></a>
             <a href="https://linkedin.com/in/suryakant-chaudhary-8a0926291" target="_blank" style="color: white; margin: 0 15px; font-size: 22px;"><i class="fab fa-linkedin"></i></a>
-            <a href="https://instagram.com/itz_introvert_pankaj" target="_blank" style="color: white; margin: 0 15px; font-size: 22px;"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.instagram.com/itz_introvert_pankaj/" target="_blank" style="color: white; margin: 0 15px; font-size: 22px;"><i class="fab fa-instagram"></i></a>
         </div>
         <p>&copy; 2026 Suryakant. All rights reserved.</p>
     </footer>
