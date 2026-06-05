@@ -6,9 +6,9 @@
     <title>Suryakant | Home</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=3">
+    <link rel="stylesheet" href="style.css?v=4">
     <style>
-        /* ===== PRELOADER ===== */
+        /* ===== PRELOADER (CLEANED) ===== */
         #preloader {
             position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
@@ -20,11 +20,8 @@
         }
         .loader-text {
             font-size: 4rem; font-weight: 800;
-            background: linear-gradient(45deg, #ff6b81, #e94560, #ff8a00, #e52e71);
-            background-size: 300% 300%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: pulse 1.5s ease-in-out infinite, auto-color 3s linear infinite;
+            color: #ffffff; /* Solid White */
+            letter-spacing: 2px;
         }
         .loader-bar {
             width: 200px; height: 4px;
@@ -33,7 +30,7 @@
         }
         .loader-bar-fill {
             height: 100%; width: 0%;
-            background: linear-gradient(90deg, #ff6b81, #e94560);
+            background: #e94560; /* Solid Color */
             border-radius: 10px;
             animation: loadBar 1.5s ease forwards;
         }
@@ -41,70 +38,20 @@
             0% { width: 0%; }
             100% { width: 100%; }
         }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(233,69,96,0.5)); }
-            50% { transform: scale(1.1); filter: drop-shadow(0 0 25px rgba(233,69,96,0.9)); }
-        }
-        @keyframes auto-color {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
 
         /* ===== HERO ===== */
         .hero { position: relative; overflow: hidden; }
         .hero-container { position: relative; z-index: 2; }
 
-        /* ===== GLITCH EFFECT ===== */
-        .glitch {
-            position: relative;
-            animation: glitch-skew 4s infinite linear alternate-reverse;
-        }
-        .glitch::before, .glitch::after {
-            content: attr(data-text);
-            position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%;
-        }
-        .glitch::before {
-            color: #ff6b81;
-            animation: glitch-effect-1 3s infinite;
-            clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
-            transform: translate(-4px, 0);
-        }
-        .glitch::after {
-            color: #00c6ff;
-            animation: glitch-effect-2 3s infinite;
-            clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
-            transform: translate(4px, 0);
-        }
-        @keyframes glitch-effect-1 {
-            0%, 100% { transform: translate(0); }
-            20% { transform: translate(-3px, 2px); }
-            40% { transform: translate(3px, -2px); }
-            60% { transform: translate(-3px, 0); }
-            80% { transform: translate(3px, 2px); }
-        }
-        @keyframes glitch-effect-2 {
-            0%, 100% { transform: translate(0); }
-            20% { transform: translate(3px, -2px); }
-            40% { transform: translate(-3px, 2px); }
-            60% { transform: translate(3px, 0); }
-            80% { transform: translate(-3px, -2px); }
-        }
-        @keyframes glitch-skew {
-            0%, 100% { transform: skewX(0deg); }
-            50% { transform: skewX(0.5deg); }
-        }
-
-        /* ===== TYPING EFFECT ===== */
+        /* ===== TYPING EFFECT (CLEANED) ===== */
         .typing-text {
-            color: #ff6b81;
-            border-right: 3px solid #ff6b81;
+            color: #e94560; /* Solid Accent Color */
+            border-right: 3px solid #e94560;
             animation: blink 0.7s step-end infinite;
             font-weight: 700;
         }
         @keyframes blink {
-            0%, 100% { border-color: #ff6b81; }
+            0%, 100% { border-color: #e94560; }
             50% { border-color: transparent; }
         }
 
@@ -153,20 +100,18 @@
             padding: 30px;
         }
         .flashcard-front {
-            background: linear-gradient(135deg, #1e1e3a, #2a2a4a);
+            background: #1e1e3a; /* Clean Solid Background */
             border: 1px solid rgba(233, 69, 96, 0.3);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3),
-                        inset 0 1px 0 rgba(255,255,255,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
         .flashcard-back {
-            background: linear-gradient(135deg, #e94560, #ff6b81);
+            background: #e94560; /* Clean Solid Background */
             transform: rotateY(180deg);
             box-shadow: 0 10px 30px rgba(233, 69, 96, 0.4);
         }
         .flashcard-front i {
             font-size: 3rem; color: #e94560;
             margin-bottom: 20px;
-            filter: drop-shadow(0 0 10px rgba(233,69,96,0.5));
         }
         .flashcard-front h3 {
             color: white; font-size: 1.3rem; text-align: center;
@@ -184,7 +129,7 @@
             margin-bottom: 15px; opacity: 0.8;
         }
 
-        /* ===== STATS SECTION ===== */
+        /* ===== STATS SECTION (CLEANED) ===== */
         .stats-section {
             padding: 60px 20px;
             background: var(--bg-secondary);
@@ -205,9 +150,7 @@
         .stat-card:hover { transform: translateY(-8px); }
         .stat-number {
             font-size: 3rem; font-weight: 800;
-            background: linear-gradient(45deg, #ff6b81, #e94560);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #e94560; /* Solid Color Instead of Gradient */
         }
         .stat-label {
             font-size: 0.9rem; color: var(--text-secondary);
@@ -236,28 +179,10 @@
         /* ===== SKILLS SECTION ENHANCED ===== */
         .skill-bar-fill {
             height: 100%; border-radius: 10px;
-            background: linear-gradient(90deg, #ff4d4d, #d81b60);
+            background: #e94560; /* Clean Solid Color */
             width: 0%;
             transition: width 1.5s ease-in-out;
             position: relative; overflow: hidden;
-        }
-        .skill-bar-fill::after {
-            content: '';
-            position: absolute; top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: shimmer 2s infinite;
-        }
-        @keyframes shimmer {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-
-        /* ===== NEON GLOW EFFECT ===== */
-        .neon-text {
-            text-shadow: 0 0 10px rgba(233,69,96,0.5),
-                         0 0 20px rgba(233,69,96,0.3),
-                         0 0 40px rgba(233,69,96,0.2);
         }
 
         /* ===== MOBILE RESPONSIVE EXTRA ===== */
@@ -270,7 +195,6 @@
             .flashcard-front h3 { font-size: 1rem; }
             .stats-grid { grid-template-columns: 1fr 1fr; }
             .loader-text { font-size: 2.5rem; }
-            .glitch { font-size: 1.6rem !important; }
         }
         @media (max-width: 480px) {
             .flashcard-grid { grid-template-columns: 1fr; }
@@ -311,7 +235,8 @@
 
         <div class="hero-container">
             <div class="hero-content reveal">
-                <h1 class="glitch" data-text="Hey I'm Surya 👋" style="font-size:2.2rem; margin-bottom:10px;">
+                <!-- Cleaned H1 Header (No Glitch) -->
+                <h1 style="font-size:2.2rem; margin-bottom:10px; color:#ffffff;">
                     Hey I'm Surya 👋
                 </h1>
                 <h2 style="font-size:1.3rem; color:rgba(255,255,255,0.8); margin-bottom:15px; font-weight:400;">
@@ -348,7 +273,8 @@
 
     <!-- STATS SECTION -->
     <section class="stats-section reveal">
-        <h2 class="neon-text" style="font-size:2rem; margin-bottom:5px;">By The Numbers</h2>
+        <!-- Cleaned H2 Header (No Neon) -->
+        <h2 style="font-size:2rem; margin-bottom:5px; color:var(--text-primary);">By The Numbers</h2>
         <p style="color:var(--text-secondary);">A snapshot of my journey so far</p>
         <div class="stats-grid">
             <div class="stat-card">
@@ -372,7 +298,7 @@
 
     <!-- SKILLS SECTION -->
     <section class="content-section reveal">
-        <h2>Technical Skills</h2>
+        <h2 style="color:var(--text-primary);">Technical Skills</h2>
         <p style="margin-bottom:40px; color:var(--text-secondary);">Visual representation of my skills & proficiencies</p>
         
         <div style="max-width:800px; margin:0 auto; text-align:left; padding:30px; border-radius:20px; background:rgba(128,128,128,0.05); border:1px solid rgba(128,128,128,0.1); box-shadow: 0 10px 40px rgba(0,0,0,0.08);">
@@ -524,7 +450,7 @@
 
     <!-- FEATURED PROJECTS -->
     <section class="content-section bg-secondary reveal">
-        <h2>Featured Projects</h2>
+        <h2 style="color:var(--text-primary);">Featured Projects</h2>
         <p style="margin-bottom:40px; color:var(--text-secondary);">A quick look at my technical accomplishments</p>
         <div class="project-grid">
             <div class="project-card" data-tilt data-tilt-max="10" data-tilt-speed="400">
@@ -565,7 +491,7 @@
         <div style="margin-bottom:15px;">
             <a href="https://github.com/Suryakant981" target="_blank" style="color:white; margin:0 15px; font-size:22px;"><i class="fab fa-github"></i></a>
             <a href="https://linkedin.com/in/suryakant-chaudhary-8a0926291" target="_blank" style="color:white; margin:0 15px; font-size:22px;"><i class="fab fa-linkedin"></i></a>
-            <a href="https://instagram.com/itz_introvert_pankaj" target="_blank" style="color:white; margin:0 15px; font-size:22px;"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.instagram.com/itz_introvert_pankaj/" target="_blank" style="color:white; margin:0 15px; font-size:22px;"><i class="fab fa-instagram"></i></a>
             <a href="mailto:suryakantc981@gmail.com" style="color:white; margin:0 15px; font-size:22px;"><i class="fas fa-envelope"></i></a>
         </div>
         <p>&copy; 2026 Suryakant. All rights reserved.</p>
