@@ -6,14 +6,14 @@
     <title>Suryakant | About Me</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=6">
+    <link rel="stylesheet" href="style.css?v=7">
     
     <style>
         /* =========================================
-           FORCED PREMIUM DARK THEME (Overrides Cache)
+           GLOBAL DARK PREMIUM THEME
            ========================================= */
         body {
-            background-color: #0b0c10 !important; /* Deep dark background */
+            background-color: #0f0f1a !important; 
             color: #c5c6c7 !important;
             font-family: 'Inter', sans-serif;
             margin: 0; padding: 0;
@@ -22,93 +22,128 @@
         /* Preloader */
         #preloader {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #0b0c10; z-index: 9999; display: flex; justify-content: center; align-items: center;
+            background: #0f0f1a; z-index: 9999; display: flex; justify-content: center; align-items: center;
             transition: opacity 0.5s ease, visibility 0.5s;
         }
         .loader span { font-size: 3rem; font-weight: 800; color: #ffffff; letter-spacing: 2px; }
 
-        /* Typography */
         h2 { color: #ffffff !important; font-size: 2.5rem; margin-bottom: 10px; }
         .section-subtitle { color: #8a8a8a; margin-bottom: 40px; font-size: 1rem; }
 
-        /* Glassmorphism Main Card */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-left: 4px solid #e94560;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            margin: 20px auto 50px;
+        /* =========================================
+           PREMIUM GLOWING 'ABOUT ME' CARD
+           ========================================= */
+        .premium-card {
+            background: linear-gradient(145deg, #16213e, #1a1a2e);
+            border: 1px solid rgba(233, 69, 96, 0.2);
+            border-radius: 20px;
+            padding: 45px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+            position: relative;
+            overflow: hidden;
+            margin: 20px auto 60px;
             max-width: 900px;
             text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .glass-card p {
+        
+        /* Inner glowing orb effect */
+        .premium-card::before {
+            content: ''; position: absolute; top: -50px; left: -50px; 
+            width: 200px; height: 200px; 
+            background: rgba(233, 69, 96, 0.15); 
+            border-radius: 50%; filter: blur(50px);
+            z-index: 0; pointer-events: none;
+        }
+
+        .premium-card p {
+            position: relative; z-index: 1;
             font-size: 1.05rem; line-height: 1.8; color: #d3d3d3; margin-bottom: 20px;
         }
-        .glass-card p:last-child { margin-bottom: 0; }
-        .glass-card strong { color: #ffffff; }
+        .premium-card p:last-child { margin-bottom: 0; }
+        .premium-card strong { color: #ff6b81; }
 
-        /* Experience Grid */
-        .exp-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        /* =========================================
+           3D FLIP FLASHCARDS (EXPERIENCE)
+           ========================================= */
+        .flashcard-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px; margin-top: 20px; max-width: 1000px; margin-left: auto; margin-right: auto;
         }
         
-        .exp-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-top: 4px solid #e94560;
-            padding: 35px 25px;
-            border-radius: 15px;
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .flashcard-container { height: 350px; perspective: 1000px; cursor: pointer; }
+        
+        .flashcard-inner {
+            position: relative; width: 100%; height: 100%;
+            text-align: center; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
         }
-        .exp-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(233, 69, 96, 0.15);
-            background: rgba(255, 255, 255, 0.05);
+        
+        /* Mobile tap class or Desktop Hover */
+        .flashcard-container:hover .flashcard-inner,
+        .flashcard-container.flipped .flashcard-inner {
+            transform: rotateY(180deg);
         }
-        .exp-icon { font-size: 3.5rem; color: #e94560; margin-bottom: 20px; }
-        .exp-card h3 { color: #ffffff; font-size: 1.4rem; margin-bottom: 10px; }
-        .exp-card .subtitle { color: #e94560; font-weight: bold; font-size: 0.9rem; margin-bottom: 15px; }
-        .exp-card p { color: #a9a9a9; font-size: 0.95rem; line-height: 1.6; margin-bottom: 25px; }
+        
+        .flashcard-front, .flashcard-back {
+            position: absolute; width: 100%; height: 100%;
+            backface-visibility: hidden; border-radius: 20px;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            padding: 30px;
+        }
+        
+        /* Front Design */
+        .flashcard-front {
+            background: linear-gradient(135deg, #1e1e3a, #2a2a4a);
+            border: 1px solid rgba(233, 69, 96, 0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+        }
+        .flashcard-front i { font-size: 4rem; color: #e94560; margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(233,69,96,0.3)); }
+        .flashcard-front h3 { color: #ffffff; font-size: 1.4rem; margin-bottom: 10px; }
+        .flashcard-front span { color: #e94560; font-size: 0.9rem; font-weight: bold; }
+        .flash-hint { color: rgba(255,255,255,0.4); font-size: 0.8rem; margin-top: 15px; }
 
-        /* Solid Buttons */
-        .solid-btn {
-            display: inline-block; padding: 10px 20px;
-            background-color: #e94560 !important; color: #ffffff !important;
-            text-decoration: none; border-radius: 8px; font-weight: bold;
-            transition: 0.3s; border: none; font-size: 0.9rem;
+        /* Back Design */
+        .flashcard-back {
+            background: linear-gradient(135deg, #e94560, #ff6b81);
+            transform: rotateY(180deg);
+            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.4);
+            color: white;
         }
-        .solid-btn:hover { background-color: #d83450 !important; transform: translateY(-3px); }
-        .solid-btn.secondary { background-color: #1f2833 !important; border: 1px solid rgba(255,255,255,0.1); }
-        .solid-btn.secondary:hover { background-color: #2b3746 !important; }
+        .flashcard-back p { font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; }
+        .flashcard-back h3 { margin-bottom: 15px; font-size: 1.2rem; }
 
-        /* Instagram Button Fix */
+        /* Buttons Inside Cards */
+        .card-btn {
+            display: inline-block; padding: 8px 15px;
+            background: #ffffff; color: #e94560;
+            text-decoration: none; border-radius: 6px; font-weight: bold;
+            font-size: 0.85rem; margin: 5px; transition: 0.3s;
+        }
+        .card-btn:hover { background: #1a1a2e; color: #ffffff; }
+
+        /* Connect Button */
         .insta-btn {
-            background: #e94560 !important; /* Forced Solid Color */
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
             color: white !important;
             padding: 12px 30px; font-size: 1.1rem; border-radius: 8px;
             display: inline-flex; align-items: center; gap: 10px;
             text-decoration: none; font-weight: bold;
-            box-shadow: 0 5px 15px rgba(233, 69, 96, 0.2);
+            box-shadow: 0 5px 15px rgba(220, 39, 67, 0.3);
             transition: transform 0.3s;
         }
-        .insta-btn:hover { transform: translateY(-3px); }
+        .insta-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(220, 39, 67, 0.5); }
 
-        /* Entrance Animation */
-        .fade-in { opacity: 0; transform: translateY(20px); transition: 0.6s ease-out; }
+        /* Animations */
+        .fade-in { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
         .fade-in.show { opacity: 1; transform: translateY(0); }
 
-        /* Mobile Fixes */
+        /* Mobile Adjustments */
         @media screen and (max-width: 768px) {
-            .glass-card { padding: 25px 20px; margin-top: 10px; }
-            .glass-card p { font-size: 0.95rem; }
+            .premium-card { padding: 30px 20px; margin-top: 10px; }
+            .premium-card p { font-size: 0.95rem; }
             h2 { font-size: 2rem; }
-            .exp-card { padding: 25px 20px; }
+            .flashcard-container { height: 320px; }
         }
     </style>
 </head>
@@ -122,7 +157,7 @@
     </div>
 
     <!-- Navigation -->
-    <nav style="background: #0b0c10; border-bottom: 1px solid rgba(255,255,255,0.05);">
+    <nav style="background: #0f0f1a; border-bottom: 1px solid rgba(255,255,255,0.05);">
         <div class="logo" style="color: #e94560 !important;">Surya</div>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
@@ -137,8 +172,8 @@
         
         <h2 class="fade-in">About Me</h2>
         
-        <!-- Clean Glassmorphism Intro Card -->
-        <div class="glass-card fade-in">
+        <!-- Premium Glowing Card -->
+        <div class="premium-card fade-in">
             <p>I am a Final-Year BCA Student with a deep passion for IT Infrastructure and Software Development. My journey in technology is driven by a desire to create autonomous solutions that solve critical real-world problems. This ambition led to the development of <strong>SENTINEL-X</strong>, a context-aware 3-tier autonomous SOS system that utilizes 'Dead Man’s Switch' logic to ensure user safety and hardware security without relying on active internet connectivity.</p>
             
             <p>My technical background is comprehensive, featuring a one-year Advanced Diploma in Computer Applications (ADCA) and proficiency in Tally. I have a strong command over Python and Web Development, skills I further polished during a professional internship at Codec Technologies where I focused on responsive design and technical SEO.</p>
@@ -147,31 +182,51 @@
         </div>
     </section>
 
-    <!-- Experience & Certifications -->
-    <section class="content-section" style="background-color: #0b0c10; text-align: center; padding: 60px 20px;">
+    <!-- Experience & Certifications (3D Flashcards) -->
+    <section class="content-section" style="background-color: #0a0a14; text-align: center; padding: 60px 20px;">
         <h2 class="fade-in">Experience & Certifications</h2>
-        <p class="section-subtitle fade-in">My professional journey and technical qualifications.</p>
+        <p class="section-subtitle fade-in">Tap or hover over the cards to flip and view details.</p>
         
-        <div class="exp-grid">
+        <div class="flashcard-grid">
             
-            <!-- Experience Card 1 -->
-            <div class="exp-card fade-in">
-                <i class="fas fa-laptop-code exp-icon"></i>
-                <h3>Web Developer Intern</h3>
-                <div class="subtitle">Codec Technologies</div>
-                <p>Built responsive web layouts using HTML, CSS, Bootstrap, and JavaScript. Integrated REST APIs, learned backend fundamentals (Node.js/MongoDB), and successfully deployed full-stack web applications utilizing Git.</p>
-                <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-                    <a href="codec-certificate.pdf" target="_blank" class="solid-btn">Certificate</a>
-                    <a href="codec-lor.pdf" target="_blank" class="solid-btn secondary">View LOR</a>
+            <!-- Flashcard 1: Codec Internship -->
+            <div class="flashcard-container fade-in" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <!-- Front -->
+                    <div class="flashcard-front">
+                        <i class="fas fa-laptop-code"></i>
+                        <h3>Web Developer Intern</h3>
+                        <span>Codec Technologies</span>
+                        <div class="flash-hint">Tap to flip ↻</div>
+                    </div>
+                    <!-- Back -->
+                    <div class="flashcard-back">
+                        <h3>1-Month Internship</h3>
+                        <p>Built responsive web layouts using HTML/CSS & JS. Integrated REST APIs, learned Node.js/MongoDB fundamentals, and deployed projects using Git.</p>
+                        <div>
+                            <a href="codec-certificate.pdf" target="_blank" class="card-btn">Certificate</a>
+                            <a href="codec-lor.pdf" target="_blank" class="card-btn">View LOR</a>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Experience Card 2 -->
-            <div class="exp-card fade-in" style="transition-delay: 0.1s;">
-                <i class="fas fa-certificate exp-icon"></i>
-                <h3>ADCA Certification</h3>
-                <div class="subtitle">IT Administration</div>
-                <p>Completed a one-year Advanced Diploma in Computer Applications (ADCA). Developed strong proficiency in Tally, Office Management, and foundational IT Infrastructure to approach projects with an organizational mindset.</p>
+            <!-- Flashcard 2: Certifications / Admin -->
+            <div class="flashcard-container fade-in" style="transition-delay: 0.1s;" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <!-- Front -->
+                    <div class="flashcard-front">
+                        <i class="fas fa-certificate"></i>
+                        <h3>ADCA Certification</h3>
+                        <span>IT Administration</span>
+                        <div class="flash-hint">Tap to flip ↻</div>
+                    </div>
+                    <!-- Back -->
+                    <div class="flashcard-back">
+                        <h3>Technical Diploma</h3>
+                        <p>Completed a 1-year Advanced Diploma in Computer Applications. Strong proficiency in Tally, Office Management, and IT Infrastructure.</p>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -182,7 +237,6 @@
         <h2 class="fade-in">Let's Connect</h2>
         <p class="section-subtitle fade-in" style="margin-bottom: 30px;">Whether you want to discuss AI, Python development, or just say hi, feel free to reach out!</p>
         
-        <!-- Clean Solid Button for Instagram (100% Fixed Gradient Issue) -->
         <div class="fade-in">
             <a href="https://www.instagram.com/itz_introvert_pankaj/" target="_blank" class="insta-btn">
                 <i class="fab fa-instagram"></i> Instagram
@@ -198,7 +252,7 @@
     </a>
 
     <!-- Footer -->
-    <footer style="padding: 40px; background-color: #0b0c10; border-top: 1px solid rgba(255,255,255,0.05); color: white; text-align: center;">
+    <footer style="padding: 40px; background-color: #0f0f1a; border-top: 1px solid rgba(255,255,255,0.05); color: white; text-align: center;">
         <div style="margin-bottom: 15px;">
             <a href="https://github.com/Suryakant981" target="_blank" style="color: white; margin: 0 15px; font-size: 22px;"><i class="fab fa-github"></i></a>
             <a href="https://linkedin.com/in/suryakant-chaudhary-8a0926291" target="_blank" style="color: white; margin: 0 15px; font-size: 22px;"><i class="fab fa-linkedin"></i></a>
