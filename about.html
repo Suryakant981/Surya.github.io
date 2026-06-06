@@ -6,284 +6,281 @@
     <title>Suryakant | About Me</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=7">
+    <link rel="stylesheet" href="style.css?v=13">
     
     <style>
         /* =========================================
            GLOBAL DARK PREMIUM THEME
            ========================================= */
         body {
-            background-color: #0f0f1a !important; 
+            background-color: #0b0c10 !important; 
             color: #c5c6c7 !important;
             font-family: 'Inter', sans-serif;
             margin: 0; padding: 0;
+            overflow-x: hidden;
         }
 
-        /* Preloader */
+        /* MATRIX CANVAS BACKGROUND */
+        #matrix-canvas {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+        }
+
         #preloader {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #0f0f1a; z-index: 9999; display: flex; justify-content: center; align-items: center;
+            background: #0b0c10; z-index: 99999; display: flex; justify-content: center; align-items: center;
             transition: opacity 0.5s ease, visibility 0.5s;
         }
         .loader span { font-size: 3rem; font-weight: 800; color: #ffffff; letter-spacing: 2px; }
 
-        h2 { color: #ffffff !important; font-size: 2.5rem; margin-bottom: 10px; }
-        .section-subtitle { color: #8a8a8a; margin-bottom: 40px; font-size: 1rem; }
+        h2 { color: #ffffff !important; font-size: 2.8rem; margin-bottom: 10px; font-family: monospace; text-shadow: 0 0 15px rgba(233,69,96,0.8); }
+        .section-subtitle { color: #dcdcdc; margin-bottom: 40px; font-size: 1rem; font-family: monospace; }
 
-        /* =========================================
-           PREMIUM GLOWING 'ABOUT ME' CARD
-           ========================================= */
+        /* Premium Intro Card (Glassmorphism over Matrix) */
         .premium-card {
-            background: linear-gradient(145deg, #16213e, #1a1a2e);
-            border: 1px solid rgba(233, 69, 96, 0.2);
-            border-radius: 20px;
-            padding: 45px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
-            position: relative;
-            overflow: hidden;
-            margin: 20px auto 60px;
-            max-width: 900px;
-            text-align: left;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: rgba(11, 12, 16, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(233, 69, 96, 0.3); border-radius: 20px; padding: 45px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6), inset 0 0 20px rgba(233, 69, 96, 0.1);
+            margin: 20px auto 60px; max-width: 900px; text-align: left;
         }
-        
-        /* Inner glowing orb effect */
-        .premium-card::before {
-            content: ''; position: absolute; top: -50px; left: -50px; 
-            width: 200px; height: 200px; 
-            background: rgba(233, 69, 96, 0.15); 
-            border-radius: 50%; filter: blur(50px);
-            z-index: 0; pointer-events: none;
-        }
+        .premium-card p { font-size: 1.05rem; line-height: 1.8; color: #d3d3d3; margin-bottom: 20px; }
+        .premium-card strong { color: #e94560; font-family: monospace; font-size: 1.1rem;}
 
-        .premium-card p {
-            position: relative; z-index: 1;
-            font-size: 1.05rem; line-height: 1.8; color: #d3d3d3; margin-bottom: 20px;
-        }
-        .premium-card p:last-child { margin-bottom: 0; }
-        .premium-card strong { color: #ff6b81; }
+        /* Flashcards */
+        .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1000px; margin: 0 auto; }
+        .flashcard-container { height: 350px; perspective: 1000px; cursor: pointer; }
+        .flashcard-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-style: preserve-3d; }
+        .flashcard-container:hover .flashcard-inner, .flashcard-container.flipped .flashcard-inner { transform: rotateY(180deg); }
+        .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 30px; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        
+        .flashcard-front { background: rgba(11, 12, 16, 0.8); border: 1px solid rgba(233, 69, 96, 0.3); box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+        .flashcard-front i { font-size: 4rem; color: #e94560; margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(233,69,96,0.5));}
+        .flashcard-front h3 { color: #ffffff; font-size: 1.4rem; margin-bottom: 10px; font-family: monospace; }
+        .flashcard-front span { color: #e94560; font-size: 0.9rem; font-weight: bold; }
+        
+        .flashcard-back { background: rgba(233, 69, 96, 0.9); transform: rotateY(180deg); color: white; border: 1px solid rgba(255, 255, 255, 0.2); }
+        .flashcard-back p { font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; }
+        .flashcard-back h3 { font-family: monospace; margin-bottom: 15px; }
 
         /* =========================================
-           3D FLIP FLASHCARDS (EXPERIENCE)
+           PREMIUM CONTACT FORM
            ========================================= */
-        .flashcard-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px; margin-top: 20px; max-width: 1000px; margin-left: auto; margin-right: auto;
+        .contact-wrapper {
+            background: rgba(11, 12, 16, 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(233, 69, 96, 0.3); border-radius: 20px; padding: 40px;
+            max-width: 700px; margin: 0 auto; box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            text-align: left;
         }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; color: #e94560; margin-bottom: 8px; font-weight: bold; font-size: 0.95rem; font-family: monospace;}
+        .form-control {
+            width: 100%; padding: 15px; border-radius: 10px;
+            background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255,255,255,0.1);
+            color: #ffffff; font-family: 'Inter', sans-serif; font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .form-control:focus { outline: none; border-color: #e94560; box-shadow: 0 0 15px rgba(233, 69, 96, 0.5); }
+        textarea.form-control { resize: vertical; min-height: 120px; }
         
-        .flashcard-container { height: 350px; perspective: 1000px; cursor: pointer; }
-        
-        .flashcard-inner {
-            position: relative; width: 100%; height: 100%;
-            text-align: center; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            transform-style: preserve-3d;
+        .submit-btn {
+            background: transparent; color: #e94560; padding: 15px 30px; border: 2px solid #e94560; border-radius: 10px;
+            font-size: 1.1rem; font-weight: bold; cursor: pointer; width: 100%;
+            transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px; text-transform: uppercase; font-family: monospace;
         }
-        
-        /* Mobile tap class or Desktop Hover */
-        .flashcard-container:hover .flashcard-inner,
-        .flashcard-container.flipped .flashcard-inner {
-            transform: rotateY(180deg);
-        }
-        
-        .flashcard-front, .flashcard-back {
-            position: absolute; width: 100%; height: 100%;
-            backface-visibility: hidden; border-radius: 20px;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            padding: 30px;
-        }
-        
-        /* Front Design */
-        .flashcard-front {
-            background: linear-gradient(135deg, #1e1e3a, #2a2a4a);
-            border: 1px solid rgba(233, 69, 96, 0.3);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
-        }
-        .flashcard-front i { font-size: 4rem; color: #e94560; margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(233,69,96,0.3)); }
-        .flashcard-front h3 { color: #ffffff; font-size: 1.4rem; margin-bottom: 10px; }
-        .flashcard-front span { color: #e94560; font-size: 0.9rem; font-weight: bold; }
-        .flash-hint { color: rgba(255,255,255,0.4); font-size: 0.8rem; margin-top: 15px; }
+        .submit-btn:hover { background: #e94560; color: #0b0c10; box-shadow: 0 0 20px rgba(233, 69, 96, 0.6); }
 
-        /* Back Design */
-        .flashcard-back {
-            background: linear-gradient(135deg, #e94560, #ff6b81);
-            transform: rotateY(180deg);
-            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.4);
-            color: white;
-        }
-        .flashcard-back p { font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; }
-        .flashcard-back h3 { margin-bottom: 15px; font-size: 1.2rem; }
+        .gs-reveal-up { opacity: 0; transform: translateY(30px); }
 
-        /* Buttons Inside Cards */
-        .card-btn {
-            display: inline-block; padding: 8px 15px;
-            background: #ffffff; color: #e94560;
-            text-decoration: none; border-radius: 6px; font-weight: bold;
-            font-size: 0.85rem; margin: 5px; transition: 0.3s;
-        }
-        .card-btn:hover { background: #1a1a2e; color: #ffffff; }
-
-        /* Connect Button */
-        .insta-btn {
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-            color: white !important;
-            padding: 12px 30px; font-size: 1.1rem; border-radius: 8px;
-            display: inline-flex; align-items: center; gap: 10px;
-            text-decoration: none; font-weight: bold;
-            box-shadow: 0 5px 15px rgba(220, 39, 67, 0.3);
-            transition: transform 0.3s;
-        }
-        .insta-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(220, 39, 67, 0.5); }
-
-        /* Animations */
-        .fade-in { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
-        .fade-in.show { opacity: 1; transform: translateY(0); }
-
-        /* Mobile Adjustments */
         @media screen and (max-width: 768px) {
-            .premium-card { padding: 30px 20px; margin-top: 10px; }
-            .premium-card p { font-size: 0.95rem; }
+            .premium-card, .contact-wrapper { padding: 30px 20px; }
             h2 { font-size: 2rem; }
-            .flashcard-container { height: 320px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- HARDCORE IT MATRIX RAIN BACKGROUND -->
+    <canvas id="matrix-canvas"></canvas>
+
     <!-- Preloader -->
-    <div id="preloader">
-        <div class="loader">
-            <span>About Me</span>
-        </div>
-    </div>
+    <div id="preloader"><div class="loader"><span>About Me</span></div></div>
 
     <!-- Navigation -->
-    <nav style="background: #0f0f1a; border-bottom: 1px solid rgba(255,255,255,0.05);">
-        <div class="logo" style="color: #e94560 !important;">Surya</div>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html" class="active">About</a></li>
-            <li><a href="projects.html">Projects</a></li>
-            <li><a href="suryakant-resume.jpg" target="_blank" class="hire-btn" style="background: #e94560;">Hire Me</a></li>
+    <nav style="position: fixed; width: 100%; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: rgba(11, 12, 16, 0.8); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(233,69,96,0.2);">
+        <div class="logo" style="font-size: 24px; font-weight: bold; color: #e94560; font-family: monospace;">{"Surya"}</div>
+        <ul class="nav-links" style="list-style: none; display: flex; gap: 20px; align-items: center;">
+            <li><a href="index.html" style="color: #fff; text-decoration: none;">Home</a></li>
+            <li><a href="about.html" style="color: #e94560; text-decoration: none; font-weight: bold;">About</a></li>
+            <li><a href="projects.html" style="color: #fff; text-decoration: none;">Projects</a></li>
+            <li><a href="suryakant-resume.jpg" target="_blank" style="background: transparent; color: #e94560; border: 1px solid #e94560; padding: 8px 18px; border-radius: 5px; text-decoration: none; font-weight: bold; transition: 0.3s;" onmouseover="this.style.background='#e94560'; this.style.color='#0b0c10'" onmouseout="this.style.background='transparent'; this.style.color='#e94560'">Hire Me</a></li>
         </ul>
     </nav>
 
     <!-- Main About Section -->
-    <section class="content-section" style="padding-top: 130px; text-align: center; padding-left: 20px; padding-right: 20px;">
-        
-        <h2 class="fade-in">About Me</h2>
-        
-        <!-- Premium Glowing Card -->
-        <div class="premium-card fade-in">
+    <section class="content-section" style="position: relative; z-index: 1; padding-top: 130px; text-align: center; padding-left: 20px; padding-right: 20px;">
+        <h2 class="gs-reveal-up">< > Developer Origin < /></h2>
+        <div class="premium-card gs-reveal-up">
             <p>I am a Final-Year BCA Student with a deep passion for IT Infrastructure and Software Development. My journey in technology is driven by a desire to create autonomous solutions that solve critical real-world problems. This ambition led to the development of <strong>SENTINEL-X</strong>, a context-aware 3-tier autonomous SOS system that utilizes 'Dead Man’s Switch' logic to ensure user safety and hardware security without relying on active internet connectivity.</p>
-            
             <p>My technical background is comprehensive, featuring a one-year Advanced Diploma in Computer Applications (ADCA) and proficiency in Tally. I have a strong command over Python and Web Development, skills I further polished during a professional internship at Codec Technologies where I focused on responsive design and technical SEO.</p>
-            
             <p>Beyond coding, I have experience in IT Administration and Office Management, allowing me to approach projects with both a technical and an organizational mindset. Whether it’s managing complex databases with SQLite or configuring local execution environments for AI projects, I am committed to building efficient, reliable, and scalable technology.</p>
         </div>
     </section>
 
-    <!-- Experience & Certifications (3D Flashcards) -->
-    <section class="content-section" style="background-color: #0a0a14; text-align: center; padding: 60px 20px;">
-        <h2 class="fade-in">Experience & Certifications</h2>
-        <p class="section-subtitle fade-in">Tap or hover over the cards to flip and view details.</p>
+    <!-- Experience Section -->
+    <section class="content-section" style="position: relative; z-index: 1; text-align: center; padding: 40px 20px;">
+        <h2 class="gs-reveal-up">{ Experience & Certifications }</h2>
+        <p class="section-subtitle gs-reveal-up">> Executing data fetch... Hover to read files.</p>
         
         <div class="flashcard-grid">
-            
-            <!-- Flashcard 1: Codec Internship -->
-            <div class="flashcard-container fade-in" onclick="this.classList.toggle('flipped')">
+            <div class="flashcard-container gs-card" onclick="this.classList.toggle('flipped')">
                 <div class="flashcard-inner">
-                    <!-- Front -->
                     <div class="flashcard-front">
                         <i class="fas fa-laptop-code"></i>
                         <h3>Web Developer Intern</h3>
                         <span>Codec Technologies</span>
-                        <div class="flash-hint">Tap to flip ↻</div>
                     </div>
-                    <!-- Back -->
                     <div class="flashcard-back">
                         <h3>1-Month Internship</h3>
                         <p>Built responsive web layouts using HTML/CSS & JS. Integrated REST APIs, learned Node.js/MongoDB fundamentals, and deployed projects using Git.</p>
-                        <div>
-                            <a href="codec-certificate.pdf" target="_blank" class="card-btn">Certificate</a>
-                            <a href="codec-lor.pdf" target="_blank" class="card-btn">View LOR</a>
-                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Flashcard 2: Certifications / Admin -->
-            <div class="flashcard-container fade-in" style="transition-delay: 0.1s;" onclick="this.classList.toggle('flipped')">
+            <div class="flashcard-container gs-card" onclick="this.classList.toggle('flipped')">
                 <div class="flashcard-inner">
-                    <!-- Front -->
                     <div class="flashcard-front">
                         <i class="fas fa-certificate"></i>
                         <h3>ADCA Certification</h3>
                         <span>IT Administration</span>
-                        <div class="flash-hint">Tap to flip ↻</div>
                     </div>
-                    <!-- Back -->
                     <div class="flashcard-back">
                         <h3>Technical Diploma</h3>
                         <p>Completed a 1-year Advanced Diploma in Computer Applications. Strong proficiency in Tally, Office Management, and IT Infrastructure.</p>
                     </div>
                 </div>
             </div>
-
         </div>
     </section>
 
-    <!-- Connect Section -->
-    <section class="content-section" style="text-align: center; padding: 60px 20px 100px;">
-        <h2 class="fade-in">Let's Connect</h2>
-        <p class="section-subtitle fade-in" style="margin-bottom: 30px;">Whether you want to discuss AI, Python development, or just say hi, feel free to reach out!</p>
+    <!-- CONTACT FORM SECTION -->
+    <section class="content-section" style="position: relative; z-index: 1; text-align: center; padding: 60px 20px 100px;">
+        <h2 class="gs-reveal-up">[ Initialize Connection ]</h2>
+        <p class="section-subtitle gs-reveal-up">Have a project idea or just want to say hi? Let's talk!</p>
         
-        <div class="fade-in">
-            <a href="https://www.instagram.com/itz_introvert_pankaj/" target="_blank" class="insta-btn">
-                <i class="fab fa-instagram"></i> Instagram
-            </a>
+        <div class="contact-wrapper gs-reveal-up">
+            <!-- WEB3FORMS INTEGRATION -->
+            <form action="https://api.web3forms.com/submit" method="POST">
+                
+                <!-- REPLACE 'YOUR_ACCESS_KEY_HERE' WITH YOUR ACTUAL WEB3FORMS KEY -->
+                <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+                
+                <div class="form-group">
+                    <label for="name">> const name =</label>
+                    <input type="text" name="name" id="name" class="form-control" placeholder="'John Doe'" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">> const email =</label>
+                    <input type="email" name="email" id="email" class="form-control" placeholder="'john@example.com'" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">> const message =</label>
+                    <textarea name="message" id="message" class="form-control" placeholder="'Hey Surya, let us build something awesome!'" required></textarea>
+                </div>
+                
+                <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-terminal"></i> Execute.Send()
+                </button>
+            </form>
         </div>
     </section>
 
     <!-- WhatsApp Floating Button -->
     <a href="https://wa.me/917860636624?text=Hi%20Suryakant,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!" 
        target="_blank" 
-       style="position: fixed; bottom: 20px; right: 20px; background-color: #25d366; color: white; padding: 15px 20px; border-radius: 50px; font-size: 20px; box-shadow: 2px 2px 10px rgba(0,0,0,0.3); z-index: 1000; text-decoration: none;">
+       style="position: fixed; bottom: 20px; right: 20px; background-color: #25d366; color: white; padding: 15px 20px; border-radius: 50px; font-size: 20px; box-shadow: 0 0 15px rgba(37,211,102,0.5); z-index: 1000; text-decoration: none;">
         <i class="fab fa-whatsapp"></i>
     </a>
 
     <!-- Footer -->
-    <footer style="padding: 40px; background-color: #0f0f1a; border-top: 1px solid rgba(255,255,255,0.05); color: white; text-align: center;">
+    <footer style="position: relative; z-index: 1; padding: 40px; background-color: rgba(11, 12, 16, 0.95); border-top: 1px solid rgba(233,69,96,0.3); color: white; text-align: center; backdrop-filter: blur(10px);">
         <div style="margin-bottom: 15px;">
-            <a href="https://github.com/Suryakant981" target="_blank" style="color: white; margin: 0 15px; font-size: 22px;"><i class="fab fa-github"></i></a>
-            <a href="https://linkedin.com/in/suryakant-chaudhary-8a0926291" target="_blank" style="color: white; margin: 0 15px; font-size: 22px;"><i class="fab fa-linkedin"></i></a>
-            <a href="https://www.instagram.com/itz_introvert_pankaj/" target="_blank" style="color: white; margin: 0 15px; font-size: 22px;"><i class="fab fa-instagram"></i></a>
+            <a href="https://github.com/Suryakant981" target="_blank" style="color: #e94560; margin: 0 15px; font-size: 22px; transition: 0.3s;" onmouseover="this.style.textShadow='0 0 10px #e94560'" onmouseout="this.style.textShadow='none'"><i class="fab fa-github"></i></a>
+            <a href="https://linkedin.com/in/suryakant-chaudhary-8a0926291" target="_blank" style="color: #e94560; margin: 0 15px; font-size: 22px; transition: 0.3s;" onmouseover="this.style.textShadow='0 0 10px #e94560'" onmouseout="this.style.textShadow='none'"><i class="fab fa-linkedin"></i></a>
+            <a href="https://instagram.com/itz_introvert_pankaj" target="_blank" style="color: #e94560; margin: 0 15px; font-size: 22px; transition: 0.3s;" onmouseover="this.style.textShadow='0 0 10px #e94560'" onmouseout="this.style.textShadow='none'"><i class="fab fa-instagram"></i></a>
         </div>
-        <p style="color: #8a8a8a; font-size: 0.9rem;">&copy; 2026 Suryakant. All rights reserved.</p>
+        <p style="color: #8a8a8a; font-size: 0.9rem; font-family: monospace;">&copy; 2026 SURYAKANT. SYSTEM TERMINATED.</p>
     </footer>
 
+    <!-- ADVANCED SCRIPTS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
     <script>
-        // Preloader
+        // 1. Preloader Logic
         window.addEventListener('load', function() {
-            var preloader = document.getElementById('preloader');
             setTimeout(function() {
-                preloader.style.opacity = '0';
-                setTimeout(function() { preloader.style.visibility = 'hidden'; }, 500);
+                document.getElementById('preloader').style.opacity = '0';
+                setTimeout(() => document.getElementById('preloader').style.display = 'none', 500);
             }, 800);
         });
 
-        // Simple Fade-in Animation Logic
-        document.addEventListener("DOMContentLoaded", function() {
-            const elements = document.querySelectorAll('.fade-in');
-            const observer = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('show');
-                    }
-                });
-            }, { threshold: 0.1 });
+        // 2. HARDCORE MATRIX RAIN EFFECT LOGIC
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-            elements.forEach(el => observer.observe(el));
+        // Katakana + Latin + Numerals for authentic vibe
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()<>{}[]/\\|'.split('');
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+
+        // Initialize drop positions
+        for(let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+
+        function drawMatrix() {
+            // Translucent black background to create trail effect
+            ctx.fillStyle = 'rgba(11, 12, 16, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Neon Red/Pink text for the rain
+            ctx.fillStyle = '#e94560'; 
+            ctx.font = fontSize + 'px monospace';
+            
+            for(let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                // Randomly reset drops to top
+                if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        
+        // Speed of the rain
+        setInterval(drawMatrix, 35);
+
+        // Adjust canvas on screen resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
         });
+
+        // 3. GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.utils.toArray(".gs-reveal-up").forEach(elem => {
+            gsap.fromTo(elem, { y: 50, opacity: 0 }, { scrollTrigger: { trigger: elem, start: "top 85%" }, y: 0, opacity: 1, duration: 1, ease: "power3.out" });
+        });
+        gsap.fromTo(".gs-card", { y: 80, opacity: 0 }, { scrollTrigger: { trigger: ".flashcard-grid", start: "top 80%" }, y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: "back.out(1.2)" });
     </script>
 </body>
 </html>
