@@ -6,193 +6,173 @@
     <title>Suryakant | Projects</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=9">
+    <link rel="stylesheet" href="style.css?v=2">
     
     <style>
-        /* =========================================
-           GLOBAL DARK PREMIUM THEME
-           ========================================= */
-        body {
-            background-color: #0b0c10 !important; 
-            color: #c5c6c7 !important;
-            font-family: 'Inter', sans-serif;
-            margin: 0; padding: 0;
-            overflow-x: hidden;
-        }
-
-        /* Preloader */
+        /* Preloader Animation */
         #preloader {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #0b0c10; z-index: 99999; display: flex; justify-content: center; align-items: center;
+            background: #1a1a2e; z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
             transition: opacity 0.5s ease, visibility 0.5s;
         }
-        .loader span { font-size: 3rem; font-weight: 800; color: #ffffff; letter-spacing: 2px; }
-
-        h2 { color: #ffffff !important; font-size: 2.5rem; margin-bottom: 10px; }
-        .section-subtitle { color: #8a8a8a; margin-bottom: 50px; font-size: 1rem; }
-
-        /* =========================================
-           3D FLIP PROJECT CARDS
-           ========================================= */
-        .project-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px; max-width: 1100px; margin: 0 auto;
+        .loader span {
+            font-size: 4rem; font-weight: 800;
+            background: linear-gradient(45deg, #ff6b81, #e94560, #ff8a00, #e52e71);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; filter: drop-shadow(0 0 10px rgba(233, 69, 96, 0.5)); }
+            50% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 25px rgba(233, 69, 96, 0.9)); }
+            100% { transform: scale(1); opacity: 0.8; filter: drop-shadow(0 0 10px rgba(233, 69, 96, 0.5)); }
         }
 
-        .flashcard-container { height: 380px; perspective: 1000px; cursor: pointer; }
-        
-        .flashcard-inner {
-            position: relative; width: 100%; height: 100%;
-            text-align: center; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        /* 3D Flip Flashcard CSS */
+        .flashcard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        .flashcard-container {
+            perspective: 1000px; /* 3D effect ke liye */
+        }
+        .flashcard {
+            width: 100%;
+            height: 400px;
+            position: relative;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             transform-style: preserve-3d;
+            cursor: pointer;
         }
-        
-        .flashcard-container:hover .flashcard-inner,
-        .flashcard-container.flipped .flashcard-inner {
+        .flashcard-container:hover .flashcard {
             transform: rotateY(180deg);
         }
-        
         .flashcard-front, .flashcard-back {
-            position: absolute; width: 100%; height: 100%;
-            backface-visibility: hidden; border-radius: 20px;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            padding: 30px;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
-        
-        /* Front Design */
         .flashcard-front {
-            background: linear-gradient(135deg, #16213e, #1a1a2e);
-            border: 1px solid rgba(233, 69, 96, 0.2);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+            background: var(--card-bg);
+            border-top: 5px solid var(--accent-color);
         }
-        .flashcard-front i { font-size: 4rem; color: #e94560; margin-bottom: 25px; filter: drop-shadow(0 0 15px rgba(233,69,96,0.2)); }
-        .flashcard-front h3 { color: #ffffff; font-size: 1.5rem; margin-bottom: 10px; }
-        .flashcard-front .tech { color: #8a8a8a; font-size: 0.9rem; margin-top: 10px; font-weight: bold; }
-        .flash-hint { color: #e94560; font-size: 0.85rem; margin-top: 20px; font-weight: bold; opacity: 0.8;}
-
-        /* Back Design */
-        .flashcard-back {
-            background: linear-gradient(135deg, #e94560, #ff6b81);
-            transform: rotateY(180deg);
-            box-shadow: 0 15px 35px rgba(233, 69, 96, 0.3);
-            color: white;
-        }
-        .flashcard-back h3 { margin-bottom: 15px; font-size: 1.4rem; }
-        .flashcard-back p { font-size: 1rem; line-height: 1.6; margin-bottom: 25px; color: #ffffff;}
+        .flashcard-front h3 { margin-top: 20px; font-size: 1.3rem; }
+        .flashcard-front p { margin-top: 10px; color: var(--text-secondary); font-size: 0.9rem; }
         
-        /* Safe Live Demo Button (No Source Code) */
-        .safe-btn {
-            display: inline-block; padding: 10px 20px;
-            background: #ffffff; color: #e94560;
-            text-decoration: none; border-radius: 8px; font-weight: bold;
-            font-size: 0.95rem; transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        .flashcard-back {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            transform: rotateY(180deg);
+            border: 2px solid var(--accent-color);
         }
-        .safe-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
-
-        /* Entrance Animation */
-        .gs-reveal-up { opacity: 0; transform: translateY(30px); }
-
-        /* Mobile Adjustments */
-        @media screen and (max-width: 768px) {
-            .flashcard-container { height: 350px; }
-            h2 { font-size: 2rem; }
+        .flashcard-back p { font-size: 0.9rem; margin-bottom: 15px; line-height: 1.6; color: #dcdcdc; }
+        .flashcard-back .skills-text { color: #ff6b81; font-weight: bold; font-size: 0.85rem; margin-bottom: 20px; }
+        
+        /* Staggered Entrance Animation */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s forwards;
+        }
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
-    <!-- Preloader -->
     <div id="preloader">
         <div class="loader">
             <span>Projects</span>
         </div>
     </div>
 
-    <!-- Navigation -->
-    <nav style="position: fixed; width: 100%; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: rgba(11, 12, 16, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.05);">
-        <div class="logo" style="font-size: 24px; font-weight: bold; color: #e94560;">Surya</div>
-        <ul class="nav-links" style="list-style: none; display: flex; gap: 20px; align-items: center;">
-            <li><a href="index.html" style="color: #fff; text-decoration: none;">Home</a></li>
-            <li><a href="about.html" style="color: #fff; text-decoration: none;">About</a></li>
-            <li><a href="projects.html" style="color: #e94560; text-decoration: none; font-weight: bold;">Projects</a></li>
-            <li><a href="suryakant-resume.jpg" target="_blank" style="padding: 10px 22px; border-radius: 8px; font-weight: bold; color: white; text-decoration: none; background-color: #e94560;">Hire Me</a></li>
+    <nav>
+        <div class="logo">Surya</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="projects.html" class="active">Projects</a></li>
+            <li><a href="suryakant-resume.jpg" target="_blank" class="hire-btn">Hire Me</a></li>
+            <li><button id="mode-toggle" class="theme-btn"><i class="fas fa-moon"></i></button></li>
         </ul>
     </nav>
 
-    <!-- Main Projects Section -->
-    <section class="content-section" style="padding-top: 130px; text-align: center; padding-left: 20px; padding-right: 20px; min-height: 80vh; margin-bottom: 60px;">
+    <section class="content-section" style="padding-top: 120px;">
+        <h1>My Projects</h1>
+        <p>A collection of my academic work, internships, and technical explorations. (Hover cards to flip)</p>
         
-        <h2 class="gs-reveal-up">My Projects</h2>
-        <p class="section-subtitle gs-reveal-up">Explore my technical builds. Source code is kept private for security.</p>
-        
-        <div class="project-grid">
-            
-            <!-- Project 1: SENTINEL-X -->
-            <div class="flashcard-container gs-card" onclick="this.classList.toggle('flipped')">
-                <div class="flashcard-inner">
+        <div class="flashcard-grid">
+
+            <div class="flashcard-container fade-in-up" style="animation-delay: 0.1s;">
+                <div class="flashcard">
                     <div class="flashcard-front">
-                        <i class="fas fa-shield-alt"></i>
-                        <h3>SENTINEL-X</h3>
-                        <div class="tech">Native Java | Firebase | SQLite</div>
-                        <div class="flash-hint">Tap to flip ↻</div>
+                        <i class="fas fa-shield-alt" style="font-size: 4rem; color: #d81b60;"></i>
+                        <h3>RAKSHA SURAKSHA</h3>
+                        <p>Tactical Command System</p>
                     </div>
                     <div class="flashcard-back">
-                        <h3>SENTINEL-X</h3>
-                        <p>Military-grade personal safety Android app featuring a 3-tier offline security architecture and Dead Man’s Switch logic.</p>
-                        <!-- No Button here because it's an offline app / private -->
-                        <span style="font-weight: bold; opacity: 0.8;">Status: Secure & Private</span>
+                        <h3>Project Info</h3>
+                        <p>A military-grade personal safety Android application featuring a 3-Tier security architecture. Co-developed with S. Jaya Kumar, it utilizes offline SQLite Vaults, native SMS APIs, and gravity sensors to track stolen devices.</p>
+                        <div class="skills-text">Native Java | Firebase | SQLite | OSM Maps</div>
+                        <a href="https://Rakshasuraksha.github.io" target="_blank" class="btn" style="padding: 8px 15px; font-size: 0.9rem;">Live Demo</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Project 2: HumDo App -->
-            <div class="flashcard-container gs-card" onclick="this.classList.toggle('flipped')">
-                <div class="flashcard-inner">
+            <div class="flashcard-container fade-in-up" style="animation-delay: 0.3s;">
+                <div class="flashcard">
                     <div class="flashcard-front">
-                        <i class="fas fa-comments"></i>
-                        <h3>HumDo App</h3>
-                        <div class="tech">React 19 | Supabase | WebRTC</div>
-                        <div class="flash-hint">Tap to flip ↻</div>
+                        <i class="fas fa-briefcase" style="font-size: 4rem; color: #fbbc05;"></i>
+                        <h3>Web Developer Intern</h3>
+                        <p>@ Codec Technologies</p>
                     </div>
                     <div class="flashcard-back">
-                        <h3>HumDo App</h3>
-                        <p>A seamless, real-time couple chat application built with modern web technologies for uninterrupted and private connection.</p>
-                        <a href="https://suryakant981.github.io/humdo-app/" target="_blank" class="safe-btn"><i class="fas fa-external-link-alt"></i> View App</a>
+                        <h3>Project Info</h3>
+                        <p>Completed a 1-month AICTE & ICAC approved professional internship. Developed a dynamic "Restaurant Website" mini-project featuring a responsive frontend and data fetched directly from a MySQL database.</p>
+                        <div class="skills-text">HTML | CSS | JavaScript | PHP | MySQL</div>
+                        <a href="internship report.pptx" target="_blank" class="btn" style="padding: 8px 15px; font-size: 0.9rem;">View Report</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Project 3: MJ Voice Assistant -->
-            <div class="flashcard-container gs-card" onclick="this.classList.toggle('flipped')">
-                <div class="flashcard-inner">
+            <div class="flashcard-container fade-in-up" style="animation-delay: 0.5s;">
+                <div class="flashcard">
                     <div class="flashcard-front">
-                        <i class="fas fa-robot"></i>
-                        <h3>MJ Assistant</h3>
-                        <div class="tech">Python | Vosk | Local LLM</div>
-                        <div class="flash-hint">Tap to flip ↻</div>
+                        <i class="fas fa-search-location" style="font-size: 4rem; color: #4479a1;"></i>
+                        <h3>SEO Integration</h3>
+                        <p>Search Console</p>
                     </div>
                     <div class="flashcard-back">
-                        <h3>MJ Voice Assistant</h3>
-                        <p>Personalized, offline voice-activated AI capable of executing system commands locally without cloud dependencies.</p>
-                        <span style="font-weight: bold; opacity: 0.8;">Status: Secure & Private</span>
+                        <h3>Project Info</h3>
+                        <p>Configured Search Console for personal portfolio hosting on GitHub Pages. Improved site indexing and fixed sitemap fetch errors for better visibility.</p>
+                        <div class="skills-text">Technical SEO | Search Console | GitHub</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Project 4: 3D Premium Portfolio -->
-            <div class="flashcard-container gs-card" onclick="this.classList.toggle('flipped')">
-                <div class="flashcard-inner">
+            <div class="flashcard-container fade-in-up" style="animation-delay: 0.7s;">
+                <div class="flashcard">
                     <div class="flashcard-front">
-                        <i class="fas fa-layer-group"></i>
-                        <h3>3D Portfolio</h3>
-                        <div class="tech">HTML/CSS | GSAP | Three.js</div>
-                        <div class="flash-hint">Tap to flip ↻</div>
+                        <i class="fas fa-file-excel" style="font-size: 4rem; color: #34a853;"></i>
+                        <h3>Office Admin Systems</h3>
+                        <p>Data Management</p>
                     </div>
                     <div class="flashcard-back">
-                        <h3>3D Portfolio</h3>
-                        <p>Awwwards-inspired personal portfolio integrating 3D backgrounds, smooth scroll animations, and optimized SEO.</p>
-                        <a href="index.html" class="safe-btn"><i class="fas fa-external-link-alt"></i> View Live</a>
+                        <h3>Project Info</h3>
+                        <p>Developed proficiency in data management using Tally and MS Excel. Applied ADCA principles to organize professional documents and accounts.</p>
+                        <div class="skills-text">Tally | MS Office | Data Management</div>
                     </div>
                 </div>
             </div>
@@ -200,42 +180,32 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer style="padding: 40px; background-color: #0b0c10; border-top: 1px solid rgba(255,255,255,0.05); color: white; text-align: center;">
+    <a href="https://wa.me/917860636624?text=Hi%20Suryakant,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!" 
+       target="_blank" 
+       style="position: fixed; bottom: 20px; right: 20px; background-color: #25d366; color: white; padding: 15px 20px; border-radius: 50px; font-size: 20px; box-shadow: 2px 2px 10px rgba(0,0,0,0.3); z-index: 1000; text-decoration: none;">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <footer>
         <div style="margin-bottom: 15px;">
+            <a href="https://github.com/Suryakant981" target="_blank" style="color: white; margin: 0 15px; font-size: 22px;"><i class="fab fa-github"></i></a>
             <a href="https://linkedin.com/in/suryakant-chaudhary-8a0926291" target="_blank" style="color: white; margin: 0 15px; font-size: 22px;"><i class="fab fa-linkedin"></i></a>
-            <a href="https://www.instagram.com/itz_introvert_pankaj/" target="_blank" style="color: white; margin: 0 15px; font-size: 22px;"><i class="fab fa-instagram"></i></a>
+            <a href="https://instagram.com/itz_introvert_pankaj" target="_blank" style="color: white; margin: 0 15px; font-size: 22px;"><i class="fab fa-instagram"></i></a>
         </div>
-        <p style="color: #8a8a8a; font-size: 0.9rem;">&copy; 2026 Suryakant. All rights reserved.</p>
+        <p>&copy; 2026 Suryakant. All rights reserved.</p>
     </footer>
 
-    <!-- GSAP for Animations -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
     <script>
-        // Preloader Logic
         window.addEventListener('load', function() {
+            var preloader = document.getElementById('preloader');
             setTimeout(function() {
-                document.getElementById('preloader').style.opacity = '0';
-                setTimeout(function() { document.getElementById('preloader').style.display = 'none'; }, 500);
-            }, 800);
+                preloader.style.opacity = '0';
+                setTimeout(function() {
+                    preloader.style.visibility = 'hidden';
+                }, 500);
+            }, 800); // 0.8 seconds loader timing
         });
-
-        // GSAP Animations
-        gsap.registerPlugin(ScrollTrigger);
-        
-        gsap.utils.toArray(".gs-reveal-up").forEach(elem => {
-            gsap.fromTo(elem, 
-                { y: 50, opacity: 0 }, 
-                { scrollTrigger: { trigger: elem, start: "top 85%" }, y: 0, opacity: 1, duration: 1, ease: "power3.out" }
-            );
-        });
-
-        gsap.fromTo(".gs-card", 
-            { y: 80, opacity: 0 },
-            { scrollTrigger: { trigger: ".project-grid", start: "top 80%" }, y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: "back.out(1.2)" }
-        );
     </script>
+    <script src="script.js"></script>
 </body>
 </html>
