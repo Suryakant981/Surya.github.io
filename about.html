@@ -6,7 +6,7 @@
     <title>Suryakant | About Me</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=13">
+    <link rel="stylesheet" href="style.css?v=14">
     
     <style>
         /* =========================================
@@ -37,7 +37,7 @@
 
         /* Premium Intro Card (Glassmorphism over Matrix) */
         .premium-card {
-            background: rgba(11, 12, 16, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            background: rgba(11, 12, 16, 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(233, 69, 96, 0.3); border-radius: 20px; padding: 45px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.6), inset 0 0 20px rgba(233, 69, 96, 0.1);
             margin: 20px auto 60px; max-width: 900px; text-align: left;
@@ -47,19 +47,28 @@
 
         /* Flashcards */
         .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1000px; margin: 0 auto; }
-        .flashcard-container { height: 350px; perspective: 1000px; cursor: pointer; }
+        .flashcard-container { height: 380px; perspective: 1000px; cursor: pointer; }
         .flashcard-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-style: preserve-3d; }
         .flashcard-container:hover .flashcard-inner, .flashcard-container.flipped .flashcard-inner { transform: rotateY(180deg); }
         .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 30px; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
         
-        .flashcard-front { background: rgba(11, 12, 16, 0.8); border: 1px solid rgba(233, 69, 96, 0.3); box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+        .flashcard-front { background: rgba(11, 12, 16, 0.85); border: 1px solid rgba(233, 69, 96, 0.3); box-shadow: 0 0 20px rgba(0,0,0,0.5); }
         .flashcard-front i { font-size: 4rem; color: #e94560; margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(233,69,96,0.5));}
-        .flashcard-front h3 { color: #ffffff; font-size: 1.4rem; margin-bottom: 10px; font-family: monospace; }
+        .flashcard-front h3 { color: #ffffff; font-size: 1.4rem; margin-bottom: 10px; }
         .flashcard-front span { color: #e94560; font-size: 0.9rem; font-weight: bold; }
         
-        .flashcard-back { background: rgba(233, 69, 96, 0.9); transform: rotateY(180deg); color: white; border: 1px solid rgba(255, 255, 255, 0.2); }
-        .flashcard-back p { font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; }
-        .flashcard-back h3 { font-family: monospace; margin-bottom: 15px; }
+        .flashcard-back { background: rgba(233, 69, 96, 0.95); transform: rotateY(180deg); color: white; border: 1px solid rgba(255, 255, 255, 0.2); }
+        .flashcard-back p { font-size: 0.95rem; line-height: 1.6; margin-bottom: 15px; }
+        .flashcard-back h3 { margin-bottom: 10px; }
+
+        /* Card Buttons */
+        .card-btn {
+            display: inline-block; padding: 8px 15px;
+            background: #ffffff; color: #e94560;
+            text-decoration: none; border-radius: 6px; font-weight: bold;
+            font-size: 0.85rem; margin: 5px; transition: 0.3s; border: 1px solid #ffffff;
+        }
+        .card-btn:hover { background: transparent; color: #ffffff; }
 
         /* =========================================
            PREMIUM CONTACT FORM
@@ -71,7 +80,7 @@
             text-align: left;
         }
         .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; color: #e94560; margin-bottom: 8px; font-weight: bold; font-size: 0.95rem; font-family: monospace;}
+        .form-group label { display: block; color: #e94560; margin-bottom: 8px; font-weight: bold; font-size: 0.95rem; }
         .form-control {
             width: 100%; padding: 15px; border-radius: 10px;
             background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255,255,255,0.1);
@@ -84,7 +93,7 @@
         .submit-btn {
             background: transparent; color: #e94560; padding: 15px 30px; border: 2px solid #e94560; border-radius: 10px;
             font-size: 1.1rem; font-weight: bold; cursor: pointer; width: 100%;
-            transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px; text-transform: uppercase; font-family: monospace;
+            transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px; text-transform: uppercase;
         }
         .submit-btn:hover { background: #e94560; color: #0b0c10; box-shadow: 0 0 20px rgba(233, 69, 96, 0.6); }
 
@@ -93,6 +102,7 @@
         @media screen and (max-width: 768px) {
             .premium-card, .contact-wrapper { padding: 30px 20px; }
             h2 { font-size: 2rem; }
+            .flashcard-container { height: 420px; }
         }
     </style>
 </head>
@@ -105,8 +115,8 @@
     <div id="preloader"><div class="loader"><span>About Me</span></div></div>
 
     <!-- Navigation -->
-    <nav style="position: fixed; width: 100%; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: rgba(11, 12, 16, 0.8); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(233,69,96,0.2);">
-        <div class="logo" style="font-size: 24px; font-weight: bold; color: #e94560; font-family: monospace;">{"Surya"}</div>
+    <nav style="position: fixed; width: 100%; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: rgba(11, 12, 16, 0.85); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(233,69,96,0.2);">
+        <div class="logo" style="font-size: 24px; font-weight: bold; color: #e94560;">Surya</div>
         <ul class="nav-links" style="list-style: none; display: flex; gap: 20px; align-items: center;">
             <li><a href="index.html" style="color: #fff; text-decoration: none;">Home</a></li>
             <li><a href="about.html" style="color: #e94560; text-decoration: none; font-weight: bold;">About</a></li>
@@ -117,7 +127,7 @@
 
     <!-- Main About Section -->
     <section class="content-section" style="position: relative; z-index: 1; padding-top: 130px; text-align: center; padding-left: 20px; padding-right: 20px;">
-        <h2 class="gs-reveal-up">< > Developer Origin < /></h2>
+        <h2 class="gs-reveal-up">About Me</h2>
         <div class="premium-card gs-reveal-up">
             <p>I am a Final-Year BCA Student with a deep passion for IT Infrastructure and Software Development. My journey in technology is driven by a desire to create autonomous solutions that solve critical real-world problems. This ambition led to the development of <strong>SENTINEL-X</strong>, a context-aware 3-tier autonomous SOS system that utilizes 'Dead Man’s Switch' logic to ensure user safety and hardware security without relying on active internet connectivity.</p>
             <p>My technical background is comprehensive, featuring a one-year Advanced Diploma in Computer Applications (ADCA) and proficiency in Tally. I have a strong command over Python and Web Development, skills I further polished during a professional internship at Codec Technologies where I focused on responsive design and technical SEO.</p>
@@ -127,10 +137,11 @@
 
     <!-- Experience Section -->
     <section class="content-section" style="position: relative; z-index: 1; text-align: center; padding: 40px 20px;">
-        <h2 class="gs-reveal-up">{ Experience & Certifications }</h2>
-        <p class="section-subtitle gs-reveal-up">> Executing data fetch... Hover to read files.</p>
+        <h2 class="gs-reveal-up">Experience & Certifications</h2>
+        <p class="section-subtitle gs-reveal-up">Hover over the cards to view details and certificates.</p>
         
         <div class="flashcard-grid">
+            <!-- Flashcard 1 -->
             <div class="flashcard-container gs-card" onclick="this.classList.toggle('flipped')">
                 <div class="flashcard-inner">
                     <div class="flashcard-front">
@@ -141,10 +152,16 @@
                     <div class="flashcard-back">
                         <h3>1-Month Internship</h3>
                         <p>Built responsive web layouts using HTML/CSS & JS. Integrated REST APIs, learned Node.js/MongoDB fundamentals, and deployed projects using Git.</p>
+                        <!-- ADDED BUTTONS BACK -->
+                        <div style="margin-top: 10px;">
+                            <a href="codec-certificate.pdf" target="_blank" class="card-btn">Certificate</a>
+                            <a href="codec-lor.pdf" target="_blank" class="card-btn" style="background: transparent; color: #ffffff;">View LOR</a>
+                        </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Flashcard 2 -->
             <div class="flashcard-container gs-card" onclick="this.classList.toggle('flipped')">
                 <div class="flashcard-inner">
                     <div class="flashcard-front">
@@ -163,7 +180,7 @@
 
     <!-- CONTACT FORM SECTION -->
     <section class="content-section" style="position: relative; z-index: 1; text-align: center; padding: 60px 20px 100px;">
-        <h2 class="gs-reveal-up">[ Initialize Connection ]</h2>
+        <h2 class="gs-reveal-up">Drop a Message</h2>
         <p class="section-subtitle gs-reveal-up">Have a project idea or just want to say hi? Let's talk!</p>
         
         <div class="contact-wrapper gs-reveal-up">
@@ -174,24 +191,24 @@
                 <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
                 
                 <div class="form-group">
-                    <label for="name">> const name =</label>
-                    <input type="text" name="name" id="name" class="form-control" placeholder="'John Doe'" required>
+                    <label for="name">Your Name</label>
+                    <input type="text" name="name" id="name" class="form-control" placeholder="John Doe" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="email">> const email =</label>
-                    <input type="email" name="email" id="email" class="form-control" placeholder="'john@example.com'" required>
+                    <label for="email">Email Address</label>
+                    <input type="email" name="email" id="email" class="form-control" placeholder="john@example.com" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="message">> const message =</label>
-                    <textarea name="message" id="message" class="form-control" placeholder="'Hey Surya, let us build something awesome!'" required></textarea>
+                    <label for="message">Your Message</label>
+                    <textarea name="message" id="message" class="form-control" placeholder="Hey Surya, I loved your portfolio..." required></textarea>
                 </div>
                 
                 <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
 
                 <button type="submit" class="submit-btn">
-                    <i class="fas fa-terminal"></i> Execute.Send()
+                    <i class="fas fa-paper-plane"></i> Send Message
                 </button>
             </form>
         </div>
@@ -211,7 +228,8 @@
             <a href="https://linkedin.com/in/suryakant-chaudhary-8a0926291" target="_blank" style="color: #e94560; margin: 0 15px; font-size: 22px; transition: 0.3s;" onmouseover="this.style.textShadow='0 0 10px #e94560'" onmouseout="this.style.textShadow='none'"><i class="fab fa-linkedin"></i></a>
             <a href="https://instagram.com/itz_introvert_pankaj" target="_blank" style="color: #e94560; margin: 0 15px; font-size: 22px; transition: 0.3s;" onmouseover="this.style.textShadow='0 0 10px #e94560'" onmouseout="this.style.textShadow='none'"><i class="fab fa-instagram"></i></a>
         </div>
-        <p style="color: #8a8a8a; font-size: 0.9rem; font-family: monospace;">&copy; 2026 SURYAKANT. SYSTEM TERMINATED.</p>
+        <!-- FIXED FOOTER TEXT -->
+        <p style="color: #8a8a8a; font-size: 0.9rem; font-family: monospace;">&copy; 2026 Suryakant. All rights reserved.</p>
     </footer>
 
     <!-- ADVANCED SCRIPTS -->
@@ -234,23 +252,19 @@
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        // Katakana + Latin + Numerals for authentic vibe
         const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()<>{}[]/\\|'.split('');
         const fontSize = 14;
         const columns = canvas.width / fontSize;
         const drops = [];
 
-        // Initialize drop positions
         for(let x = 0; x < columns; x++) {
             drops[x] = 1;
         }
 
         function drawMatrix() {
-            // Translucent black background to create trail effect
             ctx.fillStyle = 'rgba(11, 12, 16, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            // Neon Red/Pink text for the rain
             ctx.fillStyle = '#e94560'; 
             ctx.font = fontSize + 'px monospace';
             
@@ -258,7 +272,6 @@
                 const text = chars[Math.floor(Math.random() * chars.length)];
                 ctx.fillText(text, i * fontSize, drops[i] * fontSize);
                 
-                // Randomly reset drops to top
                 if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
                     drops[i] = 0;
                 }
@@ -266,10 +279,8 @@
             }
         }
         
-        // Speed of the rain
         setInterval(drawMatrix, 35);
 
-        // Adjust canvas on screen resize
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
