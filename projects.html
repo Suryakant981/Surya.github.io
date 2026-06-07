@@ -3,316 +3,262 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suryakant | Projects</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>Suryakant | My Projects</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=12">
     
     <style>
         /* =========================================
-           GLOBAL DARK PREMIUM THEME
+           CYBERPUNK / HIGH-TECH THEME
            ========================================= */
+        :root {
+            --cyan: #00f3ff;
+            --purple: #8a2be2;
+            --bg-dark: #050508;
+            --card-bg: rgba(10, 10, 15, 0.7);
+        }
+
         body {
-            background-color: #0b0c10 !important; 
-            color: #c5c6c7 !important;
+            background-color: var(--bg-dark);
+            color: #e0e0e0;
             font-family: 'Inter', sans-serif;
             margin: 0; padding: 0;
             overflow-x: hidden;
         }
 
-        /* 3D GLOBE Background Container */
-        #vanta-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+        /* Interactive Particle Background */
+        #particles-js {
+            position: fixed; width: 100%; height: 100%;
+            top: 0; left: 0; z-index: -1;
+            background: radial-gradient(circle at center, #100b1f 0%, #050508 100%);
         }
 
-        /* Preloader */
-        #preloader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #0b0c10; z-index: 99999; display: flex; justify-content: center; align-items: center;
-            transition: opacity 0.5s ease, visibility 0.5s;
-        }
-        .loader span { font-size: 3rem; font-weight: 800; color: #ffffff; letter-spacing: 2px; }
-
-        /* =========================================
-           CYBER GLITCH HEADING EFFECT
-           ========================================= */
-        .cyber-glitch {
-            font-size: 3rem; color: #ffffff; font-weight: 800; position: relative;
-            display: inline-block; text-transform: uppercase; letter-spacing: 2px;
-            text-shadow: 0 5px 15px rgba(233, 69, 96, 0.5); margin-bottom: 15px;
-        }
-        .cyber-glitch::before, .cyber-glitch::after {
-            content: attr(data-text); position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%; background: transparent;
-        }
-        .cyber-glitch::before {
-            left: 2px; text-shadow: -2px 0 #00ffff; clip: rect(24px, 550px, 90px, 0);
-            animation: glitch-anim-2 3s infinite linear alternate-reverse;
-        }
-        .cyber-glitch::after {
-            left: -2px; text-shadow: -2px 0 #e94560; clip: rect(85px, 550px, 140px, 0);
-            animation: glitch-anim 2.5s infinite linear alternate-reverse;
-        }
-        @keyframes glitch-anim {
-            0% { clip: rect(31px, 9999px, 94px, 0); }
-            20% { clip: rect(62px, 9999px, 42px, 0); }
-            40% { clip: rect(16px, 9999px, 78px, 0); }
-            60% { clip: rect(89px, 9999px, 13px, 0); }
-            80% { clip: rect(54px, 9999px, 53px, 0); }
-            100% { clip: rect(32px, 9999px, 12px, 0); }
-        }
-        @keyframes glitch-anim-2 {
-            0% { clip: rect(25px, 9999px, 50px, 0); }
-            20% { clip: rect(10px, 9999px, 80px, 0); }
-            40% { clip: rect(70px, 9999px, 30px, 0); }
-            60% { clip: rect(40px, 9999px, 90px, 0); }
-            80% { clip: rect(80px, 9999px, 20px, 0); }
-            100% { clip: rect(15px, 9999px, 60px, 0); }
-        }
-
-        .section-subtitle { color: #00ffcc; margin-bottom: 50px; font-size: 1.05rem; font-family: monospace; text-shadow: 0 2px 5px rgba(0,0,0,0.8); }
-
-        /* =========================================
-           3D FLIP PROJECT CARDS (Sci-Fi Glassmorphism)
-           ========================================= */
-        .flashcard-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px; max-width: 1100px; margin: 0 auto;
-        }
-
-        .flashcard-container { height: 400px; perspective: 1000px; cursor: pointer; }
+        /* Typography */
+        h1, h2, h3 { font-family: 'Orbitron', sans-serif; letter-spacing: 2px; }
         
-        .flashcard-inner {
-            position: relative; width: 100%; height: 100%;
-            text-align: center; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        .page-title {
+            text-align: center; font-size: 3.5rem; margin-top: 130px; margin-bottom: 10px;
+            color: #fff;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px var(--cyan), 0 0 20px var(--purple);
+            position: relative;
+        }
+        
+        .subtitle { text-align: center; color: #a0a0a0; margin-bottom: 60px; font-family: monospace; font-size: 1.1rem; }
+
+        /* =========================================
+           3D CYBER CARDS (THE CRAZY EFFECT)
+           ========================================= */
+        .projects-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px; max-width: 1200px; margin: 0 auto 100px; padding: 0 20px;
+        }
+
+        .cyber-card {
+            position: relative;
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            color: #fff;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 243, 255, 0.1);
             transform-style: preserve-3d;
-        }
-        
-        .flashcard-container:hover .flashcard-inner, .flashcard-container.flipped .flashcard-inner {
-            transform: rotateY(180deg);
-        }
-        
-        .flashcard-front, .flashcard-back {
-            position: absolute; width: 100%; height: 100%;
-            backface-visibility: hidden; border-radius: 20px;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            padding: 30px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            transition: border-color 0.3s;
         }
 
-        /* HOLOGRAPHIC SCAN-LINE EFFECT */
-        .flashcard-front::after, .flashcard-back::after {
-            content: ''; position: absolute; top: 0; left: -100%;
-            width: 50%; height: 100%;
-            background: linear-gradient(to right, transparent, rgba(233, 69, 96, 0.3), transparent);
-            transform: skewX(-20deg); animation: cyber-scan 4s infinite;
+        /* Animated Glowing Border Effect */
+        .cyber-card::before {
+            content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(45deg, var(--cyan), transparent, var(--purple), transparent);
+            z-index: -1; border-radius: 16px; background-size: 400%;
+            animation: animateBorder 6s linear infinite;
+            opacity: 0; transition: opacity 0.5s;
         }
-        @keyframes cyber-scan { 0% { left: -100%; } 50%, 100% { left: 200%; } }
+        .cyber-card:hover::before { opacity: 1; }
         
-        /* Front Design */
-        .flashcard-front {
-            background: rgba(11, 12, 16, 0.7);
-            border: 1px solid rgba(0, 255, 204, 0.3);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6), inset 0 0 20px rgba(0, 255, 204, 0.1);
+        @keyframes animateBorder {
+            0% { background-position: 0 0; }
+            50% { background-position: 300% 0; }
+            100% { background-position: 0 0; }
         }
-        .flashcard-front i { font-size: 4rem; color: #00ffcc; margin-bottom: 25px; filter: drop-shadow(0 0 10px rgba(0,255,204,0.6)); }
-        .flashcard-front h3 { color: #ffffff; font-size: 1.5rem; margin-bottom: 10px; font-family: monospace; letter-spacing: 1px;}
-        .flashcard-front p { color: #8a8a8a; font-size: 0.95rem; margin-top: 10px; font-weight: bold; }
-        .flash-hint { color: #e94560; font-size: 0.85rem; margin-top: 20px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;}
 
-        /* Back Design */
-        .flashcard-back {
-            background: rgba(233, 69, 96, 0.9); transform: rotateY(180deg);
-            box-shadow: 0 15px 35px rgba(233, 69, 96, 0.5); color: white;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        .flashcard-back h3 { margin-bottom: 15px; font-size: 1.4rem; font-family: monospace; }
-        .flashcard-back p { font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; color: #ffffff;}
-        .flashcard-back .skills-text { color: #00ffcc; font-weight: bold; font-size: 0.85rem; margin-bottom: 20px; background: rgba(0,0,0,0.4); padding: 5px 10px; border-radius: 5px; font-family: monospace;}
+        /* 3D Inner Elements */
+        .card-content { transform: translateZ(40px); } /* Lifts content during tilt */
         
-        /* Premium Buttons */
-        .premium-btn {
-            display: inline-block; padding: 10px 22px;
-            background: #0b0c10; color: #00ffcc !important;
-            text-decoration: none; border-radius: 5px; font-weight: bold;
-            font-size: 0.95rem; transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid #00ffcc; cursor: pointer; text-transform: uppercase;
+        .project-icon {
+            font-size: 3rem; margin-bottom: 20px;
+            background: -webkit-linear-gradient(45deg, var(--cyan), var(--purple));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 8px rgba(0,243,255,0.4));
         }
-        .premium-btn:hover { background: #00ffcc; color: #0b0c10 !important; transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,255,204,0.4); }
 
-        /* GSAP Animations */
-        .gs-reveal-up { opacity: 0; transform: translateY(30px); }
+        .cyber-card h3 { font-size: 1.5rem; margin-bottom: 10px; color: var(--cyan); }
+        .cyber-card p { font-size: 0.95rem; line-height: 1.6; color: #b3b3b3; margin-bottom: 20px; }
 
-        /* Mobile Adjustments */
-        @media screen and (max-width: 768px) {
-            .flashcard-container { height: 420px; }
-            .cyber-glitch { font-size: 2.2rem; }
-            .content-section { padding-top: 100px !important; }
+        /* Tech Stack Tags */
+        .tech-stack { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 25px; }
+        .tech-tag {
+            background: rgba(0, 243, 255, 0.05); border: 1px solid var(--cyan);
+            color: var(--cyan); padding: 4px 10px; border-radius: 4px;
+            font-size: 0.75rem; font-family: monospace; font-weight: bold;
+            box-shadow: 0 0 5px rgba(0,243,255,0.2);
         }
+
+        /* Action Buttons */
+        .btn-group { display: flex; gap: 15px; }
+        .cyber-btn {
+            flex: 1; text-align: center; padding: 10px;
+            background: transparent; border: 1px solid var(--purple); color: #fff;
+            text-decoration: none; font-family: 'Orbitron', sans-serif; font-size: 0.85rem;
+            border-radius: 5px; transition: 0.3s; position: relative; overflow: hidden;
+            z-index: 1;
+        }
+        .cyber-btn::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.4), transparent);
+            transition: left 0.5s; z-index: -1;
+        }
+        .cyber-btn:hover::before { left: 100%; }
+        .cyber-btn:hover { background: var(--purple); box-shadow: 0 0 15px var(--purple); border-color: var(--purple); }
+
+        .btn-primary { border-color: var(--cyan); }
+        .btn-primary:hover { background: var(--cyan); color: #000; box-shadow: 0 0 15px var(--cyan); border-color: var(--cyan); }
+
+        /* Navbar & Footer (Adapted to new color) */
+        nav { position: fixed; width: 100%; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: rgba(5, 5, 8, 0.85); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(0, 243, 255, 0.2); box-sizing: border-box;}
+        .logo { font-size: 24px; font-weight: 900; color: var(--cyan); font-family: 'Orbitron', sans-serif; letter-spacing: 1px; text-shadow: 0 0 10px var(--cyan); }
+        .nav-links { list-style: none; display: flex; gap: 20px; align-items: center; margin: 0; padding: 0;}
+        .nav-links a { color: #fff; text-decoration: none; transition: 0.3s; font-family: 'Orbitron', sans-serif; font-size: 0.9rem;}
+        .nav-links a:hover, .active-link { color: var(--cyan) !important; text-shadow: 0 0 8px var(--cyan); }
+        
+        @media screen and (max-width: 768px) { nav { padding: 15px 20px; } .nav-links { display: none; /* Add mobile menu logic here later */ } }
     </style>
 </head>
 <body>
 
-    <!-- 3D GLOBE BACKGROUND -->
-    <div id="vanta-bg"></div>
+    <div id="particles-js"></div>
 
-    <!-- Preloader -->
-    <div id="preloader"><div class="loader"><span>Projects</span></div></div>
-
-    <!-- Navigation -->
-    <nav style="position: fixed; width: 100%; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: rgba(11, 12, 16, 0.85); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(233, 69, 96, 0.3);">
-        <div class="logo" style="font-size: 24px; font-weight: bold; color: #e94560;">Surya</div>
-        <ul class="nav-links" style="list-style: none; display: flex; gap: 20px; align-items: center;">
-            <li><a href="index.html" style="color: #fff; text-decoration: none;">Home</a></li>
-            <li><a href="about.html" style="color: #fff; text-decoration: none;">About</a></li>
-            <li><a href="projects.html" style="color: #e94560; text-decoration: none; font-weight: bold;">Projects</a></li>
-            <li><a href="suryakant-resume.jpg" target="_blank" class="premium-btn" style="background: #e94560; color: #ffffff !important; border:none; padding: 8px 18px;">Hire Me</a></li>
+    <nav>
+        <div class="logo">SURYA_X</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="projects.html" class="active-link">Projects</a></li>
+            <li><a href="suryakant-resume.jpg" target="_blank" style="border: 1px solid var(--cyan); padding: 8px 18px; border-radius: 4px;">Initialize()</a></li>
         </ul>
     </nav>
 
-    <!-- Main Content Section -->
-    <section class="content-section" style="position: relative; z-index: 1; padding-top: 130px; text-align: center; padding-left: 20px; padding-right: 20px; min-height: 80vh; margin-bottom: 60px;">
+    <h1 class="page-title gs-reveal">System Architecture</h1>
+    <p class="subtitle gs-reveal">/// Executing classified project modules ///</p>
+
+    <div class="projects-grid">
         
-        <h1 class="cyber-glitch gs-reveal-up" data-text="***PROJECTS***">***PROJECTS***</h1>
-        <p class="section-subtitle gs-reveal-up">> INITIALIZING SECURE DATABASE ARCHIVE... (Hover to decrypt)</p>
-        
-        <div class="flashcard-grid">
-
-            <!-- Card 1 -->
-            <div class="flashcard-container gs-card" onclick="this.classList.toggle('flipped')">
-                <div class="flashcard-inner">
-                    <div class="flashcard-front">
-                        <i class="fas fa-shield-alt"></i>
-                        <h3>RAKSHA SURAKSHA</h3>
-                        <p>Tactical Command System</p>
-                        <div class="flash-hint">[ DECRYPT FILE ]</div>
-                    </div>
-                    <div class="flashcard-back">
-                        <h3>Project Info</h3>
-                        <p>A military-grade personal safety Android application featuring a 3-Tier security architecture. Co-developed with S. Jaya Kumar, it utilizes offline SQLite Vaults, native SMS APIs, and gravity sensors to track stolen devices.</p>
-                        <div class="skills-text">Native Java | Firebase | SQLite | OSM Maps</div>
-                        <a href="https://Rakshasuraksha.github.io" target="_blank" class="premium-btn">Launch Live</a>
-                    </div>
+        <div class="cyber-card gs-reveal" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.2">
+            <div class="card-content">
+                <i class="fas fa-shield-alt project-icon"></i>
+                <h3>SENTINEL-X</h3>
+                <p>A context-aware 3-tier autonomous SOS system utilizing 'Dead Man’s Switch' logic. Ensures maximum user safety and hardware security strictly without relying on active internet connectivity.</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Hardware</span>
+                    <span class="tech-tag">Autonomous Logic</span>
+                    <span class="tech-tag">Offline Systems</span>
+                </div>
+                <div class="btn-group">
+                    <a href="#" class="cyber-btn btn-primary"><i class="fas fa-play"></i> Deploy</a>
+                    <a href="#" class="cyber-btn"><i class="fab fa-github"></i> Source</a>
                 </div>
             </div>
-
-            <!-- Card 2 -->
-            <div class="flashcard-container gs-card" onclick="this.classList.toggle('flipped')">
-                <div class="flashcard-inner">
-                    <div class="flashcard-front">
-                        <i class="fas fa-briefcase"></i>
-                        <h3>Web Developer Intern</h3>
-                        <p>@ Codec Technologies</p>
-                        <div class="flash-hint">[ DECRYPT FILE ]</div>
-                    </div>
-                    <div class="flashcard-back">
-                        <h3>Project Info</h3>
-                        <p>Completed a 1-month AICTE & ICAC approved professional internship. Developed a dynamic "Restaurant Website" mini-project featuring a responsive frontend and data fetched directly from a MySQL database.</p>
-                        <div class="skills-text">HTML | CSS | JavaScript | PHP | MySQL</div>
-                        <a href="internship report.pptx" target="_blank" class="premium-btn">View Report</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="flashcard-container gs-card" onclick="this.classList.toggle('flipped')">
-                <div class="flashcard-inner">
-                    <div class="flashcard-front">
-                        <i class="fas fa-search-location"></i>
-                        <h3>SEO Integration</h3>
-                        <p>Search Console</p>
-                        <div class="flash-hint">[ DECRYPT FILE ]</div>
-                    </div>
-                    <div class="flashcard-back">
-                        <h3>Project Info</h3>
-                        <p>Configured Search Console for personal portfolio hosting on GitHub Pages. Improved site indexing and fixed sitemap fetch errors for better visibility.</p>
-                        <div class="skills-text">Technical SEO | Search Console | GitHub</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 4 -->
-            <div class="flashcard-container gs-card" onclick="this.classList.toggle('flipped')">
-                <div class="flashcard-inner">
-                    <div class="flashcard-front">
-                        <i class="fas fa-file-excel"></i>
-                        <h3>Office Admin Systems</h3>
-                        <p>Data Management</p>
-                        <div class="flash-hint">[ DECRYPT FILE ]</div>
-                    </div>
-                    <div class="flashcard-back">
-                        <h3>Project Info</h3>
-                        <p>Developed proficiency in data management using Tally and MS Excel. Applied ADCA principles to organize professional documents and accounts.</p>
-                        <div class="skills-text">Tally | MS Office | Data Management</div>
-                    </div>
-                </div>
-            </div>
-
         </div>
-    </section>
 
-    <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/917860636624?text=Hi%20Suryakant,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!" 
-       target="_blank" 
-       style="position: fixed; bottom: 20px; right: 20px; background-color: #25d366; color: white; padding: 15px 20px; border-radius: 50px; font-size: 20px; box-shadow: 0 0 15px rgba(37,211,102,0.5); z-index: 1000; text-decoration: none;">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
-    <!-- Footer -->
-    <footer style="position: relative; z-index: 1; padding: 40px; background-color: rgba(11, 12, 16, 0.95); border-top: 1px solid rgba(233,69,96,0.3); color: white; text-align: center;">
-        <div style="margin-bottom: 15px;">
-            <a href="https://github.com/Suryakant981" target="_blank" style="color: #00ffcc; margin: 0 15px; font-size: 22px; transition: 0.3s;"><i class="fab fa-github"></i></a>
-            <a href="https://linkedin.com/in/suryakant-chaudhary-8a0926291" target="_blank" style="color: #00ffcc; margin: 0 15px; font-size: 22px; transition: 0.3s;"><i class="fab fa-linkedin"></i></a>
-            <a href="https://instagram.com/itz_introvert_pankaj" target="_blank" style="color: #00ffcc; margin: 0 15px; font-size: 22px; transition: 0.3s;"><i class="fab fa-instagram"></i></a>
+        <div class="cyber-card gs-reveal" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.2">
+            <div class="card-content">
+                <i class="fas fa-robot project-icon"></i>
+                <h3>Project 'MJ' (AI Core)</h3>
+                <p>A fully personalized, locally hosted voice-activated AI assistant. Capable of executing system commands, opening apps, reading messages, and offering logical interactions via local LLMs.</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Vosk</span>
+                    <span class="tech-tag">Llama3</span>
+                    <span class="tech-tag">NLP</span>
+                </div>
+                <div class="btn-group">
+                    <a href="#" class="cyber-btn btn-primary"><i class="fas fa-microphone"></i> Test Audio</a>
+                    <a href="#" class="cyber-btn"><i class="fab fa-github"></i> Codebase</a>
+                </div>
+            </div>
         </div>
-        <p style="color: #8a8a8a; font-size: 0.9rem; font-family: monospace;">&copy; 2026 SURYAKANT. ALL SECURE RIGHTS RESERVED.</p>
-    </footer>
 
-    <!-- ADVANCED SCRIPTS: THREE.JS, VANTA (GLOBE) & GSAP -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
+        <div class="cyber-card gs-reveal" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.2">
+            <div class="card-content">
+                <i class="fas fa-video project-icon"></i>
+                <h3>Neural Cinematics</h3>
+                <p>Advanced AI-driven video generation focusing on ultra-realistic physics, lighting dynamics, starburst flares, and specific camera angles for dramatic night street rendering.</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Prompt Engineering</span>
+                    <span class="tech-tag">Generative AI</span>
+                    <span class="tech-tag">VFX</span>
+                </div>
+                <div class="btn-group">
+                    <a href="#" class="cyber-btn btn-primary"><i class="fas fa-eye"></i> View Gallery</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="cyber-card gs-reveal" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.2">
+            <div class="card-content">
+                <i class="fas fa-code project-icon"></i>
+                <h3>Cyber-Portfolio</h3>
+                <p>A premium, highly interactive personal portfolio website featuring custom glassmorphism, 3D tilt physics, dynamic particle rendering, and Web3Forms integration.</p>
+                <div class="tech-stack">
+                    <span class="tech-tag">HTML5/CSS3</span>
+                    <span class="tech-tag">Vanilla JS</span>
+                    <span class="tech-tag">GSAP</span>
+                </div>
+                <div class="btn-group">
+                    <a href="#" class="cyber-btn btn-primary"><i class="fas fa-globe"></i> Live View</a>
+                    <a href="#" class="cyber-btn"><i class="fab fa-github"></i> Repo</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <script>
-        // 1. Preloader Logic
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                document.getElementById('preloader').style.opacity = '0';
-                setTimeout(() => document.getElementById('preloader').style.display = 'none', 500);
-            }, 800);
+        // INIT PARTICLES.JS (Cyber Grid Setup)
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#00f3ff" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.5, "random": false },
+                "size": { "value": 3, "random": true },
+                "line_linked": { "enable": true, "distance": 150, "color": "#8a2be2", "opacity": 0.4, "width": 1 },
+                "move": { "enable": true, "speed": 2, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": { "enable": true, "mode": "grab" }, // Lines connect to mouse
+                    "onclick": { "enable": true, "mode": "push" }, // Clicks add particles
+                    "resize": true
+                },
+                "modes": {
+                    "grab": { "distance": 200, "line_linked": { "opacity": 0.8 } },
+                    "push": { "particles_nb": 4 }
+                }
+            },
+            "retina_detect": true
         });
 
-        // 2. 3D GLOBE Background Initialization (Sci-Fi Theme)
-        VANTA.GLOBE({
-            el: "#vanta-bg",
-            mouseControls: true,
-            touchControls: true,
-            gyroControls: false,
-            minHeight: 200.00,
-            minWidth: 200.00,
-            scale: 1.00,
-            scaleMobile: 1.00,
-            color: 0xe94560,        // Pink/Red Globe Lines
-            color2: 0x00ffcc,       // Cyan Highlight Dots
-            size: 1.30,
-            backgroundColor: 0x0b0c10 // Deep Dark Background
-        });
-
-        // 3. GSAP Scroll Animations
-        gsap.registerPlugin(ScrollTrigger);
-        
-        gsap.utils.toArray(".gs-reveal-up").forEach(elem => {
-            gsap.fromTo(elem, 
-                { y: 50, opacity: 0 }, 
-                { scrollTrigger: { trigger: elem, start: "top 85%" }, y: 0, opacity: 1, duration: 1, ease: "power3.out" }
-            );
-        });
-
-        gsap.fromTo(".gs-card", 
-            { y: 80, opacity: 0, scale: 0.9 },
-            { scrollTrigger: { trigger: ".flashcard-grid", start: "top 80%" }, y: 0, opacity: 1, scale: 1, duration: 1, stagger: 0.15, ease: "elastic.out(1, 0.8)" }
-        );
+        // INIT GSAP (Smooth Reveal on Load)
+        gsap.fromTo(".page-title", { opacity: 0, y: -50 }, { opacity: 1, y: 0, duration: 1, ease: "power3.out" });
+        gsap.fromTo(".subtitle", { opacity: 0 }, { opacity: 1, duration: 1, delay: 0.3 });
+        gsap.fromTo(".gs-reveal", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.8, stagger: 0.2, ease: "back.out(1.2)", delay: 0.5 });
     </script>
 </body>
 </html>
