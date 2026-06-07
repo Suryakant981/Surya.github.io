@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surya | Experimental Lab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0; padding: 0; overflow: hidden;
+            background-color: #050508; color: #00ffcc;
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        /* =========================================
+           2. TACTICAL TERMINAL BOOT-UP SEQUENCE
+           ========================================= */
+        #terminal-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 1000; padding: 40px; box-sizing: border-box;
+            display: flex; flex-direction: column; justify-content: flex-start;
+            text-shadow: 0 0 10px #00ffcc; font-size: 1.2rem;
+            transition: opacity 1s ease-in-out;
+        }
+        .term-line { opacity: 0; margin-bottom: 10px; }
+        .typing { border-right: 2px solid #00ffcc; animation: blink 0.8s infinite; white-space: nowrap; overflow: hidden; width: 0; }
+        @keyframes blink { 50% { border-color: transparent; } }
+
+        /* =========================================
+           3. INTERACTIVE PHYSICS GRAVITY ENGINE
+           ========================================= */
+        #physics-canvas {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;
+        }
+        
+        .overlay-ui {
+            position: absolute; z-index: 10; top: 30px; left: 30px; pointer-events: none;
+        }
+        .overlay-ui h1 { font-family: 'Orbitron', sans-serif; font-size: 3rem; margin: 0; color: #fff; text-shadow: 0 0 20px #8a2be2, 0 0 40px #8a2be2; }
+        .overlay-ui p { color: #b3b3b3; font-size: 1.1rem; }
+
+        /* =========================================
+           1. LIVE WEB-BASED VOICE AI BUTTON
+           ========================================= */
+        #voice-btn {
+            position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 20;
+            background: transparent; border: 2px solid #00ffcc; color: #00ffcc;
+            padding: 15px 40px; font-size: 1.2rem; font-family: 'Orbitron', sans-serif; font-weight: bold;
+            border-radius: 50px; cursor: pointer; box-shadow: 0 0 20px rgba(0, 255, 204, 0.4);
+            transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 2px;
+            pointer-events: auto;
+        }
+        #voice-btn:hover { background: #00ffcc; color: #000; box-shadow: 0 0 40px rgba(0, 255, 204, 0.8); }
+        #voice-btn.listening { border-color: #ff0055; color: #ff0055; box-shadow: 0 0 40px rgba(255, 0, 85, 0.8); animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { transform: translateX(-50%) scale(1); } 50% { transform: translateX(-50%) scale(1.05); } 100% { transform: translateX(-50%) scale(1); } }
+
+        #ai-response {
+            position: absolute; bottom: 110px; width: 100%; text-align: center;
+            font-size: 1.5rem; color: #fff; text-shadow: 0 0 15px #e94560; z-index: 20;
+            font-family: 'Orbitron', sans-serif; pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="terminal-screen"></div>
+
+    <div class="overlay-ui">
+        <h1>SURYA LABS</h1>
+        <p>Gravity Engine Active. Drag and drop the glowing blocks.</p>
+    </div>
+
+    <div id="ai-response"></div>
+    <button id="voice-btn"><i class="fas fa-microphone"></i> Activate AI</button>
+
+    <div id="physics-canvas"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    
+    <script>
+        /* =========================================
+           TACTICAL BOOT-UP SCRIPT
+           ========================================= */
+        const terminal = document.getElementById('terminal-screen');
+        const lines = [
+            "Initiating SENTINEL-X secure protocols...",
+            "Bypassing mainframe security... [OK]",
+            "Loading Neural Core offline packages... [OK]",
+            "Booting Matter.js 2D Physics Engine... [OK]",
+            "Initializing Web Speech API Voice Recognition... [OK]",
+            "Welcome back, Suryakant. System is fully operational."
+        ];
+
+        async function typeLines() {
+            for (let i = 0; i < lines.length; i++) {
+                const lineDiv = document.createElement('div');
+                lineDiv.className = 'term-line typing';
+                terminal.appendChild(lineDiv);
+                lineDiv.style.opacity = 1;
+                
+                await typeText(lineDiv, lines[i], 30); // Typing speed
+                lineDiv.classList.remove('typing'); // Remove cursor
+                lineDiv.style.borderRight = "none";
+                await new Promise(r => setTimeout(r, 400)); // Pause between lines
+            }
+            
+            // Fade out terminal
+            setTimeout(() => {
+                terminal.style.opacity = 0;
+                setTimeout(() => terminal.style.display = 'none', 1000);
+            }, 1000);
+        }
+
+        function typeText(element, text, speed) {
+            return new Promise(resolve => {
+                let i = 0;
+                element.style.width = 'auto'; // allow text expansion
+                element.textContent = "";
+                const timer = setInterval(() => {
+                    if (i < text.length) {
+                        element.textContent += text.charAt(i);
+                        i++;
+                    } else {
+                        clearInterval(timer);
+                        resolve();
+                    }
+                }, speed);
+            });
+        }
+
+        // Start Bootup
+        window.onload = typeLines;
+
+        /* =========================================
+           INTERACTIVE PHYSICS GRAVITY ENGINE (Matter.js)
+           ========================================= */
+        const Engine = Matter.Engine,
+              Render = Matter.Render,
+              Runner = Matter.Runner,
+              MouseConstraint = Matter.MouseConstraint,
+              Mouse = Matter.Mouse,
+              World = Matter.World,
+              Bodies = Matter.Bodies;
+
+        const engine = Engine.create();
+        const world = engine.world;
+        world.gravity.y = 1; // Normal gravity
+
+        const render = Render.create({
+            element: document.getElementById('physics-canvas'),
+            engine: engine,
+            options: {
+                width: window.innerWidth,
+                height: window.innerHeight,
+                wireframes: false,
+                background: 'transparent'
+            }
+        });
+
+        Render.run(render);
+        Runner.run(Runner.create(), engine);
+
+        // Add Boundaries (Floor, Walls)
+        const wallOptions = { isStatic: true, render: { fillStyle: 'rgba(0, 255, 204, 0.2)' } };
+        World.add(world, [
+            Bodies.rectangle(window.innerWidth/2, window.innerHeight + 25, window.innerWidth, 50, wallOptions), // Ground
+            Bodies.rectangle(-25, window.innerHeight/2, 50, window.innerHeight, wallOptions), // Left Wall
+            Bodies.rectangle(window.innerWidth + 25, window.innerHeight/2, 50, window.innerHeight, wallOptions) // Right Wall
+        ]);
+
+        // Add glowing tech boxes
+        for (let i = 0; i < 20; i++) {
+            let box = Bodies.rectangle(
+                Math.random() * window.innerWidth, 
+                Math.random() * -500, // Fall from top
+                Math.random() * 40 + 30, 
+                Math.random() * 40 + 30, 
+                {
+                    restitution: 0.9, // Bounciness
+                    render: {
+                        fillStyle: i % 2 === 0 ? '#00ffcc' : '#e94560',
+                        strokeStyle: '#ffffff',
+                        lineWidth: 2
+                    }
+                }
+            );
+            World.add(world, box);
+        }
+
+        // Add Mouse Interaction (Drag & Throw)
+        const mouse = Mouse.create(render.canvas);
+        const mouseConstraint = MouseConstraint.create(engine, {
+            mouse: mouse,
+            constraint: { stiffness: 0.2, render: { visible: false } }
+        });
+        World.add(world, mouseConstraint);
+        render.mouse = mouse;
+
+        window.addEventListener('resize', () => {
+            render.canvas.width = window.innerWidth;
+            render.canvas.height = window.innerHeight;
+        });
+
+        /* =========================================
+           LIVE WEB-BASED VOICE AI (Web Speech API)
+           ========================================= */
+        const voiceBtn = document.getElementById('voice-btn');
+        const aiResponseText = document.getElementById('ai-response');
+        
+        // Check browser support
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (SpeechRecognition) {
+            const recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.lang = 'en-IN'; // English India
+
+            voiceBtn.addEventListener('click', () => {
+                recognition.start();
+                voiceBtn.classList.add('listening');
+                voiceBtn.innerHTML = '<i class="fas fa-satellite-dish"></i> Listening...';
+                aiResponseText.innerText = "";
+            });
+
+            recognition.onresult = (event) => {
+                const userSpeech = event.results[0][0].transcript.toLowerCase();
+                voiceBtn.classList.remove('listening');
+                voiceBtn.innerHTML = '<i class="fas fa-microphone"></i> Activate AI';
+                
+                aiResponseText.innerText = `You: "${userSpeech}"`;
+                
+                // AI Logic (Basic Responses)
+                let reply = "I heard you, but I am still learning.";
+                if(userSpeech.includes("hello") || userSpeech.includes("hi")) {
+                    reply = "Hello Suryakant. Gravity engine is fully functional.";
+                } else if(userSpeech.includes("who are you")) {
+                    reply = "I am a web-based voice interface, a lighter version of your AI core.";
+                } else if(userSpeech.includes("hack")) {
+                    reply = "Deploying SENTINEL-X countermeasures now.";
+                } else if(userSpeech.includes("gravity") || userSpeech.includes("zero")) {
+                    world.gravity.y = 0;
+                    reply = "Zero gravity activated.";
+                    // Float the boxes
+                    world.bodies.forEach(b => !b.isStatic && Matter.Body.applyForce(b, b.position, {x: 0, y: -0.05}));
+                } else if(userSpeech.includes("normal")) {
+                    world.gravity.y = 1;
+                    reply = "Normal gravity restored.";
+                }
+
+                setTimeout(() => {
+                    aiResponseText.innerText = `AI: "${reply}"`;
+                    speak(reply);
+                }, 1000);
+            };
+
+            recognition.onerror = () => {
+                voiceBtn.classList.remove('listening');
+                voiceBtn.innerHTML = '<i class="fas fa-microphone"></i> Activate AI';
+                aiResponseText.innerText = "Error reading voice.";
+            };
+        } else {
+            voiceBtn.style.display = 'none';
+            aiResponseText.innerText = "Voice API not supported in this browser.";
+        }
+
+        function speak(text) {
+            const synth = window.speechSynthesis;
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.pitch = 0.8; // Robotic pitch
+            utterance.rate = 1;
+            synth.speak(utterance);
+        }
+    </script>
+</body>
+</html>
