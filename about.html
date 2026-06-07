@@ -32,18 +32,18 @@
         }
         .loader span { font-size: 3rem; font-weight: 800; color: #ffffff; letter-spacing: 2px; }
 
-        h2 { color: #ffffff !important; font-size: 2.8rem; margin-bottom: 10px; font-family: monospace; text-shadow: 0 0 15px rgba(233,69,96,0.8); }
+        h2 { color: #ffffff !important; font-size: 2.8rem; margin-bottom: 10px; font-family: monospace; text-shadow: 0 0 15px rgba(0, 255, 65, 0.8); }
         .section-subtitle { color: #dcdcdc; margin-bottom: 40px; font-size: 1rem; font-family: monospace; }
 
         /* Premium Intro Card (Glassmorphism over Matrix) */
         .premium-card {
             background: rgba(11, 12, 16, 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(233, 69, 96, 0.3); border-radius: 20px; padding: 45px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6), inset 0 0 20px rgba(233, 69, 96, 0.1);
+            border: 1px solid rgba(0, 255, 65, 0.3); border-radius: 20px; padding: 45px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6), inset 0 0 20px rgba(0, 255, 65, 0.1);
             margin: 20px auto 60px; max-width: 900px; text-align: left;
         }
         .premium-card p { font-size: 1.05rem; line-height: 1.8; color: #d3d3d3; margin-bottom: 20px; }
-        .premium-card strong { color: #e94560; font-family: monospace; font-size: 1.1rem;}
+        .premium-card strong { color: #00FF41; font-family: monospace; font-size: 1.1rem;}
 
         /* Flashcards */
         .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1000px; margin: 0 auto; }
@@ -52,50 +52,50 @@
         .flashcard-container:hover .flashcard-inner, .flashcard-container.flipped .flashcard-inner { transform: rotateY(180deg); }
         .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 30px; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
         
-        .flashcard-front { background: rgba(11, 12, 16, 0.85); border: 1px solid rgba(233, 69, 96, 0.3); box-shadow: 0 0 20px rgba(0,0,0,0.5); }
-        .flashcard-front i { font-size: 4rem; color: #e94560; margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(233,69,96,0.5));}
+        .flashcard-front { background: rgba(11, 12, 16, 0.85); border: 1px solid rgba(0, 255, 65, 0.3); box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+        .flashcard-front i { font-size: 4rem; color: #00FF41; margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(0, 255, 65, 0.5));}
         .flashcard-front h3 { color: #ffffff; font-size: 1.4rem; margin-bottom: 10px; }
-        .flashcard-front span { color: #e94560; font-size: 0.9rem; font-weight: bold; }
+        .flashcard-front span { color: #00FF41; font-size: 0.9rem; font-weight: bold; }
         
-        .flashcard-back { background: rgba(233, 69, 96, 0.95); transform: rotateY(180deg); color: white; border: 1px solid rgba(255, 255, 255, 0.2); }
-        .flashcard-back p { font-size: 0.95rem; line-height: 1.6; margin-bottom: 15px; }
-        .flashcard-back h3 { margin-bottom: 10px; }
+        .flashcard-back { background: rgba(0, 255, 65, 0.95); transform: rotateY(180deg); color: #0b0c10; border: 1px solid rgba(0, 255, 65, 0.5); }
+        .flashcard-back p { font-size: 0.95rem; line-height: 1.6; margin-bottom: 15px; font-weight: 500;}
+        .flashcard-back h3 { margin-bottom: 10px; font-weight: 800; }
 
         /* Card Buttons */
         .card-btn {
             display: inline-block; padding: 8px 15px;
-            background: #ffffff; color: #e94560;
+            background: #0b0c10; color: #00FF41;
             text-decoration: none; border-radius: 6px; font-weight: bold;
-            font-size: 0.85rem; margin: 5px; transition: 0.3s; border: 1px solid #ffffff;
+            font-size: 0.85rem; margin: 5px; transition: 0.3s; border: 1px solid #00FF41;
         }
-        .card-btn:hover { background: transparent; color: #ffffff; }
+        .card-btn:hover { background: transparent; color: #0b0c10; border-color: #0b0c10; }
 
         /* =========================================
            PREMIUM CONTACT FORM
            ========================================= */
         .contact-wrapper {
             background: rgba(11, 12, 16, 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(233, 69, 96, 0.3); border-radius: 20px; padding: 40px;
+            border: 1px solid rgba(0, 255, 65, 0.3); border-radius: 20px; padding: 40px;
             max-width: 700px; margin: 0 auto; box-shadow: 0 15px 35px rgba(0,0,0,0.6);
             text-align: left;
         }
         .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; color: #e94560; margin-bottom: 8px; font-weight: bold; font-size: 0.95rem; }
+        .form-group label { display: block; color: #00FF41; margin-bottom: 8px; font-weight: bold; font-size: 0.95rem; }
         .form-control {
             width: 100%; padding: 15px; border-radius: 10px;
             background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255,255,255,0.1);
             color: #ffffff; font-family: 'Inter', sans-serif; font-size: 1rem;
             transition: border-color 0.3s, box-shadow 0.3s;
         }
-        .form-control:focus { outline: none; border-color: #e94560; box-shadow: 0 0 15px rgba(233, 69, 96, 0.5); }
+        .form-control:focus { outline: none; border-color: #00FF41; box-shadow: 0 0 15px rgba(0, 255, 65, 0.5); }
         textarea.form-control { resize: vertical; min-height: 120px; }
         
         .submit-btn {
-            background: transparent; color: #e94560; padding: 15px 30px; border: 2px solid #e94560; border-radius: 10px;
+            background: transparent; color: #00FF41; padding: 15px 30px; border: 2px solid #00FF41; border-radius: 10px;
             font-size: 1.1rem; font-weight: bold; cursor: pointer; width: 100%;
             transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px; text-transform: uppercase;
         }
-        .submit-btn:hover { background: #e94560; color: #0b0c10; box-shadow: 0 0 20px rgba(233, 69, 96, 0.6); }
+        .submit-btn:hover { background: #00FF41; color: #0b0c10; box-shadow: 0 0 20px rgba(0, 255, 65, 0.6); }
 
         .gs-reveal-up { opacity: 0; transform: translateY(30px); }
 
@@ -108,24 +108,20 @@
 </head>
 <body>
 
-    <!-- HARDCORE IT MATRIX RAIN BACKGROUND -->
     <canvas id="matrix-canvas"></canvas>
 
-    <!-- Preloader -->
     <div id="preloader"><div class="loader"><span>About Me</span></div></div>
 
-    <!-- Navigation -->
-    <nav style="position: fixed; width: 100%; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: rgba(11, 12, 16, 0.85); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(233,69,96,0.2);">
-        <div class="logo" style="font-size: 24px; font-weight: bold; color: #e94560;">Surya</div>
+    <nav style="position: fixed; width: 100%; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: rgba(11, 12, 16, 0.85); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(0, 255, 65, 0.2);">
+        <div class="logo" style="font-size: 24px; font-weight: bold; color: #00FF41;">Surya</div>
         <ul class="nav-links" style="list-style: none; display: flex; gap: 20px; align-items: center;">
             <li><a href="index.html" style="color: #fff; text-decoration: none;">Home</a></li>
-            <li><a href="about.html" style="color: #e94560; text-decoration: none; font-weight: bold;">About</a></li>
+            <li><a href="about.html" style="color: #00FF41; text-decoration: none; font-weight: bold;">About</a></li>
             <li><a href="projects.html" style="color: #fff; text-decoration: none;">Projects</a></li>
-            <li><a href="suryakant-resume.jpg" target="_blank" style="background: transparent; color: #e94560; border: 1px solid #e94560; padding: 8px 18px; border-radius: 5px; text-decoration: none; font-weight: bold; transition: 0.3s;" onmouseover="this.style.background='#e94560'; this.style.color='#0b0c10'" onmouseout="this.style.background='transparent'; this.style.color='#e94560'">Hire Me</a></li>
+            <li><a href="suryakant-resume.jpg" target="_blank" style="background: transparent; color: #00FF41; border: 1px solid #00FF41; padding: 8px 18px; border-radius: 5px; text-decoration: none; font-weight: bold; transition: 0.3s;" onmouseover="this.style.background='#00FF41'; this.style.color='#0b0c10'" onmouseout="this.style.background='transparent'; this.style.color='#00FF41'">Hire Me</a></li>
         </ul>
     </nav>
 
-    <!-- Main About Section -->
     <section class="content-section" style="position: relative; z-index: 1; padding-top: 130px; text-align: center; padding-left: 20px; padding-right: 20px;">
         <h2 class="gs-reveal-up">About Me</h2>
         <div class="premium-card gs-reveal-up">
@@ -135,13 +131,11 @@
         </div>
     </section>
 
-    <!-- Experience Section -->
     <section class="content-section" style="position: relative; z-index: 1; text-align: center; padding: 40px 20px;">
         <h2 class="gs-reveal-up">Experience & Certifications</h2>
         <p class="section-subtitle gs-reveal-up">Hover over the cards to view details and certificates.</p>
         
         <div class="flashcard-grid">
-            <!-- Flashcard 1 -->
             <div class="flashcard-container gs-card" onclick="this.classList.toggle('flipped')">
                 <div class="flashcard-inner">
                     <div class="flashcard-front">
@@ -152,16 +146,14 @@
                     <div class="flashcard-back">
                         <h3>1-Month Internship</h3>
                         <p>Built responsive web layouts using HTML/CSS & JS. Integrated REST APIs, learned Node.js/MongoDB fundamentals, and deployed projects using Git.</p>
-                        <!-- ADDED BUTTONS BACK -->
                         <div style="margin-top: 10px;">
                             <a href="codec-certificate.pdf" target="_blank" class="card-btn">Certificate</a>
-                            <a href="codec-lor.pdf" target="_blank" class="card-btn" style="background: transparent; color: #ffffff;">View LOR</a>
+                            <a href="codec-lor.pdf" target="_blank" class="card-btn" style="background: transparent; color: #0b0c10; border-color: #0b0c10;">View LOR</a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Flashcard 2 -->
             <div class="flashcard-container gs-card" onclick="this.classList.toggle('flipped')">
                 <div class="flashcard-inner">
                     <div class="flashcard-front">
@@ -178,16 +170,13 @@
         </div>
     </section>
 
-    <!-- CONTACT FORM SECTION -->
     <section class="content-section" style="position: relative; z-index: 1; text-align: center; padding: 60px 20px 100px;">
         <h2 class="gs-reveal-up">Drop a Message</h2>
         <p class="section-subtitle gs-reveal-up">Have a project idea or just want to say hi? Let's talk!</p>
         
         <div class="contact-wrapper gs-reveal-up">
-            <!-- WEB3FORMS INTEGRATION -->
             <form action="https://api.web3forms.com/submit" method="POST">
                 
-                <!-- REPLACE 'YOUR_ACCESS_KEY_HERE' WITH YOUR ACTUAL WEB3FORMS KEY -->
                 <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
                 
                 <div class="form-group">
@@ -214,25 +203,21 @@
         </div>
     </section>
 
-    <!-- WhatsApp Floating Button -->
     <a href="https://wa.me/917860636624?text=Hi%20Suryakant,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!" 
        target="_blank" 
        style="position: fixed; bottom: 20px; right: 20px; background-color: #25d366; color: white; padding: 15px 20px; border-radius: 50px; font-size: 20px; box-shadow: 0 0 15px rgba(37,211,102,0.5); z-index: 1000; text-decoration: none;">
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- Footer -->
-    <footer style="position: relative; z-index: 1; padding: 40px; background-color: rgba(11, 12, 16, 0.95); border-top: 1px solid rgba(233,69,96,0.3); color: white; text-align: center; backdrop-filter: blur(10px);">
+    <footer style="position: relative; z-index: 1; padding: 40px; background-color: rgba(11, 12, 16, 0.95); border-top: 1px solid rgba(0, 255, 65, 0.3); color: white; text-align: center; backdrop-filter: blur(10px);">
         <div style="margin-bottom: 15px;">
-            <a href="https://github.com/Suryakant981" target="_blank" style="color: #e94560; margin: 0 15px; font-size: 22px; transition: 0.3s;" onmouseover="this.style.textShadow='0 0 10px #e94560'" onmouseout="this.style.textShadow='none'"><i class="fab fa-github"></i></a>
-            <a href="https://linkedin.com/in/suryakant-chaudhary-8a0926291" target="_blank" style="color: #e94560; margin: 0 15px; font-size: 22px; transition: 0.3s;" onmouseover="this.style.textShadow='0 0 10px #e94560'" onmouseout="this.style.textShadow='none'"><i class="fab fa-linkedin"></i></a>
-            <a href="https://instagram.com/itz_introvert_pankaj" target="_blank" style="color: #e94560; margin: 0 15px; font-size: 22px; transition: 0.3s;" onmouseover="this.style.textShadow='0 0 10px #e94560'" onmouseout="this.style.textShadow='none'"><i class="fab fa-instagram"></i></a>
+            <a href="https://github.com/Suryakant981" target="_blank" style="color: #00FF41; margin: 0 15px; font-size: 22px; transition: 0.3s;" onmouseover="this.style.textShadow='0 0 10px #00FF41'" onmouseout="this.style.textShadow='none'"><i class="fab fa-github"></i></a>
+            <a href="https://linkedin.com/in/suryakant-chaudhary-8a0926291" target="_blank" style="color: #00FF41; margin: 0 15px; font-size: 22px; transition: 0.3s;" onmouseover="this.style.textShadow='0 0 10px #00FF41'" onmouseout="this.style.textShadow='none'"><i class="fab fa-linkedin"></i></a>
+            <a href="https://instagram.com/itz_introvert_pankaj" target="_blank" style="color: #00FF41; margin: 0 15px; font-size: 22px; transition: 0.3s;" onmouseover="this.style.textShadow='0 0 10px #00FF41'" onmouseout="this.style.textShadow='none'"><i class="fab fa-instagram"></i></a>
         </div>
-        <!-- FIXED FOOTER TEXT -->
         <p style="color: #8a8a8a; font-size: 0.9rem; font-family: monospace;">&copy; 2026 Suryakant. All rights reserved.</p>
     </footer>
 
-    <!-- ADVANCED SCRIPTS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
@@ -265,7 +250,7 @@
             ctx.fillStyle = 'rgba(11, 12, 16, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            ctx.fillStyle = '#e94560'; 
+            ctx.fillStyle = '#00FF41'; 
             ctx.font = fontSize + 'px monospace';
             
             for(let i = 0; i < drops.length; i++) {
