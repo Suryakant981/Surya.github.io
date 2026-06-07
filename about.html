@@ -32,7 +32,8 @@
         }
         .loader span { font-size: 3rem; font-weight: 800; color: #ffffff; letter-spacing: 2px; }
 
-        h2 { color: #ffffff !important; font-size: 2.8rem; margin-bottom: 10px; font-family: monospace; text-shadow: 0 0 15px rgba(255, 128, 191, 0.8); }
+        /* H2 GLOWING EFFECT CHANGED TO HACKER GREEN */
+        h2 { color: #ffffff !important; font-size: 2.8rem; margin-bottom: 10px; font-family: monospace; text-shadow: 0 0 15px rgba(0, 255, 65, 0.8); }
         .section-subtitle { color: #dcdcdc; margin-bottom: 40px; font-size: 1rem; font-family: monospace; }
 
         /* Premium Intro Card (Glassmorphism over Matrix) */
@@ -230,7 +231,7 @@
             }, 800);
         });
 
-        // 2. HARDCORE MATRIX RAIN EFFECT LOGIC (Pink Vibe)
+        // 2. HARDCORE MATRIX RAIN EFFECT LOGIC (Color Changed to Hacker Green)
         const canvas = document.getElementById('matrix-canvas');
         const ctx = canvas.getContext('2d');
         
@@ -250,8 +251,8 @@
             ctx.fillStyle = 'rgba(11, 12, 16, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            // LIGHT PINK HACKER Vibe
-            ctx.fillStyle = '#FF80BF'; 
+            // HACKER GREEN ANIMATION
+            ctx.fillStyle = '#00FF41'; 
             ctx.font = fontSize + 'px monospace';
             
             for(let i = 0; i < drops.length; i++) {
