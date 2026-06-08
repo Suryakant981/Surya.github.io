@@ -242,13 +242,26 @@
             aiResponseText.innerText = "Voice API is not supported in this browser.";
         }
 
-        function speak(text) {
+       function speak(text) {
             const synth = window.speechSynthesis;
             const utterance = new SpeechSynthesisUtterance(text);
-            utterance.pitch = 0.8; 
-            utterance.rate = 1.1;  
+            
+            utterance.pitch = 1.0; 
+            utterance.rate = 1.0;  
+
+            let voices = synth.getVoices();
+            let bestVoice = voices.find(v => v.name.includes("Google हिन्दी") || v.name.includes("Google UK English Female") || v.name.includes("Natural") || v.lang === "hi-IN" || v.lang === "en-IN");
+            
+            if (bestVoice) {
+                utterance.voice = bestVoice;
+            }
+
             synth.speak(utterance);
         }
+
+        window.speechSynthesis.onvoiceschanged = function() {
+            window.speechSynthesis.getVoices();
+        };
     </script>
 </body>
 </html>
