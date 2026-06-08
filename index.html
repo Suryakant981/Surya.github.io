@@ -84,12 +84,34 @@
         #send-btn { background: transparent; border: none; color: #00ffcc; font-size: 1.2rem; cursor: pointer; transition: 0.3s; padding-left: 10px; }
         #send-btn:hover { color: #ffffff; text-shadow: 0 0 10px #00ffcc; }
 
+       /* ===== MOBILE RESPONSIVE ===== */
         @media (max-width: 768px) {
             .hero-container { flex-direction: column-reverse; text-align: center; }
             .profile-pic-wrapper { width: 220px; height: 220px; }
             .stats-grid { grid-template-columns: 1fr 1fr; }
             .flashcard-grid { grid-template-columns: 1fr; }
         }
+
+        /* Frosted Glass & Glow Effect */
+        .stat-card, .gs-skills, #chat-window, .flashcard-front, .flashcard-back {
+            background: rgba(11, 12, 16, 0.4) !important; 
+            backdrop-filter: blur(12px) saturate(180%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
+        }
+
+        .profile-pic-wrapper {
+            box-shadow: 0 0 40px rgba(233, 69, 96, 0.6), inset 0 0 20px rgba(233, 69, 96, 0.4) !important;
+            border: 2px solid rgba(233, 69, 96, 0.8) !important;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(233, 69, 96, 0.3) !important;
+            border-color: rgba(233, 69, 96, 0.5) !important;
+        }
+    </style>
     </style>
 </head>
 <body>
