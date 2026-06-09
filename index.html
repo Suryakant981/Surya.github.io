@@ -108,8 +108,46 @@
         .flashcard-back p { color: white; text-align: center; font-size: 1rem; line-height: 1.6; }
 
         /* ===== CYBER CHATBOT WIDGET ===== */
-        #chat-toggle-btn { position: fixed; bottom: 85px; right: 20px; z-index: 10000; background: #0b0c10; border: 2px solid #00ffcc; color: #00ffcc; width: 60px; height: 60px; border-radius: 50%; font-size: 24px; cursor: pointer; box-shadow: 0 0 15px rgba(0, 255, 204, 0.4); transition: 0.3s; display: flex; justify-content: center; align-items: center; }
-        #chat-toggle-btn:hover { background: #00ffcc; color: #0b0c10; box-shadow: 0 0 25px rgba(0, 255, 204, 0.8); transform: scale(1.1); }
+      /* ===== CYBER CHATBOT WIDGET (UPGRADED UI) ===== */
+        
+        #chat-toggle-wrapper {
+            position: fixed; bottom: 85px; right: 20px; z-index: 10000;
+            display: flex; align-items: center; gap: 15px;
+        }
+
+        /* Bouncing Tooltip */
+        .chat-tooltip {
+            background: rgba(0, 255, 204, 0.1); color: #00ffcc;
+            padding: 8px 16px; border-radius: 20px; font-family: 'Inter', sans-serif;
+            font-size: 0.9rem; font-weight: bold; border: 1px solid rgba(0, 255, 204, 0.5);
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.2); backdrop-filter: blur(5px);
+            animation: bounce 2s infinite; pointer-events: none;
+        }
+
+        /* Pulsing Button */
+        #chat-toggle-btn { 
+            background: #0b0c10; border: 2px solid #00ffcc; color: #00ffcc; 
+            width: 65px; height: 65px; border-radius: 50%; font-size: 26px; cursor: pointer; 
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.4); transition: 0.3s; 
+            display: flex; justify-content: center; align-items: center;
+            animation: pulseGlow 2s infinite;
+        }
+        
+        #chat-toggle-btn:hover { 
+            background: #00ffcc; color: #0b0c10; 
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.8); transform: scale(1.1); 
+        }
+
+        /* Animations */
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(0, 255, 204, 0.6); }
+            70% { box-shadow: 0 0 0 15px rgba(0, 255, 204, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 255, 204, 0); }
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); box-shadow: 0 5px 20px rgba(0, 255, 204, 0.4); }
+        }
         #chat-window { position: fixed; bottom: 160px; right: 20px; z-index: 9999; width: 350px; max-height: 500px; display: none; flex-direction: column; overflow: hidden; transform-origin: bottom right; animation: popUp 0.3s ease-out; }
         @keyframes popUp { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         .chat-header { background: rgba(0, 255, 204, 0.1); padding: 15px 20px; border-bottom: 1px solid rgba(0, 255, 204, 0.2); display: flex; justify-content: space-between; align-items: center; }
@@ -331,8 +369,10 @@
         <p style="color: #8a8a8a; font-size: 0.9rem;">&copy; 2026 Suryakant. All rights reserved.</p>
     </footer>
 
-    <button id="chat-toggle-btn"><i class="fas fa-terminal"></i></button>
-
+    <div id="chat-toggle-wrapper">
+        <div class="chat-tooltip">Chat with AI 👋</div>
+        <button id="chat-toggle-btn"><i class="fas fa-robot"></i></button>
+    </div>
     <div id="chat-window">
         <div class="chat-header">
             <div>
