@@ -12,13 +12,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css?v=8">
     <style>
+        /* ===== GLOBAL DARK PREMIUM THEME ===== */
         body { background-color: #0b0c10; color: #c5c6c7; font-family: 'Inter', sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
-        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0b0c10; z-index: 99999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.8s ease; }
+
+        /* ===== PRELOADER ===== */
+        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0b0c10; z-index: 99999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.8s ease, visibility 0.8s; }
         .loader-text { font-size: 3rem; font-weight: 800; color: #ffffff; letter-spacing: 2px; }
         .loader-bar { width: 200px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-top: 20px; overflow: hidden; }
         .loader-bar-fill { height: 100%; width: 0%; background: #e94560; border-radius: 10px; animation: loadBar 1.5s ease forwards; }
         @keyframes loadBar { 0% { width: 0%; } 100% { width: 100%; } }
 
+        /* ===== HERO SECTION ===== */
         .hero { position: relative; overflow: hidden; min-height: 100vh; display: flex; align-items: center; justify-content: center;}
         #vanta-canvas { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 0; }
         .hero-container { position: relative; z-index: 2; display: flex; align-items: center; gap: 40px; width: 90%; max-width: 1100px; padding-top: 80px; }
@@ -28,42 +32,72 @@
 
         #more-text { display: none; }
         .read-more-btn { background: none; border: none; color: #e94560; cursor: pointer; font-weight: bold; text-decoration: underline; font-size: 0.9rem; }
-        .profile-pic-wrapper { position: relative; width: 300px; height: 300px; border-radius: 50%; overflow: hidden; border: 4px solid #e94560; box-shadow: 0 10px 35px rgba(233, 69, 96, 0.3); transition: transform 0.4s ease; }
+
+        /* ===== PROFILE PHOTO (NEON GLOW EFFECT) ===== */
+        .profile-pic-wrapper {
+            position: relative; width: 300px; height: 300px;
+            border-radius: 50%; overflow: hidden;
+            border: 2px solid rgba(233, 69, 96, 0.8) !important;
+            box-shadow: 0 0 40px rgba(233, 69, 96, 0.6), inset 0 0 20px rgba(233, 69, 96, 0.4) !important;
+            transition: transform 0.4s ease;
+        }
         .profile-photo { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
         .profile-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11, 12, 16, 0.85); color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; transition: 0.3s ease; font-weight: bold; }
         .profile-pic-wrapper:hover .profile-overlay { opacity: 1; cursor: pointer; }
 
+        /* ===== BUTTONS ===== */
         .btn { display: inline-block; padding: 12px 28px; background-color: #e94560; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; transition: 0.3s; border: none; cursor: pointer; }
         .btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4); }
         .hire-btn { padding: 10px 22px; border-radius: 8px; font-weight: bold; color: white !important; text-decoration: none; background-color: #e94560; box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3); transition: 0.3s; }
         .hire-btn:hover { transform: translateY(-3px); }
 
+        /* ===== TEXT GLOW ===== */
+        h1, h2 { text-shadow: 0 0 20px rgba(255, 255, 255, 0.1); }
+
+        /* ===== STATS & SKILLS (GLASSMORPHISM EFFECT) ===== */
         .stats-section { padding: 80px 20px; background: rgba(255,255,255,0.02); text-align: center; }
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 30px; max-width: 900px; margin: 40px auto 0; }
-        .stat-card { padding: 30px 20px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        
+        .stat-card, .gs-skills, .flashcard-front, .flashcard-back, #chat-window {
+            background: rgba(11, 12, 16, 0.4) !important; 
+            backdrop-filter: blur(12px) saturate(180%);
+            -webkit-backdrop-filter: blur(12px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
+            border-radius: 15px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(233, 69, 96, 0.3) !important;
+            border-color: rgba(233, 69, 96, 0.5) !important;
+        }
+
         .stat-number { font-size: 3.5rem; font-weight: 800; color: #e94560; }
         .stat-label { font-size: 0.95rem; color: #8a8a8a; margin-top: 8px; font-weight: 600; }
 
         .content-section { padding: 80px 20px; text-align: center; max-width: 1100px; margin: 0 auto; }
         .skill-bar-fill { height: 100%; border-radius: 10px; background: #e94560; width: 0%; transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1); }
 
+        /* ===== 3D FLIP CARDS ===== */
         .flashcard-section { padding: 80px 20px; text-align: center; background: #0b0c10; border-top: 1px solid rgba(255,255,255,0.05); }
         .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1100px; margin: 40px auto 0; }
         .flashcard-container { height: 300px; perspective: 1000px; cursor: pointer; }
         .flashcard-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .flashcard-container:hover .flashcard-inner { transform: rotateY(180deg); }
         .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 30px; }
-        .flashcard-front { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-top: 3px solid #e94560; }
-        .flashcard-back { background: #e94560; color: white; transform: rotateY(180deg); }
+        .flashcard-front { border-top: 3px solid #e94560 !important; }
+        .flashcard-back { background: rgba(233, 69, 96, 0.8) !important; color: white; transform: rotateY(180deg); }
         .flashcard-front i { font-size: 3rem; color: #e94560; margin-bottom: 20px; }
         .flashcard-front h3 { color: #ffffff; font-size: 1.3rem; }
         .flashcard-front span { color: #8a8a8a; font-size: 0.85rem; margin-top: 10px; }
         .flashcard-back p { color: white; text-align: center; font-size: 1rem; line-height: 1.6; }
 
-        /* CYBER CHATBOT WIDGET STYLES */
+        /* ===== CYBER CHATBOT WIDGET ===== */
         #chat-toggle-btn { position: fixed; bottom: 85px; right: 20px; z-index: 10000; background: #0b0c10; border: 2px solid #00ffcc; color: #00ffcc; width: 60px; height: 60px; border-radius: 50%; font-size: 24px; cursor: pointer; box-shadow: 0 0 15px rgba(0, 255, 204, 0.4); transition: 0.3s; display: flex; justify-content: center; align-items: center; }
         #chat-toggle-btn:hover { background: #00ffcc; color: #0b0c10; box-shadow: 0 0 25px rgba(0, 255, 204, 0.8); transform: scale(1.1); }
-        #chat-window { position: fixed; bottom: 160px; right: 20px; z-index: 9999; width: 350px; max-height: 500px; background: rgba(11, 12, 16, 0.95); backdrop-filter: blur(10px); border: 1px solid rgba(0, 255, 204, 0.3); border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); display: none; flex-direction: column; overflow: hidden; transform-origin: bottom right; animation: popUp 0.3s ease-out; }
+        #chat-window { position: fixed; bottom: 160px; right: 20px; z-index: 9999; width: 350px; max-height: 500px; display: none; flex-direction: column; overflow: hidden; transform-origin: bottom right; animation: popUp 0.3s ease-out; }
         @keyframes popUp { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         .chat-header { background: rgba(0, 255, 204, 0.1); padding: 15px 20px; border-bottom: 1px solid rgba(0, 255, 204, 0.2); display: flex; justify-content: space-between; align-items: center; }
         .chat-header h3 { margin: 0; color: #ffffff; font-family: 'Orbitron', sans-serif; font-size: 1.1rem; }
@@ -77,42 +111,21 @@
         .bot-message { background: rgba(255, 128, 191, 0.1); color: #c5c6c7; border-left: 2px solid #FF80BF; align-self: flex-start; }
         .user-message { background: rgba(0, 255, 204, 0.1); color: #ffffff; border-right: 2px solid #00ffcc; align-self: flex-end; }
         .typing-indicator { color: #00ffcc; font-size: 0.8rem; font-family: monospace; align-self: flex-start; margin-left: 5px; animation: blink 1s infinite; }
-        @keyframes blink { 50% { opacity: 0; } }
         .chat-input-area { display: flex; padding: 15px; border-top: 1px solid rgba(0, 255, 204, 0.2); background: rgba(0, 0, 0, 0.5); }
         #chat-input { flex: 1; background: transparent; border: none; color: #fff; font-family: 'Inter', sans-serif; font-size: 0.95rem; outline: none; }
         #chat-input::placeholder { color: #666; }
         #send-btn { background: transparent; border: none; color: #00ffcc; font-size: 1.2rem; cursor: pointer; transition: 0.3s; padding-left: 10px; }
         #send-btn:hover { color: #ffffff; text-shadow: 0 0 10px #00ffcc; }
 
-       /* ===== MOBILE RESPONSIVE ===== */
+        /* ===== MOBILE RESPONSIVE ===== */
         @media (max-width: 768px) {
             .hero-container { flex-direction: column-reverse; text-align: center; }
-            .profile-pic-wrapper { width: 220px; height: 220px; }
+            .profile-pic-wrapper { width: 220px; height: 220px; margin: 0 auto; }
             .stats-grid { grid-template-columns: 1fr 1fr; }
             .flashcard-grid { grid-template-columns: 1fr; }
         }
-
-        /* Frosted Glass & Glow Effect */
-        .stat-card, .gs-skills, #chat-window, .flashcard-front, .flashcard-back {
-            background: rgba(11, 12, 16, 0.4) !important; 
-            backdrop-filter: blur(12px) saturate(180%);
-            -webkit-backdrop-filter: blur(12px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.08) !important;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
-        }
-
-        .profile-pic-wrapper {
-            box-shadow: 0 0 40px rgba(233, 69, 96, 0.6), inset 0 0 20px rgba(233, 69, 96, 0.4) !important;
-            border: 2px solid rgba(233, 69, 96, 0.8) !important;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 15px 40px rgba(233, 69, 96, 0.3) !important;
-            border-color: rgba(233, 69, 96, 0.5) !important;
-        }
     </style>
-    </style>
+
 </head>
 <body>
 
