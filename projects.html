@@ -6,7 +6,6 @@
     <title>Suryakant | Projects</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=12">
     
     <style>
         /* =========================================
@@ -80,7 +79,7 @@
             gap: 40px; max-width: 1100px; margin: 0 auto;
         }
 
-        .flashcard-container { height: 400px; perspective: 1000px; cursor: pointer; }
+        .flashcard-container { height: 420px; perspective: 1000px; cursor: pointer; }
         
         .flashcard-inner {
             position: relative; width: 100%; height: 100%;
@@ -132,10 +131,10 @@
         
         /* Premium Buttons */
         .premium-btn {
-            display: inline-block; padding: 10px 22px;
+            display: inline-block; padding: 10px 22px; margin: 5px;
             background: #0b0c10; color: #00ffcc !important;
             text-decoration: none; border-radius: 5px; font-weight: bold;
-            font-size: 0.95rem; transition: transform 0.3s, box-shadow 0.3s;
+            font-size: 0.85rem; transition: transform 0.3s, box-shadow 0.3s;
             border: 1px solid #00ffcc; cursor: pointer; text-transform: uppercase;
         }
         .premium-btn:hover { background: #00ffcc; color: #0b0c10 !important; transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,255,204,0.4); }
@@ -145,7 +144,7 @@
 
         /* Mobile Adjustments */
         @media screen and (max-width: 768px) {
-            .flashcard-container { height: 420px; }
+            .flashcard-container { height: 450px; }
             .cyber-glitch { font-size: 2.2rem; }
             .content-section { padding-top: 100px !important; }
         }
@@ -153,13 +152,10 @@
 </head>
 <body>
 
-    <!-- 3D GLOBE BACKGROUND -->
     <div id="vanta-bg"></div>
 
-    <!-- Preloader -->
     <div id="preloader"><div class="loader"><span>Projects</span></div></div>
 
-    <!-- Navigation -->
     <nav style="position: fixed; width: 100%; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: rgba(11, 12, 16, 0.85); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(233, 69, 96, 0.3);">
         <div class="logo" style="font-size: 24px; font-weight: bold; color: #e94560;">Surya</div>
         <ul class="nav-links" style="list-style: none; display: flex; gap: 20px; align-items: center;">
@@ -170,7 +166,6 @@
         </ul>
     </nav>
 
-    <!-- Main Content Section -->
     <section class="content-section" style="position: relative; z-index: 1; padding-top: 130px; text-align: center; padding-left: 20px; padding-right: 20px; min-height: 80vh; margin-bottom: 60px;">
         
         <h1 class="cyber-glitch gs-reveal-up" data-text="***PROJECTS***">***PROJECTS***</h1>
@@ -178,7 +173,6 @@
         
         <div class="flashcard-grid">
 
-            <!-- Card 1 -->
             <div class="flashcard-container gs-card" onclick="this.classList.toggle('flipped')">
                 <div class="flashcard-inner">
                     <div class="flashcard-front">
@@ -189,32 +183,47 @@
                     </div>
                     <div class="flashcard-back">
                         <h3>Project Info</h3>
-                        <p>A military-grade personal safety Android application featuring a 3-Tier security architecture. Co-developed with S. Jaya Kumar, it utilizes offline SQLite Vaults, native SMS APIs, and gravity sensors to track stolen devices.</p>
+                        <p>A military-grade personal safety Android app. Co-developed with S. Jaya Kumar, it utilizes offline SQLite Vaults, native SMS APIs, and gravity sensors to track stolen devices without internet.</p>
                         <div class="skills-text">Native Java | Firebase | SQLite | OSM Maps</div>
-                        <a href="https://Rakshasuraksha.github.io" target="_blank" class="premium-btn">Launch Live</a>
+                        <a href="https://Rakshasuraksha.github.io" target="_blank" class="premium-btn"><i class="fas fa-satellite-dish"></i> Launch Live</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Card 2 -->
+            <div class="flashcard-container gs-card" onclick="this.classList.toggle('flipped')">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <i class="fas fa-robot"></i>
+                        <h3>PROJECT MJ</h3>
+                        <p>AI Voice Assistant</p>
+                        <div class="flash-hint">[ DECRYPT FILE ]</div>
+                    </div>
+                    <div class="flashcard-back">
+                        <h3>Project Info</h3>
+                        <p>A custom-built, offline voice-activated personal assistant. Engineered to execute system commands, seamlessly open apps like WhatsApp, and read messages aloud using local LLMs for max privacy.</p>
+                        <div class="skills-text">Python | Llama-3 | Vosk | PyAudio</div>
+                        <a href="https://github.com/Suryakant981" target="_blank" class="premium-btn"><i class="fab fa-github"></i> View Repo</a>
+                    </div>
+                </div>
+            </div>
+
             <div class="flashcard-container gs-card" onclick="this.classList.toggle('flipped')">
                 <div class="flashcard-inner">
                     <div class="flashcard-front">
                         <i class="fas fa-briefcase"></i>
-                        <h3>Web Developer Intern</h3>
+                        <h3>Web Dev Intern</h3>
                         <p>@ Codec Technologies</p>
                         <div class="flash-hint">[ DECRYPT FILE ]</div>
                     </div>
                     <div class="flashcard-back">
                         <h3>Project Info</h3>
-                        <p>Completed a 1-month AICTE & ICAC approved professional internship. Developed a dynamic "Restaurant Website" mini-project featuring a responsive frontend and data fetched directly from a MySQL database.</p>
+                        <p>Completed an intensive professional internship program focusing on real-world software architecture. Developed a dynamic "Restaurant Website" fetching data directly from a MySQL database.</p>
                         <div class="skills-text">HTML | CSS | JavaScript | PHP | MySQL</div>
-                        <a href="internship report.pptx" target="_blank" class="premium-btn">View Report</a>
+                        <a href="internship report.pptx" target="_blank" class="premium-btn"><i class="fas fa-file-powerpoint"></i> View Report</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Card 3 -->
             <div class="flashcard-container gs-card" onclick="this.classList.toggle('flipped')">
                 <div class="flashcard-inner">
                     <div class="flashcard-front">
@@ -225,25 +234,8 @@
                     </div>
                     <div class="flashcard-back">
                         <h3>Project Info</h3>
-                        <p>Configured Search Console for personal portfolio hosting on GitHub Pages. Improved site indexing and fixed sitemap fetch errors for better visibility.</p>
+                        <p>Configured Google Search Console for personal portfolio hosting on GitHub Pages. Improved site indexing and fixed sitemap fetch errors for better internet visibility.</p>
                         <div class="skills-text">Technical SEO | Search Console | GitHub</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 4 -->
-            <div class="flashcard-container gs-card" onclick="this.classList.toggle('flipped')">
-                <div class="flashcard-inner">
-                    <div class="flashcard-front">
-                        <i class="fas fa-file-excel"></i>
-                        <h3>Office Admin Systems</h3>
-                        <p>Data Management</p>
-                        <div class="flash-hint">[ DECRYPT FILE ]</div>
-                    </div>
-                    <div class="flashcard-back">
-                        <h3>Project Info</h3>
-                        <p>Developed proficiency in data management using Tally and MS Excel. Applied ADCA principles to organize professional documents and accounts.</p>
-                        <div class="skills-text">Tally | MS Office | Data Management</div>
                     </div>
                 </div>
             </div>
@@ -251,14 +243,12 @@
         </div>
     </section>
 
-    <!-- WhatsApp Floating Button -->
     <a href="https://wa.me/917860636624?text=Hi%20Suryakant,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!" 
        target="_blank" 
        style="position: fixed; bottom: 20px; right: 20px; background-color: #25d366; color: white; padding: 15px 20px; border-radius: 50px; font-size: 20px; box-shadow: 0 0 15px rgba(37,211,102,0.5); z-index: 1000; text-decoration: none;">
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- Footer -->
     <footer style="position: relative; z-index: 1; padding: 40px; background-color: rgba(11, 12, 16, 0.95); border-top: 1px solid rgba(233,69,96,0.3); color: white; text-align: center;">
         <div style="margin-bottom: 15px;">
             <a href="https://github.com/Suryakant981" target="_blank" style="color: #00ffcc; margin: 0 15px; font-size: 22px; transition: 0.3s;"><i class="fab fa-github"></i></a>
@@ -268,7 +258,6 @@
         <p style="color: #8a8a8a; font-size: 0.9rem; font-family: monospace;">&copy; 2026 SURYAKANT. ALL SECURE RIGHTS RESERVED.</p>
     </footer>
 
-    <!-- ADVANCED SCRIPTS: THREE.JS, VANTA (GLOBE) & GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
