@@ -209,8 +209,9 @@
         const ELEVENLABS_API_KEY = el_p1 + el_p2 + el_p3;
         const VOICE_ID = "NyZqLdjqUb8SpOUKIlWT"; // Sonal Voice ID
 
-        async function speak(text) {
+       async function speak(text) {
             if (ELEVENLABS_API_KEY.includes("YOUR_ELEVEN_KEY")) {
+                console.error("API Key nahi daali bhai!");
                 fallbackSpeak(text);
                 return;
             }
@@ -224,8 +225,9 @@
                     },
                     body: JSON.stringify({
                         text: text,
-                        model_id: "eleven_multilingual_v2", // Multilingual model for Hindi/English
-                        voice_settings: { stability: 0.5, similarity_boost: 0.75 }
+                        model_id: "eleven_multilingual_v2", 
+                        // Stability kam karne se aawaz zyada natural aur expressive (human) lagti hai
+                        voice_settings: { stability: 0.35, similarity_boost: 0.85 }
                     })
                 });
 
@@ -235,13 +237,17 @@
                     const audio = new Audio(audioUrl);
                     audio.play();
                 } else {
+                    // Agar fail hua toh asli error console me print karega
+                    const errData = await response.json();
+                    console.error("🚨 ElevenLabs Asli Error:", errData);
+                    alert("ElevenLabs API Fail: " + (errData.detail.status || errData.detail.message));
                     fallbackSpeak(text);
                 }
             } catch (error) {
+                console.error("🚨 Network Error:", error);
                 fallbackSpeak(text);
             }
         }
-
         // Backup voice if ElevenLabs fails or API key is missing
         function fallbackSpeak(text) {
             const synth = window.speechSynthesis;
