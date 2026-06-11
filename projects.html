@@ -75,11 +75,19 @@
            3D FLIP PROJECT CARDS (Sci-Fi Glassmorphism)
            ========================================= */
         .flashcard-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px; max-width: 1100px; margin: 0 auto;
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-auto-rows: 420px; /* FIX: Overlapping roki gayi hai */
+            gap: 50px; /* FIX: Spacing badhayi gayi hai */
+            max-width: 1100px; 
+            margin: 0 auto;
         }
 
-        .flashcard-container { height: 420px; perspective: 1000px; cursor: pointer; }
+        .flashcard-container { 
+            height: 100%; /* FIX: Height ko dynamic kiya gaya hai */
+            perspective: 1000px; 
+            cursor: pointer; 
+        }
         
         .flashcard-inner {
             position: relative; width: 100%; height: 100%;
@@ -144,7 +152,7 @@
 
         /* Mobile Adjustments */
         @media screen and (max-width: 768px) {
-            .flashcard-container { height: 450px; }
+            .flashcard-grid { grid-auto-rows: 460px; } /* FIX for mobile overlap */
             .cyber-glitch { font-size: 2.2rem; }
             .content-section { padding-top: 100px !important; }
         }
@@ -185,7 +193,7 @@
                         <h3>Project Info</h3>
                         <p>A military-grade personal safety Android app. Co-developed with S. Jaya Kumar, it utilizes offline SQLite Vaults, native SMS APIs, and gravity sensors to track stolen devices without internet.</p>
                         <div class="skills-text">Native Java | Firebase | SQLite | OSM Maps</div>
-                        <a href="https://Rakshasuraksha.github.io" target="_blank" class="premium-btn"><i class="fas fa-satellite-dish"></i> Launch Live</a>
+                        <a href="https://Rakshasuraksha.github.io" target="_blank" class="premium-btn">Launch Live</a>
                     </div>
                 </div>
             </div>
@@ -202,8 +210,7 @@
                         <h3>Project Info</h3>
                         <p>A custom-built, offline voice-activated personal assistant. Engineered to execute system commands, seamlessly open apps like WhatsApp, and read messages aloud using local LLMs for max privacy.</p>
                         <div class="skills-text">Python | Llama-3 | Vosk | PyAudio</div>
-                        <a href="https://github.com/Suryakant981" target="_blank" class="premium-btn"><i class="fab fa-github"></i> View Repo</a>
-                    </div>
+                        </div>
                 </div>
             </div>
 
@@ -219,7 +226,7 @@
                         <h3>Project Info</h3>
                         <p>Completed an intensive professional internship program focusing on real-world software architecture. Developed a dynamic "Restaurant Website" fetching data directly from a MySQL database.</p>
                         <div class="skills-text">HTML | CSS | JavaScript | PHP | MySQL</div>
-                        <a href="internship report.pptx" target="_blank" class="premium-btn"><i class="fas fa-file-powerpoint"></i> View Report</a>
+                        <a href="internship report.pptx" target="_blank" class="premium-btn">View Report</a>
                     </div>
                 </div>
             </div>
