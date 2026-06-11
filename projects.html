@@ -71,22 +71,22 @@
 
         .section-subtitle { color: #00ffcc; margin-bottom: 50px; font-size: 1.05rem; font-family: monospace; text-shadow: 0 2px 5px rgba(0,0,0,0.8); }
 
-        /* =========================================
+      /* =========================================
            3D FLIP PROJECT CARDS (Sci-Fi Glassmorphism)
            ========================================= */
         .flashcard-grid {
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            grid-auto-rows: 420px; /* FIX: Overlapping roki gayi hai */
-            gap: 50px; /* FIX: Spacing badhayi gayi hai */
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Card thode chaude kiye */
+            gap: 80px 40px; /* MAIN FIX: Upar-Niche 80px ka gap, Daaye-Baaye 40px ka gap */
             max-width: 1100px; 
-            margin: 0 auto;
+            margin: 0 auto 50px;
         }
 
         .flashcard-container { 
-            height: 100%; /* FIX: Height ko dynamic kiya gaya hai */
+            height: 450px; /* Height thodi aur badha di taaki text saaf aaye */
             perspective: 1000px; 
             cursor: pointer; 
+            margin-bottom: 30px; /* Extra safety taaki aapas me na takrayein */
         }
         
         .flashcard-inner {
@@ -150,9 +150,10 @@
         /* GSAP Animations */
         .gs-reveal-up { opacity: 0; transform: translateY(30px); }
 
-        /* Mobile Adjustments */
+         /* Mobile Adjustments */
         @media screen and (max-width: 768px) {
-            .flashcard-grid { grid-auto-rows: 460px; } /* FIX for mobile overlap */
+            .flashcard-grid { gap: 60px 20px; } /* Phone par bhi proper gap */
+            .flashcard-container { height: 480px; margin-bottom: 40px; }
             .cyber-glitch { font-size: 2.2rem; }
             .content-section { padding-top: 100px !important; }
         }
