@@ -19,12 +19,10 @@
             overflow-x: hidden;
         }
 
-        /* 3D GLOBE Background Container */
         #vanta-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
         }
 
-        /* Preloader */
         #preloader {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #0b0c10; z-index: 99999; display: flex; justify-content: center; align-items: center;
@@ -71,22 +69,23 @@
 
         .section-subtitle { color: #00ffcc; margin-bottom: 50px; font-size: 1.05rem; font-family: monospace; text-shadow: 0 2px 5px rgba(0,0,0,0.8); }
 
-      /* =========================================
-           3D FLIP PROJECT CARDS (Sci-Fi Glassmorphism)
+        /* =========================================
+           3D FLIP PROJECT CARDS (FLEXBOX FIX - NO MORE OVERLAP)
            ========================================= */
         .flashcard-grid {
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Card thode chaude kiye */
-            gap: 80px 40px; /* MAIN FIX: Upar-Niche 80px ka gap, Daaye-Baaye 40px ka gap */
-            max-width: 1100px; 
-            margin: 0 auto 50px;
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center; /* Cards ko center me rakhega */
+            gap: 60px; /* Cards ke beech hamesha 60px ka gap rahega */
+            max-width: 1200px; 
+            margin: 0 auto;
         }
 
         .flashcard-container { 
-            height: 450px; /* Height thodi aur badha di taaki text saaf aaye */
+            width: 330px; /* Fixed width taaki stretch na ho */
+            height: 420px; 
             perspective: 1000px; 
             cursor: pointer; 
-            margin-bottom: 30px; /* Extra safety taaki aapas me na takrayein */
         }
         
         .flashcard-inner {
@@ -105,6 +104,7 @@
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             padding: 30px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
             overflow: hidden;
+            box-sizing: border-box; /* Padding ki wajah se size nahi badhega */
         }
 
         /* HOLOGRAPHIC SCAN-LINE EFFECT */
@@ -150,10 +150,9 @@
         /* GSAP Animations */
         .gs-reveal-up { opacity: 0; transform: translateY(30px); }
 
-         /* Mobile Adjustments */
+        /* Mobile Adjustments */
         @media screen and (max-width: 768px) {
-            .flashcard-grid { gap: 60px 20px; } /* Phone par bhi proper gap */
-            .flashcard-container { height: 480px; margin-bottom: 40px; }
+            .flashcard-container { width: 100%; max-width: 350px; height: 450px; }
             .cyber-glitch { font-size: 2.2rem; }
             .content-section { padding-top: 100px !important; }
         }
@@ -211,7 +210,7 @@
                         <h3>Project Info</h3>
                         <p>A custom-built, offline voice-activated personal assistant. Engineered to execute system commands, seamlessly open apps like WhatsApp, and read messages aloud using local LLMs for max privacy.</p>
                         <div class="skills-text">Python | Llama-3 | Vosk | PyAudio</div>
-                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -280,7 +279,7 @@
             }, 800);
         });
 
-        // 2. 3D GLOBE Background Initialization (Sci-Fi Theme)
+        // 2. 3D GLOBE Background Initialization
         VANTA.GLOBE({
             el: "#vanta-bg",
             mouseControls: true,
@@ -290,10 +289,10 @@
             minWidth: 200.00,
             scale: 1.00,
             scaleMobile: 1.00,
-            color: 0xe94560,        // Pink/Red Globe Lines
-            color2: 0x00ffcc,       // Cyan Highlight Dots
+            color: 0xe94560,
+            color2: 0x00ffcc,
             size: 1.30,
-            backgroundColor: 0x0b0c10 // Deep Dark Background
+            backgroundColor: 0x0b0c10
         });
 
         // 3. GSAP Scroll Animations
