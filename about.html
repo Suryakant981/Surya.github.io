@@ -1,4 +1,4 @@
-\<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -21,128 +21,106 @@
         }
 
         /* =========================================
-           IQ200 BIOMETRIC RETINA SCAN SPLASH
+           BUG-FREE FINGERPRINT SPLASH SCREEN
            ========================================= */
-        #biometric-splash {
+        #bio-splash {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999999;
-            background: #020204 radial-gradient(circle at center, #050b14 0%, #000000 100%);
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            font-family: 'Share Tech Mono', monospace; transition: all 0.6s cubic-bezier(0.8, 0, 0.2, 1);
+            font-family: 'Share Tech Mono', monospace; pointer-events: all;
         }
 
-        .scanner-container {
-            position: relative; width: 200px; height: 200px; margin-bottom: 40px;
+        /* The Sliding Vault Doors */
+        .bio-door {
+            position: absolute; left: 0; width: 100%; height: 50vh; background: #020204;
+            transition: transform 1.2s cubic-bezier(0.8, 0, 0.2, 1); z-index: 1;
+        }
+        .bio-door-top { top: 0; border-bottom: 2px solid #00FF41; box-shadow: 0 10px 30px rgba(0, 255, 65, 0.2); }
+        .bio-door-bottom { bottom: 0; border-top: 2px solid #00FF41; box-shadow: 0 -10px 30px rgba(0, 255, 65, 0.2); }
+
+        /* The Content Inside Splash */
+        .bio-content {
+            position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center;
+            transition: opacity 0.4s ease;
         }
 
-        /* Sci-Fi Target Brackets */
-        .scan-bracket { position: absolute; width: 40px; height: 40px; border: 3px solid transparent; }
-        .top-left { top: 0; left: 0; border-top-color: #00ffcc; border-left-color: #00ffcc; }
-        .top-right { top: 0; right: 0; border-top-color: #00ffcc; border-right-color: #00ffcc; }
-        .bottom-left { bottom: 0; left: 0; border-bottom-color: #00ffcc; border-left-color: #00ffcc; }
-        .bottom-right { bottom: 0; right: 0; border-bottom-color: #00ffcc; border-right-color: #00ffcc; }
-
-        /* The Eye / Retina */
-        .retina-circle {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 140px; height: 140px; border-radius: 50%;
-            border: 2px dashed rgba(0, 255, 204, 0.4); box-shadow: 0 0 30px rgba(0,255,204,0.1);
-            overflow: hidden; display: flex; justify-content: center; align-items: center;
-            animation: pulse-ring 2s infinite;
+        /* Fingerprint Scanner */
+        .fingerprint-box {
+            position: relative; width: 120px; height: 150px; margin-bottom: 20px;
+            display: flex; justify-content: center; align-items: center;
         }
-        .retina-circle::before {
-            content: '\f06e'; font-family: 'Font Awesome 6 Free'; font-weight: 900;
-            font-size: 4rem; color: rgba(0, 255, 204, 0.3); transition: 0.3s;
+        .scan-icon {
+            font-size: 6rem; color: rgba(0, 255, 65, 0.2);
+            background: -webkit-linear-gradient(#00FF41, #00FF41);
+            -webkit-background-clip: text; background-clip: text;
+            background-repeat: no-repeat; background-position: 0 150px;
+            animation: fill-print 2s ease-in-out forwards;
+        }
+        .scan-bar {
+            position: absolute; top: 0; left: -10px; width: 140px; height: 3px;
+            background: #00FF41; box-shadow: 0 0 15px #00FF41, 0 0 30px #00FF41;
+            animation: scan-up-down 2s ease-in-out infinite alternate;
         }
 
-        /* The Scanning Laser */
-        .laser-line {
-            position: absolute; top: 0; left: 0; width: 100%; height: 3px;
-            background: #ff0055; box-shadow: 0 0 15px #ff0055, 0 0 30px #ff0055;
-            animation: scan-laser 2s linear infinite; z-index: 10;
+        .bio-text-display {
+            font-size: 1.5rem; letter-spacing: 4px; color: #8a8a8a;
+            text-shadow: 0 0 10px rgba(0,0,0,0.5); font-weight: bold;
+            margin-top: 15px; min-height: 30px;
         }
-
-        /* Terminal Feed */
-        .terminal-feed {
-            width: 80%; max-width: 400px; height: 100px; text-align: left;
-            font-size: 1.1rem; color: #8a8a8a; display: flex; flex-direction: column;
-            justify-content: flex-end; overflow: hidden; position: relative;
-        }
-        .bio-line { margin: 4px 0; opacity: 0; transform: translateY(10px); animation: popUpLine 0.3s forwards; }
-        .bio-success { color: #00ffcc; text-shadow: 0 0 10px #00ffcc; font-weight: bold; }
-        .bio-alert { color: #ff0055; font-weight: bold; }
-
-        .unlock-flash { position: absolute; top:0; left:0; width:100%; height:100%; background:#00ffcc; z-index:99999999; opacity:0; pointer-events:none; transition: opacity 0.3s; }
 
         /* Animations */
-        @keyframes scan-laser { 0% { top: 0; } 50% { top: 100%; } 100% { top: 0; } }
-        @keyframes pulse-ring { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.05); border-color: rgba(0, 255, 204, 0.8); } }
-        @keyframes popUpLine { to { opacity: 1; transform: translateY(0); } }
+        @keyframes fill-print { 100% { background-position: 0 0; color: transparent; filter: drop-shadow(0 0 10px rgba(0,255,65,0.8)); } }
+        @keyframes scan-up-down { 0% { top: -5px; } 100% { top: 155px; } }
 
-        /* Matrix Canvas */
+        /* Open State Classes (Triggered by JS) */
+        .splash-open .bio-door-top { transform: translateY(-100%); }
+        .splash-open .bio-door-bottom { transform: translateY(100%); }
+        .splash-open .bio-content { opacity: 0; transform: scale(1.2); }
+
+
+        /* =========================================
+           MATRIX BACKGROUND & MAIN CSS
+           ========================================= */
         #matrix-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
 
-        /* H2 GLOWING EFFECT CHANGED TO HACKER GREEN */
         h2 { color: #ffffff !important; font-size: 2.8rem; margin-bottom: 10px; font-family: monospace; text-shadow: 0 0 15px rgba(0, 255, 65, 0.8); }
         .section-subtitle { color: #dcdcdc; margin-bottom: 40px; font-size: 1rem; font-family: monospace; }
 
-        /* Premium Intro Card (Glassmorphism over Matrix) */
         .premium-card {
             background: rgba(11, 12, 16, 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 128, 191, 0.3); border-radius: 20px; padding: 45px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6), inset 0 0 20px rgba(255, 128, 191, 0.1);
+            border: 1px solid rgba(0, 255, 65, 0.3); border-radius: 20px; padding: 45px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6), inset 0 0 20px rgba(0, 255, 65, 0.1);
             margin: 20px auto 60px; max-width: 900px; text-align: left;
         }
         .premium-card p { font-size: 1.05rem; line-height: 1.8; color: #d3d3d3; margin-bottom: 20px; }
-        .premium-card strong { color: #FF80BF; font-family: monospace; font-size: 1.1rem;}
+        .premium-card strong { color: #00FF41; font-family: monospace; font-size: 1.1rem;}
 
-        /* Flashcards */
         .flashcard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1000px; margin: 0 auto; }
         .flashcard-container { height: 380px; perspective: 1000px; cursor: pointer; }
         .flashcard-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-style: preserve-3d; }
         .flashcard-container:hover .flashcard-inner, .flashcard-container.flipped .flashcard-inner { transform: rotateY(180deg); }
         .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 30px; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
         
-        .flashcard-front { background: rgba(11, 12, 16, 0.85); border: 1px solid rgba(255, 128, 191, 0.3); box-shadow: 0 0 20px rgba(0,0,0,0.5); }
-        .flashcard-front i { font-size: 4rem; color: #FF80BF; margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(255, 128, 191, 0.5));}
+        .flashcard-front { background: rgba(11, 12, 16, 0.85); border: 1px solid rgba(0, 255, 65, 0.3); box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+        .flashcard-front i { font-size: 4rem; color: #00FF41; margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(0, 255, 65, 0.5));}
         .flashcard-front h3 { color: #ffffff; font-size: 1.4rem; margin-bottom: 10px; }
-        .flashcard-front span { color: #FF80BF; font-size: 0.9rem; font-weight: bold; }
+        .flashcard-front span { color: #00FF41; font-size: 0.9rem; font-weight: bold; }
         
-        .flashcard-back { background: rgba(255, 128, 191, 0.95); transform: rotateY(180deg); color: #0b0c10; border: 1px solid rgba(255, 128, 191, 0.5); }
-        .flashcard-back p { font-size: 0.95rem; line-height: 1.6; margin-bottom: 15px; font-weight: 500;}
-        .flashcard-back h3 { margin-bottom: 10px; font-weight: 800; color: #0b0c10; }
+        .flashcard-back { background: rgba(0, 255, 65, 0.95); transform: rotateY(180deg); color: #0b0c10; border: 1px solid rgba(0, 255, 65, 0.5); }
+        .flashcard-back p { font-size: 0.95rem; line-height: 1.6; margin-bottom: 15px; font-weight: 600;}
+        .flashcard-back h3 { margin-bottom: 10px; font-weight: 900; color: #0b0c10; font-family: 'Orbitron', sans-serif;}
 
-        /* Card Buttons */
-        .card-btn {
-            display: inline-block; padding: 8px 15px;
-            background: #0b0c10; color: #FF80BF;
-            text-decoration: none; border-radius: 6px; font-weight: bold;
-            font-size: 0.85rem; margin: 5px; transition: 0.3s; border: 1px solid #FF80BF;
-        }
+        .card-btn { display: inline-block; padding: 8px 15px; background: #0b0c10; color: #00FF41; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 0.85rem; margin: 5px; transition: 0.3s; border: 1px solid #00FF41; }
         .card-btn:hover { background: transparent; color: #0b0c10; border-color: #0b0c10; }
 
-        /* Premium Contact Form */
-        .contact-wrapper {
-            background: rgba(11, 12, 16, 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 128, 191, 0.3); border-radius: 20px; padding: 40px;
-            max-width: 700px; margin: 0 auto; box-shadow: 0 15px 35px rgba(0,0,0,0.6); text-align: left;
-        }
+        .contact-wrapper { background: rgba(11, 12, 16, 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(0, 255, 65, 0.3); border-radius: 20px; padding: 40px; max-width: 700px; margin: 0 auto; box-shadow: 0 15px 35px rgba(0,0,0,0.6); text-align: left; }
         .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; color: #FF80BF; margin-bottom: 8px; font-weight: bold; font-size: 0.95rem; }
-        .form-control {
-            width: 100%; padding: 15px; border-radius: 10px; box-sizing: border-box;
-            background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255,255,255,0.1);
-            color: #ffffff; font-family: 'Inter', sans-serif; font-size: 1rem;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-        .form-control:focus { outline: none; border-color: #FF80BF; box-shadow: 0 0 15px rgba(255, 128, 191, 0.5); }
+        .form-group label { display: block; color: #00FF41; margin-bottom: 8px; font-weight: bold; font-size: 0.95rem; }
+        .form-control { width: 100%; padding: 15px; border-radius: 10px; box-sizing: border-box; background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255,255,255,0.1); color: #ffffff; font-family: 'Inter', sans-serif; font-size: 1rem; transition: border-color 0.3s, box-shadow 0.3s; }
+        .form-control:focus { outline: none; border-color: #00FF41; box-shadow: 0 0 15px rgba(0, 255, 65, 0.5); }
         textarea.form-control { resize: vertical; min-height: 120px; }
         
-        .submit-btn {
-            background: transparent; color: #FF80BF; padding: 15px 30px; border: 2px solid #FF80BF; border-radius: 10px;
-            font-size: 1.1rem; font-weight: bold; cursor: pointer; width: 100%;
-            transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px; text-transform: uppercase;
-        }
-        .submit-btn:hover { background: #FF80BF; color: #0b0c10; box-shadow: 0 0 20px rgba(255, 128, 191, 0.6); }
+        .submit-btn { background: transparent; color: #00FF41; padding: 15px 30px; border: 2px solid #00FF41; border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer; width: 100%; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px; text-transform: uppercase; }
+        .submit-btn:hover { background: #00FF41; color: #0b0c10; box-shadow: 0 0 20px rgba(0, 255, 65, 0.6); }
 
         .gs-reveal-up { opacity: 0; transform: translateY(30px); }
 
@@ -155,32 +133,29 @@
 </head>
 <body>
 
-    <div id="biometric-splash">
-        <div class="scanner-container">
-            <div class="scan-bracket top-left"></div>
-            <div class="scan-bracket top-right"></div>
-            <div class="scan-bracket bottom-left"></div>
-            <div class="scan-bracket bottom-right"></div>
-            
-            <div class="retina-circle">
-                <div class="laser-line"></div>
+    <div id="bio-splash">
+        <div class="bio-door bio-door-top"></div>
+        <div class="bio-door bio-door-bottom"></div>
+        
+        <div class="bio-content">
+            <div class="fingerprint-box">
+                <i class="fas fa-fingerprint scan-icon"></i>
+                <div class="scan-bar"></div>
             </div>
+            <div class="bio-text-display" id="scan-text">VERIFYING ADMIN...</div>
         </div>
-        <div class="terminal-feed" id="bio-term">
-            </div>
-        <div class="unlock-flash" id="unlock-flash"></div>
     </div>
 
     <canvas id="matrix-canvas"></canvas>
 
-    <nav style="position: fixed; width: 100%; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: rgba(11, 12, 16, 0.85); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255, 128, 191, 0.2);">
-        <div class="logo" style="font-size: 24px; font-weight: bold; color: #FF80BF;">Surya</div>
+    <nav style="position: fixed; width: 100%; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: rgba(11, 12, 16, 0.85); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(0, 255, 65, 0.2);">
+        <div class="logo" style="font-size: 24px; font-weight: bold; color: #00FF41;">Surya</div>
         <ul class="nav-links" style="list-style: none; display: flex; gap: 20px; align-items: center;">
             <li><a href="index.html" style="color: #fff; text-decoration: none;">Home</a></li>
-            <li><a href="about.html" style="color: #FF80BF; text-decoration: none; font-weight: bold;">About</a></li>
+            <li><a href="about.html" style="color: #00FF41; text-decoration: none; font-weight: bold; text-shadow: 0 0 8px rgba(0,255,65,0.5);">About</a></li>
             <li><a href="projects.html" style="color: #fff; text-decoration: none;">Projects</a></li>
             <li><a href="lab.html" style="color: #00ffcc; text-decoration: none; font-weight: bold; text-shadow: 0 0 5px #00ffcc;">LAB</a></li>
-            <li><a href="suryakant-resume.jpg" target="_blank" style="background: transparent; color: #FF80BF; border: 1px solid #FF80BF; padding: 8px 18px; border-radius: 5px; text-decoration: none; font-weight: bold; transition: 0.3s;" onmouseover="this.style.background='#FF80BF'; this.style.color='#0b0c10'" onmouseout="this.style.background='transparent'; this.style.color='#FF80BF'">Hire Me</a></li>
+            <li><a href="suryakant-resume.jpg" target="_blank" style="background: transparent; color: #00FF41; border: 1px solid #00FF41; padding: 8px 18px; border-radius: 5px; text-decoration: none; font-weight: bold; transition: 0.3s;" onmouseover="this.style.background='#00FF41'; this.style.color='#0b0c10'" onmouseout="this.style.background='transparent'; this.style.color='#00FF41'">Hire Me</a></li>
         </ul>
     </nav>
 
@@ -266,15 +241,15 @@
 
     <a href="https://wa.me/917860636624?text=Hi%20Suryakant,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!" 
        target="_blank" 
-       style="position: fixed; bottom: 20px; right: 20px; background-color: #25d366; color: white; padding: 15px 20px; border-radius: 50px; font-size: 20px; box-shadow: 0 0 15px rgba(255, 128, 191, 0.5); z-index: 1000; text-decoration: none;">
+       style="position: fixed; bottom: 20px; right: 20px; background-color: #25d366; color: white; padding: 15px 20px; border-radius: 50px; font-size: 20px; box-shadow: 0 0 15px rgba(0, 255, 65, 0.5); z-index: 1000; text-decoration: none;">
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <footer style="position: relative; z-index: 1; padding: 40px; background-color: rgba(11, 12, 16, 0.95); border-top: 1px solid rgba(255, 128, 191, 0.3); color: white; text-align: center; backdrop-filter: blur(10px);">
+    <footer style="position: relative; z-index: 1; padding: 40px; background-color: rgba(11, 12, 16, 0.95); border-top: 1px solid rgba(0, 255, 65, 0.3); color: white; text-align: center; backdrop-filter: blur(10px);">
         <div style="margin-bottom: 15px;">
-            <a href="https://github.com/Suryakant981" target="_blank" style="color: #FF80BF; margin: 0 15px; font-size: 22px; transition: 0.3s;" onmouseover="this.style.textShadow='0 0 10px #FF80BF'" onmouseout="this.style.textShadow='none'"><i class="fab fa-github"></i></a>
-            <a href="https://linkedin.com/in/suryakant-chaudhary-8a0926291" target="_blank" style="color: #FF80BF; margin: 0 15px; font-size: 22px; transition: 0.3s;" onmouseover="this.style.textShadow='0 0 10px #FF80BF'" onmouseout="this.style.textShadow='none'"><i class="fab fa-linkedin"></i></a>
-            <a href="https://instagram.com/itz_introvert_pankaj" target="_blank" style="color: #FF80BF; margin: 0 15px; font-size: 22px; transition: 0.3s;" onmouseover="this.style.textShadow='0 0 10px #FF80BF'" onmouseout="this.style.textShadow='none'"><i class="fab fa-instagram"></i></a>
+            <a href="https://github.com/Suryakant981" target="_blank" style="color: #00FF41; margin: 0 15px; font-size: 22px; transition: 0.3s;" onmouseover="this.style.textShadow='0 0 10px #00FF41'" onmouseout="this.style.textShadow='none'"><i class="fab fa-github"></i></a>
+            <a href="https://linkedin.com/in/suryakant-chaudhary-8a0926291" target="_blank" style="color: #00FF41; margin: 0 15px; font-size: 22px; transition: 0.3s;" onmouseover="this.style.textShadow='0 0 10px #00FF41'" onmouseout="this.style.textShadow='none'"><i class="fab fa-linkedin"></i></a>
+            <a href="https://instagram.com/itz_introvert_pankaj" target="_blank" style="color: #00FF41; margin: 0 15px; font-size: 22px; transition: 0.3s;" onmouseover="this.style.textShadow='0 0 10px #00FF41'" onmouseout="this.style.textShadow='none'"><i class="fab fa-instagram"></i></a>
         </div>
         <p style="color: #8a8a8a; font-size: 0.9rem; font-family: monospace;">&copy; 2026 Suryakant. All rights reserved.</p>
     </footer>
@@ -283,56 +258,31 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <script>
-        // 1. BIOMETRIC SCANNER LOGIC (FIXED)
+        // 1. FAIL-PROOF FINGERPRINT SCANNER LOGIC
         window.addEventListener('load', () => {
-            const bioTerm = document.getElementById('bio-term');
-            const splash = document.getElementById('biometric-splash');
-            const flash = document.getElementById('unlock-flash');
+            const splash = document.getElementById('bio-splash');
+            const scanText = document.getElementById('scan-text');
             
-            const scanSequence = [
-                { text: "> SECURE CONNECTION ESTABLISHED.", class: "" },
-                { text: "> INITIATING BIOMETRIC SCAN...", class: "bio-alert" },
-                { text: "> ANALYZING RETINA PATTERN...", class: "" },
-                { text: "> MATCH FOUND: 99.98%", class: "bio-success" },
-                { text: "> IDENTITY CONFIRMED: SURYAKANT", class: "bio-success" },
-                { text: "> CLEARANCE LEVEL: ADMIN [ACCESS GRANTED]", class: "bio-success" }
-            ];
+            // Step 1: Change text to Match Found
+            setTimeout(() => {
+                scanText.innerText = "MATCH: SURYAKANT";
+                scanText.style.color = "#00FF41";
+                scanText.style.textShadow = "0 0 15px #00FF41";
+            }, 1800);
 
-            let delay = 600;
-            scanSequence.forEach((cmd, idx) => {
+            // Step 2: Grant Access and Trigger Door Animation
+            setTimeout(() => {
+                scanText.innerText = "ACCESS GRANTED";
+                splash.classList.add('splash-open');
+                
+                // Step 3: Completely remove splash from DOM to prevent any blockage
                 setTimeout(() => {
-                    const line = document.createElement('div');
-                    line.className = `bio-line ${cmd.class}`;
-                    line.innerText = cmd.text;
-                    bioTerm.appendChild(line);
-                    
-                    if(bioTerm.children.length > 4) {
-                        bioTerm.removeChild(bioTerm.firstChild);
-                    }
-                    
-                    // Final Trigger
-                    if(idx === scanSequence.length - 1) {
-                        setTimeout(() => {
-                            flash.style.opacity = '1';
-                            document.querySelector('.retina-circle').style.borderColor = "#00ffcc";
-                            // BUG CAUSING LINE WAS REMOVED HERE
-                            
-                            setTimeout(() => {
-                                splash.style.transform = 'scale(1.5)';
-                                splash.style.opacity = '0';
-                                setTimeout(() => {
-                                    splash.style.display = 'none';
-                                    flash.style.opacity = '0'; // Safety measure
-                                }, 600);
-                            }, 400);
-                        }, 800);
-                    }
-                }, delay);
-                delay += 500;
-            });
+                    splash.style.display = 'none';
+                }, 1200); // Waits for doors to fully slide away
+            }, 3000);
         });
 
-        // 2. MATRIX RAIN EFFECT LOGIC (Hacker Green)
+        // 2. MATRIX RAIN EFFECT LOGIC
         const canvas = document.getElementById('matrix-canvas');
         const ctx = canvas.getContext('2d');
         
