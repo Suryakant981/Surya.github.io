@@ -23,71 +23,84 @@
         }
 
         /* =========================================
-           GOD-TIER BLAST DOOR SPLASH SCREEN
+           IQ1000 NEURAL DECRYPTION SPLASH SCREEN
            ========================================= */
-        #god-splash {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999999;
-            display: flex; justify-content: center; align-items: center; flex-direction: column;
-            pointer-events: all; /* Blocks interaction while loading */
+        #ultimate-splash {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999999;
+            background: #020204 radial-gradient(circle at center, #0a0a10 0%, #000000 100%);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            font-family: 'Share Tech Mono', monospace; color: #00ffcc;
+            transition: opacity 0.4s ease, transform 0.6s cubic-bezier(0.8, 0, 0.2, 1);
         }
 
-        /* The sliding blast doors */
-        .splash-door {
-            position: absolute; width: 100%; height: 50%; background: #050508;
-            transition: transform 1.2s cubic-bezier(0.8, 0, 0.2, 1); z-index: 1;
-        }
-        .door-top { top: 0; border-bottom: 2px solid #00ffcc; box-shadow: 0 10px 30px rgba(0,255,204,0.4); transform-origin: top; }
-        .door-bottom { bottom: 0; border-top: 2px solid #e94560; box-shadow: 0 -10px 30px rgba(233,69,96,0.4); transform-origin: bottom; }
-
-        /* The central spinning HUD */
-        .splash-core {
-            position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center;
-            transition: opacity 0.6s ease, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
-        .hud-circle {
-            width: 160px; height: 160px; border-radius: 50%;
-            border: 4px dashed rgba(0, 255, 204, 0.4);
-            display: flex; justify-content: center; align-items: center;
-            position: relative; animation: spin 8s linear infinite;
-            box-shadow: 0 0 30px rgba(0, 255, 204, 0.2), inset 0 0 20px rgba(0, 255, 204, 0.2);
-        }
-        .hud-circle::before {
-            content: ''; position: absolute; width: 130px; height: 130px; border-radius: 50%;
-            border: 4px solid transparent; border-top-color: #e94560; border-bottom-color: #e94560;
-            animation: spin-reverse 3s linear infinite;
-        }
-        .core-logo {
-            font-family: 'Orbitron', sans-serif; font-size: 5rem; color: #fff; font-weight: 900;
-            position: absolute; text-shadow: 0 0 20px #00ffcc;
-            animation: pulse-core 2s infinite; z-index: 3;
+        /* Scanline Overlay */
+        #ultimate-splash::before {
+            content: " "; display: block; position: absolute; top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2; background-size: 100% 2px, 3px 100%; pointer-events: none;
         }
 
-        .splash-text {
-            font-family: 'Share Tech Mono', monospace; color: #00ffcc; font-size: 1.5rem;
-            margin-top: 40px; letter-spacing: 6px; text-shadow: 0 0 15px rgba(0,255,204,0.8);
+        /* HUD Rings */
+        .hud-wrapper {
+            position: relative; width: 250px; height: 250px; display: flex; justify-content: center; align-items: center;
+            margin-bottom: 30px; z-index: 3;
         }
-        .progress-wrapper {
-            width: 300px; height: 4px; background: rgba(255,255,255,0.1); margin-top: 15px; overflow: hidden;
-            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        .ring { position: absolute; border-radius: 50%; box-sizing: border-box; }
+        .ring-1 {
+            width: 250px; height: 250px; border: 2px solid transparent; border-top: 2px solid #00ffcc; border-bottom: 2px solid #00ffcc;
+            animation: spin1 4s linear infinite; opacity: 0.8;
         }
-        .progress-fill {
-            width: 0%; height: 100%; background: #e94560; box-shadow: 0 0 20px #e94560; transition: width 0.1s;
+        .ring-2 {
+            width: 220px; height: 220px; border: 4px dashed rgba(233, 69, 96, 0.6);
+            animation: spin2 6s linear infinite;
+        }
+        .ring-3 {
+            width: 190px; height: 190px; border: 2px solid transparent; border-left: 2px solid #fff; border-right: 2px solid #fff;
+            animation: spin1 3s linear infinite reverse; opacity: 0.5;
+        }
+        .hud-center-icon {
+            font-size: 3rem; color: #e94560; animation: pulse-icon 2s ease-in-out infinite; text-shadow: 0 0 20px #e94560;
         }
 
-        /* HUD Animations */
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-        @keyframes spin-reverse { 100% { transform: rotate(-360deg); } }
-        @keyframes pulse-core { 0%, 100% { transform: scale(1); text-shadow: 0 0 20px #00ffcc; } 50% { transform: scale(1.1); text-shadow: 0 0 40px #e94560; } }
+        /* Decryption Text */
+        .scramble-text {
+            font-size: 3rem; font-family: 'Orbitron', sans-serif; font-weight: 900;
+            color: #fff; letter-spacing: 5px; text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc;
+            z-index: 3; position: relative; margin-bottom: 10px;
+        }
 
-        /* The OPEN State (Triggered via JS) */
-        .god-splash-open .door-top { transform: translateY(-100%); }
-        .god-splash-open .door-bottom { transform: translateY(100%); }
-        .god-splash-open .splash-core { opacity: 0; transform: scale(3); filter: blur(10px); }
+        /* System Terminal */
+        .sys-terminal {
+            width: 80%; max-width: 500px; height: 120px; background: rgba(0,255,204,0.02);
+            border-left: 3px solid #e94560; padding: 15px; font-size: 0.9rem;
+            color: #8a8a8a; display: flex; flex-direction: column; justify-content: flex-end;
+            overflow: hidden; z-index: 3; position: relative;
+        }
+        .sys-line { margin: 3px 0; opacity: 0; transform: translateX(-10px); animation: slideIn 0.3s forwards; }
+        .sys-success { color: #00ffcc; }
+        .sys-warn { color: #e94560; }
 
-        /* ===== END OF SPLASH CSS ===== */
+        /* EMP Glitch Blast Class */
+        .emp-blast {
+            animation: emp-glitch 0.5s cubic-bezier(.25, .46, .45, .94) both infinite;
+            background: #fff !important; mix-blend-mode: exclusion; z-index: 99999999;
+        }
 
-        /* ===== EXISTING CSS (HERO, CARDS, CHATBOT) ===== */
+        /* Keyframes */
+        @keyframes spin1 { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes spin2 { 0% { transform: rotate(0deg); } 100% { transform: rotate(-360deg); } }
+        @keyframes pulse-icon { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.1); opacity: 1; } }
+        @keyframes slideIn { to { opacity: 1; transform: translateX(0); } }
+        @keyframes emp-glitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-5px, 5px) }
+            40% { transform: translate(-5px, -5px) }
+            60% { transform: translate(5px, 5px) }
+            80% { transform: translate(5px, -5px) }
+            100% { transform: translate(0) }
+        }
+
+        /* ===== EXISTING MAIN CSS ===== */
         .hero { position: relative; overflow: hidden; min-height: 100vh; display: flex; align-items: center; justify-content: center;}
         #vanta-canvas { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 0; }
         .hero-container { position: relative; z-index: 2; display: flex; align-items: center; gap: 40px; width: 90%; max-width: 1100px; padding-top: 80px; }
@@ -98,11 +111,7 @@
         #more-text { display: none; }
         .read-more-btn { background: none; border: none; color: #e94560; cursor: pointer; font-weight: bold; text-decoration: underline; font-size: 0.9rem; }
 
-        .profile-pic-wrapper {
-            position: relative; width: 300px; height: 300px; border-radius: 50%; overflow: hidden;
-            border: 2px solid rgba(233, 69, 96, 0.8) !important; box-shadow: 0 0 40px rgba(233, 69, 96, 0.6), inset 0 0 20px rgba(233, 69, 96, 0.4) !important;
-            transition: transform 0.4s ease;
-        }
+        .profile-pic-wrapper { position: relative; width: 300px; height: 300px; border-radius: 50%; overflow: hidden; border: 2px solid rgba(233, 69, 96, 0.8) !important; box-shadow: 0 0 40px rgba(233, 69, 96, 0.6), inset 0 0 20px rgba(233, 69, 96, 0.4) !important; transition: transform 0.4s ease; }
         .profile-photo { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
         .profile-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11, 12, 16, 0.85); color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; transition: 0.3s ease; font-weight: bold; }
         .profile-pic-wrapper:hover .profile-overlay { opacity: 1; cursor: pointer; }
@@ -117,13 +126,9 @@
         .stats-section { padding: 80px 20px; background: rgba(255,255,255,0.02); text-align: center; }
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 30px; max-width: 900px; margin: 40px auto 0; }
         
-        .stat-card, .gs-skills, .flashcard-front, .flashcard-back, #chat-window {
-            background: rgba(11, 12, 16, 0.4) !important; backdrop-filter: blur(12px) saturate(180%); -webkit-backdrop-filter: blur(12px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.08) !important; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
-            border-radius: 15px; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
+        .stat-card, .gs-skills, .flashcard-front, .flashcard-back, #chat-window { background: rgba(11, 12, 16, 0.4) !important; backdrop-filter: blur(12px) saturate(180%); -webkit-backdrop-filter: blur(12px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.08) !important; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important; border-radius: 15px; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .stat-card:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 15px 40px rgba(233, 69, 96, 0.3) !important; border-color: rgba(233, 69, 96, 0.5) !important; }
+        
         .stat-number { font-size: 3.5rem; font-weight: 800; color: #e94560; }
         .stat-label { font-size: 0.95rem; color: #8a8a8a; margin-top: 8px; font-weight: 600; }
 
@@ -143,7 +148,6 @@
         .flashcard-front span { color: #8a8a8a; font-size: 0.85rem; margin-top: 10px; }
         .flashcard-back p { color: white; text-align: center; font-size: 1rem; line-height: 1.6; }
 
-        /* CHATBOT CSS */
         #chat-toggle-wrapper { position: fixed; bottom: 85px; right: 20px; z-index: 10000; display: flex; align-items: center; gap: 15px; }
         .chat-tooltip { background: rgba(0, 255, 204, 0.1); color: #00ffcc; padding: 8px 16px; border-radius: 20px; font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: bold; border: 1px solid rgba(0, 255, 204, 0.5); box-shadow: 0 0 15px rgba(0, 255, 204, 0.2); backdrop-filter: blur(5px); animation: bounce 2s infinite; pointer-events: none; }
         #chat-toggle-btn { background: #0b0c10; border: 2px solid #00ffcc; color: #00ffcc; width: 65px; height: 65px; border-radius: 50%; font-size: 26px; cursor: pointer; box-shadow: 0 0 15px rgba(0, 255, 204, 0.4); transition: 0.3s; display: flex; justify-content: center; align-items: center; animation: pulseGlow 2s infinite; }
@@ -156,42 +160,29 @@
         .chat-header h3 { margin: 0; color: #ffffff; font-family: 'Orbitron', sans-serif; font-size: 1.1rem; }
         .chat-header span { color: #00ffcc; font-size: 0.8rem; font-family: monospace; }
         #close-chat { color: #ff0055; cursor: pointer; font-size: 1.2rem; transition: 0.3s; }
-        #close-chat:hover { text-shadow: 0 0 10px #ff0055; }
         #chat-body { padding: 20px; height: 320px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; font-family: 'Inter', sans-serif; }
-        #chat-body::-webkit-scrollbar { width: 5px; }
-        #chat-body::-webkit-scrollbar-thumb { background: #00ffcc; border-radius: 5px; }
         .message { max-width: 80%; padding: 10px 15px; border-radius: 10px; font-size: 0.9rem; line-height: 1.4; word-wrap: break-word; }
         .bot-message { background: rgba(255, 128, 191, 0.1); color: #c5c6c7; border-left: 2px solid #FF80BF; align-self: flex-start; }
         .user-message { background: rgba(0, 255, 204, 0.1); color: #ffffff; border-right: 2px solid #00ffcc; align-self: flex-end; }
         .typing-indicator { color: #00ffcc; font-size: 0.8rem; font-family: monospace; align-self: flex-start; margin-left: 5px; animation: blink 1s infinite; }
         .chat-input-area { display: flex; padding: 15px; border-top: 1px solid rgba(0, 255, 204, 0.2); background: rgba(0, 0, 0, 0.5); }
         #chat-input { flex: 1; background: transparent; border: none; color: #fff; font-family: 'Inter', sans-serif; font-size: 0.95rem; outline: none; }
-        #chat-input::placeholder { color: #666; }
         #send-btn { background: transparent; border: none; color: #00ffcc; font-size: 1.2rem; cursor: pointer; transition: 0.3s; padding-left: 10px; }
-        #send-btn:hover { color: #ffffff; text-shadow: 0 0 10px #00ffcc; }
-
-        @media (max-width: 768px) {
-            .hero-container { flex-direction: column-reverse; text-align: center; }
-            .profile-pic-wrapper { width: 220px; height: 220px; margin: 0 auto; }
-            .stats-grid { grid-template-columns: 1fr 1fr; }
-            .flashcard-grid { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 768px) { .hero-container { flex-direction: column-reverse; text-align: center; } .profile-pic-wrapper { width: 220px; height: 220px; margin: 0 auto; } .stats-grid { grid-template-columns: 1fr 1fr; } .flashcard-grid { grid-template-columns: 1fr; } .scramble-text { font-size: 2rem; } }
     </style>
 </head>
 <body>
 
-    <div id="god-splash">
-        <div class="splash-door door-top"></div>
-        <div class="splash-door door-bottom"></div>
-        
-        <div class="splash-core">
-            <div class="hud-circle"></div>
-            <div class="core-logo">S</div>
-            <div class="splash-text" id="status-text">AUTHENTICATING...</div>
-            <div class="progress-wrapper">
-                <div class="progress-fill" id="boot-bar"></div>
-            </div>
+    <div id="ultimate-splash">
+        <div class="hud-wrapper">
+            <div class="ring ring-1"></div>
+            <div class="ring ring-2"></div>
+            <div class="ring ring-3"></div>
+            <i class="fas fa-fingerprint hud-center-icon"></i>
         </div>
+        <div class="scramble-text" id="target-name" data-value="SURYAKANT">011001010</div>
+        <div class="sys-terminal" id="term-output">
+            </div>
     </div>
 
     <nav style="position: fixed; width: 100%; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: rgba(11, 12, 16, 0.6); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255,255,255,0.05);">
@@ -406,44 +397,71 @@
 
     <script>
         // ==========================================
-        // GOD-TIER SPLASH SCREEN LOGIC
+        // IQ1000 NEURAL DECRYPTION LOGIC
         // ==========================================
         window.addEventListener('load', () => {
-            let progress = 0;
-            const bootBar = document.getElementById('boot-bar');
-            const statusText = document.getElementById('status-text');
-            const splashContainer = document.getElementById('god-splash');
+            const splash = document.getElementById('ultimate-splash');
+            const targetText = document.getElementById('target-name');
+            const termOutput = document.getElementById('term-output');
+            
+            const name = targetText.getAttribute('data-value');
+            const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*";
+            let iterations = 0;
+            
+            // 1. Text Scramble Matrix Effect
+            let scrambleInterval = setInterval(() => {
+                targetText.innerText = name.split("")
+                    .map((letter, index) => {
+                        if(index < iterations) return name[index];
+                        return letters[Math.floor(Math.random() * letters.length)];
+                    }).join("");
+                
+                if(iterations >= name.length) clearInterval(scrambleInterval);
+                iterations += 1/3; // Speed of decoding
+            }, 50);
 
-            // Simulate high-tech loading stutter
-            let loadInterval = setInterval(() => {
-                progress += Math.floor(Math.random() * 15) + 5;
-                if(progress >= 100) {
-                    progress = 100;
-                    clearInterval(loadInterval);
+            // 2. Terminal Boot Sequence (Your actual projects!)
+            const bootSequence = [
+                { text: "> INITIALIZING KERNEL...", class: "" },
+                { text: "> CONNECTING TO LLAMA-3 NEURAL NET...", class: "sys-success" },
+                { text: "> LOADING PROJECT MJ [VOICE AI]...", class: "" },
+                { text: "> DECRYPTING RAKSHA SURAKSHA VAULTS...", class: "sys-warn" },
+                { text: "> AUTHENTICATION SUCCESSFUL. WELCOME ADMIN.", class: "sys-success" }
+            ];
+
+            let lineDelay = 800; // Start delay
+            bootSequence.forEach((cmd, index) => {
+                setTimeout(() => {
+                    const line = document.createElement('div');
+                    line.className = `sys-line ${cmd.class}`;
+                    line.innerText = cmd.text;
+                    termOutput.appendChild(line);
                     
-                    // Access Granted State
-                    bootBar.style.width = '100%';
-                    statusText.innerText = "ACCESS GRANTED";
-                    statusText.style.color = "#e94560";
-                    statusText.style.textShadow = "0 0 20px #e94560";
-                    document.querySelector('.hud-circle').style.borderColor = "rgba(233, 69, 96, 0.6)";
+                    // Keep terminal scrolled down
+                    if(termOutput.children.length > 4) {
+                        termOutput.removeChild(termOutput.firstChild);
+                    }
+                }, lineDelay);
+                lineDelay += 500; // Speed of next line
+            });
 
-                    // Blast doors open after 0.5s pause
+            // 3. EMP Glitch Blast & Reveal
+            setTimeout(() => {
+                splash.classList.add('emp-blast'); // The flash bang effect
+                
+                setTimeout(() => {
+                    splash.style.opacity = '0';
+                    splash.style.transform = 'scale(1.2)';
+                    
+                    // Start main site animation exactly as it fades
+                    heroTl.play();
+                    
                     setTimeout(() => {
-                        splashContainer.classList.add('god-splash-open');
-                        
-                        // Start hero animations perfectly synced with doors opening
-                        heroTl.play();
-
-                        // Remove splash from DOM after animation completes
-                        setTimeout(() => {
-                            splashContainer.style.display = 'none';
-                        }, 1200);
+                        splash.style.display = 'none';
+                        splash.classList.remove('emp-blast');
                     }, 500);
-                } else {
-                    bootBar.style.width = progress + '%';
-                }
-            }, 100);
+                }, 300); // Glitch duration
+            }, lineDelay + 500); // Triggers after last terminal line
         });
 
         // VANTA.NET 3D Background
@@ -455,7 +473,7 @@
 
         // GSAP Animations (Paused initially, played by Splash Screen Logic)
         gsap.registerPlugin(ScrollTrigger);
-        const heroTl = gsap.timeline({ paused: true, delay: 0.2 }); 
+        const heroTl = gsap.timeline({ paused: true, delay: 0.1 }); 
         heroTl.from(".gs-reveal-hero h1", { opacity: 0, y: 30, duration: 0.8, ease: "power3.out" })
               .from(".gs-reveal-hero h2", { opacity: 0, y: 30, duration: 0.8, ease: "power3.out" }, "-=0.6")
               .from(".gs-reveal-hero p", { opacity: 0, y: 30, duration: 0.8, ease: "power3.out" }, "-=0.6")
