@@ -10,7 +10,7 @@
     <meta name="author" content="Suryakant">
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
@@ -28,12 +28,57 @@
             overflow-x: hidden; 
         }
 
-        /* ===== PRELOADER ===== */
-        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0b0c10; z-index: 99999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.8s ease, visibility 0.8s; }
-        .loader-text { font-size: 3rem; font-weight: 800; color: #ffffff; letter-spacing: 2px; }
-        .loader-bar { width: 200px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-top: 20px; overflow: hidden; }
-        .loader-bar-fill { height: 100%; width: 0%; background: #e94560; border-radius: 10px; animation: loadBar 1.5s ease forwards; }
-        @keyframes loadBar { 0% { width: 0%; } 100% { width: 100%; } }
+        /* =========================================
+           IQ200 SPLASH SCREEN STYLES
+           ========================================= */
+        #iq-splash {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #050508; z-index: 999999; display: flex;
+            justify-content: center; align-items: center; flex-direction: column;
+            font-family: 'Share Tech Mono', monospace; color: #00ffcc;
+            transition: opacity 0.8s cubic-bezier(0.8, 0, 0.2, 1), transform 0.8s ease;
+        }
+
+        .terminal-box {
+            width: 90%; max-width: 600px; padding: 30px;
+            background: rgba(0, 255, 204, 0.05); border: 1px solid rgba(0, 255, 204, 0.2);
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.1), inset 0 0 15px rgba(0, 255, 204, 0.05);
+            border-radius: 10px; position: relative; overflow: hidden;
+            transition: transform 0.4s ease, border-color 0.4s ease;
+        }
+
+        /* Scanline effect */
+        .terminal-box::before {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 10px;
+            background: rgba(0, 255, 204, 0.3); opacity: 0.5;
+            animation: scanline 3s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes scanline {
+            0% { top: -10%; } 100% { top: 110%; }
+        }
+
+        .glitch-text {
+            font-size: 2.5rem; color: #fff; margin-bottom: 20px; text-shadow: 2px 2px #e94560, -2px -2px #00ffcc;
+            animation: pulse-glitch 2s infinite; text-align: center; font-family: 'Orbitron', sans-serif;
+        }
+
+        #console-output {
+            font-size: 1rem; line-height: 1.8; margin-bottom: 20px; text-align: left;
+            min-height: 120px; color: #8a8a8a;
+        }
+        .console-line { margin-bottom: 5px; }
+        .typing-cursor { display: inline-block; width: 10px; height: 15px; background: #00ffcc; animation: blink-cursor 1s step-end infinite; }
+        @keyframes blink-cursor { 50% { opacity: 0; } }
+
+        .cyber-progress {
+            width: 100%; height: 4px; background: rgba(255, 255, 255, 0.1);
+            position: relative; overflow: hidden; border-radius: 2px;
+        }
+        .cyber-bar {
+            height: 100%; width: 0%; background: #e94560;
+            box-shadow: 0 0 15px #e94560; transition: width 0.2s ease;
+        }
 
         /* ===== HERO SECTION ===== */
         .hero { position: relative; overflow: hidden; min-height: 100vh; display: flex; align-items: center; justify-content: center;}
@@ -108,14 +153,11 @@
         .flashcard-back p { color: white; text-align: center; font-size: 1rem; line-height: 1.6; }
 
         /* ===== CYBER CHATBOT WIDGET ===== */
-      /* ===== CYBER CHATBOT WIDGET (UPGRADED UI) ===== */
-        
         #chat-toggle-wrapper {
             position: fixed; bottom: 85px; right: 20px; z-index: 10000;
             display: flex; align-items: center; gap: 15px;
         }
 
-        /* Bouncing Tooltip */
         .chat-tooltip {
             background: rgba(0, 255, 204, 0.1); color: #00ffcc;
             padding: 8px 16px; border-radius: 20px; font-family: 'Inter', sans-serif;
@@ -124,7 +166,6 @@
             animation: bounce 2s infinite; pointer-events: none;
         }
 
-        /* Pulsing Button */
         #chat-toggle-btn { 
             background: #0b0c10; border: 2px solid #00ffcc; color: #00ffcc; 
             width: 65px; height: 65px; border-radius: 50%; font-size: 26px; cursor: pointer; 
@@ -138,7 +179,6 @@
             box-shadow: 0 0 30px rgba(0, 255, 204, 0.8); transform: scale(1.1); 
         }
 
-        /* Animations */
         @keyframes pulseGlow {
             0% { box-shadow: 0 0 0 0 rgba(0, 255, 204, 0.6); }
             70% { box-shadow: 0 0 0 15px rgba(0, 255, 204, 0); }
@@ -179,9 +219,17 @@
 </head>
 <body>
 
-    <div id="preloader">
-        <div class="loader-text">Surya</div>
-        <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+    <div id="iq-splash">
+        <div class="terminal-box">
+            <h1 class="glitch-text" data-text="SURYA_OS_v2.0">SURYA_OS_v2.0</h1>
+            <div id="console-output"></div>
+            <div class="cyber-progress">
+                <div class="cyber-bar"></div>
+            </div>
+            <div id="grant-access" style="display: none; color: #00ffcc; font-weight: bold; margin-top: 15px; letter-spacing: 2px;">
+                > ACCESS GRANTED_
+            </div>
+        </div>
     </div>
 
     <nav style="position: fixed; width: 100%; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: rgba(11, 12, 16, 0.6); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255,255,255,0.05);">
@@ -396,14 +444,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <script>
-        // PRELOADER
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                document.getElementById('preloader').style.opacity = '0';
-                setTimeout(function() { document.getElementById('preloader').style.display = 'none'; }, 800);
-            }, 1000);
-        });
-
         // VANTA.NET 3D (TRANSPARENT FOR BACKGROUND IMAGE)
         VANTA.NET({
             el: "#vanta-canvas", mouseControls: true, touchControls: true, gyroControls: false,
@@ -411,9 +451,9 @@
             color: 0xe94560, backgroundColor: 0x0b0c10, backgroundAlpha: 0, points: 12.00, maxDistance: 22.00, spacing: 18.00, showDots: true
         });
 
-        // GSAP
+        // GSAP (Delay increased to sync with new IQ200 Preloader)
         gsap.registerPlugin(ScrollTrigger);
-        const heroTl = gsap.timeline({ delay: 1.2 });
+        const heroTl = gsap.timeline({ delay: 3.5 }); 
         heroTl.from(".gs-reveal-hero h1", { opacity: 0, y: 30, duration: 0.8, ease: "power3.out" })
               .from(".gs-reveal-hero h2", { opacity: 0, y: 30, duration: 0.8, ease: "power3.out" }, "-=0.6")
               .from(".gs-reveal-hero p", { opacity: 0, y: 30, duration: 0.8, ease: "power3.out" }, "-=0.6")
@@ -474,11 +514,6 @@
         const chatInput = document.getElementById('chat-input');
         const sendBtn = document.getElementById('send-btn');
 
-        // NEW SMART HINGLISH PROMPT ENGINEERED KNOWLEDGE BASE
-     // NEW SMART HINGLISH PROMPT ENGINEERED KNOWLEDGE BASE
-       // NEW SMART BILINGUAL PROMPT ENGINEERED KNOWLEDGE BASE
-      // NEW SMART FEW-SHOT PROMPT ENGINEERED KNOWLEDGE BASE
-        // NEW ADVANCED BILINGUAL PROMPT ENGINEERED KNOWLEDGE BASE
         let conversationHistory = [
             { 
                 role: "system", 
@@ -592,6 +627,70 @@
 
         sendBtn.addEventListener('click', sendChatMessage);
         chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendChatMessage(); });
+
+        // ==========================================
+        // IQ200 SPLASH SCREEN LOGIC
+        // ==========================================
+        window.addEventListener('load', () => {
+            const bootLines = [
+                "> Initiating SURYA_OS core protocols...",
+                "> Bypassing mainframe firewall... [OK]",
+                "> Loading Project MJ voice synthesis modules... [OK]",
+                "> Decrypting Raksha Suraksha offline vaults... [OK]",
+                "> Establishing secure uplink to Llama-3 neural net...",
+                "> System architecture verified. Booting UI..."
+            ];
+            
+            const consoleBox = document.getElementById('console-output');
+            const cyberBar = document.querySelector('.cyber-bar');
+            const splashScreen = document.getElementById('iq-splash');
+            const accessGranted = document.getElementById('grant-access');
+            
+            let lineIndex = 0;
+            let progress = 0;
+
+            function typeLine() {
+                if (lineIndex < bootLines.length) {
+                    const lineDiv = document.createElement('div');
+                    lineDiv.className = 'console-line';
+                    consoleBox.appendChild(lineDiv);
+                    
+                    let charIndex = 0;
+                    let lineText = bootLines[lineIndex];
+                    
+                    let cursor = document.createElement('span');
+                    cursor.className = 'typing-cursor';
+                    lineDiv.appendChild(cursor);
+
+                    let typingInterval = setInterval(() => {
+                        if (charIndex < lineText.length) {
+                            lineDiv.insertBefore(document.createTextNode(lineText.charAt(charIndex)), cursor);
+                            charIndex++;
+                            progress += (100 / (bootLines.length * 30)); 
+                            cyberBar.style.width = Math.min(progress, 90) + '%';
+                        } else {
+                            clearInterval(typingInterval);
+                            lineIndex++;
+                            setTimeout(typeLine, 150); 
+                        }
+                    }, 20); 
+                } else {
+                    cyberBar.style.width = '100%';
+                    accessGranted.style.display = 'block';
+                    
+                    document.querySelector('.terminal-box').style.transform = "scale(1.05)";
+                    document.querySelector('.terminal-box').style.borderColor = "#e94560";
+                    
+                    setTimeout(() => {
+                        splashScreen.style.transform = "scale(1.5)"; 
+                        splashScreen.style.opacity = '0';
+                        setTimeout(() => splashScreen.style.display = 'none', 800);
+                    }, 700);
+                }
+            }
+
+            setTimeout(typeLine, 500);
+        });
     </script>
 </body>
 </html>
