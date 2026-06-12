@@ -17,103 +17,73 @@
         /* ===== GLOBAL DARK PREMIUM THEME ===== */
         body { 
             background-color: #0b0c10; 
-            background-image: linear-gradient(rgba(11, 12, 16, 0.85), rgba(11, 12, 16, 0.85)), url('https://images.unsplash.com/photo-1601042879364-f3947d3f9c16?q=80&w=2000&auto=format&fit=crop');
+            background-image: linear-gradient(rgba(5, 5, 10, 0.85), rgba(5, 5, 10, 0.85)), url('https://images.unsplash.com/photo-1601042879364-f3947d3f9c16?q=80&w=2000&auto=format&fit=crop');
             background-size: cover; background-position: center; background-attachment: fixed;
             color: #c5c6c7; font-family: 'Inter', sans-serif; margin: 0; padding: 0; overflow-x: hidden; 
         }
 
         /* =========================================
-           IQ1000 NEURAL DECRYPTION SPLASH SCREEN
+           J.A.R.V.I.S. ARC REACTOR SPLASH SCREEN
            ========================================= */
-        #ultimate-splash {
+        #jarvis-splash {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999999;
-            background: #020204 radial-gradient(circle at center, #0a0a10 0%, #000000 100%);
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            font-family: 'Share Tech Mono', monospace; color: #00ffcc;
-            transition: opacity 0.4s ease, transform 0.6s cubic-bezier(0.8, 0, 0.2, 1);
+            background: #02050a; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            font-family: 'Share Tech Mono', monospace; color: #00d2ff; overflow: hidden;
+            transition: opacity 0.5s ease;
         }
 
-        /* Scanline Overlay */
-        #ultimate-splash::before {
-            content: " "; display: block; position: absolute; top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 2; background-size: 100% 2px, 3px 100%; pointer-events: none;
+        /* Moving 3D Grid Floor */
+        .jarvis-grid {
+            position: absolute; bottom: -20%; width: 200%; height: 100%;
+            background-image: linear-gradient(rgba(0, 210, 255, 0.2) 2px, transparent 2px), linear-gradient(90deg, rgba(0, 210, 255, 0.2) 2px, transparent 2px);
+            background-size: 50px 50px; z-index: 1; opacity: 0.5;
+            transform: perspective(600px) rotateX(75deg);
+            animation: grid-move 5s linear infinite; pointer-events: none;
         }
 
-        /* HUD Rings */
-        .hud-wrapper {
-            position: relative; width: 250px; height: 250px; display: flex; justify-content: center; align-items: center;
-            margin-bottom: 30px; z-index: 3;
-        }
-        .ring { position: absolute; border-radius: 50%; box-sizing: border-box; }
-        .ring-1 {
-            width: 250px; height: 250px; border: 2px solid transparent; border-top: 2px solid #00ffcc; border-bottom: 2px solid #00ffcc;
-            animation: spin1 4s linear infinite; opacity: 0.8;
-        }
-        .ring-2 {
-            width: 220px; height: 220px; border: 4px dashed rgba(233, 69, 96, 0.6);
-            animation: spin2 6s linear infinite;
-        }
-        .ring-3 {
-            width: 190px; height: 190px; border: 2px solid transparent; border-left: 2px solid #fff; border-right: 2px solid #fff;
-            animation: spin1 3s linear infinite reverse; opacity: 0.5;
-        }
-        .hud-center-icon {
-            font-size: 3rem; color: #e94560; animation: pulse-icon 2s ease-in-out infinite; text-shadow: 0 0 20px #e94560;
-        }
+        @keyframes grid-move { 0% { transform: perspective(600px) rotateX(75deg) translateY(0); } 100% { transform: perspective(600px) rotateX(75deg) translateY(50px); } }
 
-        /* Decryption Text */
-        .scramble-text {
-            font-size: 3rem; font-family: 'Orbitron', sans-serif; font-weight: 900;
-            color: #fff; letter-spacing: 5px; text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc;
-            z-index: 3; position: relative; margin-bottom: 10px;
-        }
+        /* The Arc Reactor */
+        .reactor-container { position: relative; z-index: 5; display: flex; justify-content: center; align-items: center; width: 280px; height: 280px; margin-bottom: 30px; }
+        .r-ring { position: absolute; border-radius: 50%; box-sizing: border-box; }
+        .r-out { width: 100%; height: 100%; border: 3px solid rgba(0,210,255,0.2); border-top: 5px solid #00d2ff; border-bottom: 5px solid #00d2ff; animation: spin 3s linear infinite; box-shadow: 0 0 20px rgba(0,210,255,0.4); }
+        .r-mid { width: 80%; height: 80%; border: 2px dashed rgba(0,210,255,0.6); animation: spin-rev 5s linear infinite; }
+        .r-in { width: 60%; height: 60%; border: 4px solid rgba(0,210,255,0.8); border-left: 5px solid #fff; animation: spin 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite; }
+        .r-core { width: 25%; height: 25%; background: #fff; border-radius: 50%; box-shadow: 0 0 40px #fff, 0 0 80px #00d2ff, 0 0 120px #00d2ff; animation: pulse-core 1.5s ease-in-out infinite alternate; }
 
-        /* System Terminal */
-        .sys-terminal {
-            width: 80%; max-width: 500px; height: 120px; background: rgba(0,255,204,0.02);
-            border-left: 3px solid #e94560; padding: 15px; font-size: 0.9rem;
-            color: #8a8a8a; display: flex; flex-direction: column; justify-content: flex-end;
-            overflow: hidden; z-index: 3; position: relative;
-        }
-        .sys-line { margin: 3px 0; opacity: 0; transform: translateX(-10px); animation: slideIn 0.3s forwards; }
-        .sys-success { color: #00ffcc; }
-        .sys-warn { color: #e94560; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes spin-rev { 100% { transform: rotate(-360deg); } }
+        @keyframes pulse-core { 0% { transform: scale(0.9); box-shadow: 0 0 30px #fff, 0 0 60px #00d2ff; } 100% { transform: scale(1.1); box-shadow: 0 0 60px #fff, 0 0 100px #00d2ff, 0 0 150px #00d2ff; } }
 
-        /* EMP Glitch Blast Class */
-        .emp-blast {
-            animation: emp-glitch 0.5s cubic-bezier(.25, .46, .45, .94) both infinite;
-            background: #fff !important; mix-blend-mode: exclusion; z-index: 99999999;
-        }
+        .jarvis-text { font-size: 2rem; font-family: 'Orbitron', sans-serif; font-weight: 900; letter-spacing: 8px; text-shadow: 0 0 15px #00d2ff; z-index: 5; margin-bottom: 10px; }
+        .jarvis-subtext { font-size: 1rem; color: #fff; letter-spacing: 3px; z-index: 5; }
+        
+        /* Side HUD Elements */
+        .hud-left, .hud-right { position: absolute; top: 20%; width: 150px; display: flex; flex-direction: column; gap: 10px; opacity: 0.7; z-index: 2; font-size: 0.8rem; text-shadow: 0 0 5px #00d2ff; }
+        .hud-left { left: 5%; text-align: left; border-left: 2px solid #00d2ff; padding-left: 10px; }
+        .hud-right { right: 5%; text-align: right; border-right: 2px solid #00d2ff; padding-right: 10px; }
+        .hud-line { background: rgba(0,210,255,0.2); height: 2px; width: 100%; margin-top: 5px; position: relative; overflow: hidden; }
+        .hud-line::after { content: ''; position: absolute; width: 30%; height: 100%; background: #00d2ff; animation: scan-hud 2s linear infinite; }
+        @keyframes scan-hud { 0% { left: -30%; } 100% { left: 100%; } }
 
-        /* Keyframes */
-        @keyframes spin1 { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes spin2 { 0% { transform: rotate(0deg); } 100% { transform: rotate(-360deg); } }
-        @keyframes pulse-icon { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.1); opacity: 1; } }
-        @keyframes slideIn { to { opacity: 1; transform: translateX(0); } }
-        @keyframes emp-glitch {
-            0% { transform: translate(0) }
-            20% { transform: translate(-5px, 5px) }
-            40% { transform: translate(-5px, -5px) }
-            60% { transform: translate(5px, 5px) }
-            80% { transform: translate(5px, -5px) }
-            100% { transform: translate(0) }
-        }
+        /* The Flashbang Transition */
+        .iron-flash { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #fff; z-index: 99999999; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+        .flash-active { opacity: 1 !important; box-shadow: 0 0 200px 100px #00d2ff inset; }
 
-        /* ===== EXISTING MAIN CSS ===== */
+        /* ===== MAIN CSS ===== */
         .hero { position: relative; overflow: hidden; min-height: 100vh; display: flex; align-items: center; justify-content: center;}
         #vanta-canvas { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 0; }
         .hero-container { position: relative; z-index: 2; display: flex; align-items: center; gap: 40px; width: 90%; max-width: 1100px; padding-top: 80px; }
         .hero-content { flex: 1; }
-        .typing-text { color: #e94560; border-right: 3px solid #e94560; animation: blink 0.7s step-end infinite; font-weight: 700; }
-        @keyframes blink { 0%, 100% { border-color: #e94560; } 50% { border-color: transparent; } }
+        .typing-text { color: #00d2ff; border-right: 3px solid #00d2ff; animation: blink 0.7s step-end infinite; font-weight: 700; text-shadow: 0 0 10px rgba(0,210,255,0.5); }
+        @keyframes blink { 0%, 100% { border-color: #00d2ff; } 50% { border-color: transparent; } }
 
         #more-text { display: none; }
-        .read-more-btn { background: none; border: none; color: #e94560; cursor: pointer; font-weight: bold; text-decoration: underline; font-size: 0.9rem; }
+        .read-more-btn { background: none; border: none; color: #00d2ff; cursor: pointer; font-weight: bold; text-decoration: underline; font-size: 0.9rem; }
 
-        .profile-pic-wrapper { position: relative; width: 300px; height: 300px; border-radius: 50%; overflow: hidden; border: 2px solid rgba(233, 69, 96, 0.8) !important; box-shadow: 0 0 40px rgba(233, 69, 96, 0.6), inset 0 0 20px rgba(233, 69, 96, 0.4) !important; transition: transform 0.4s ease; }
+        .profile-pic-wrapper { position: relative; width: 300px; height: 300px; border-radius: 50%; overflow: hidden; border: 2px solid rgba(0, 210, 255, 0.8) !important; box-shadow: 0 0 40px rgba(0, 210, 255, 0.6), inset 0 0 20px rgba(0, 210, 255, 0.4) !important; transition: transform 0.4s ease; }
         .profile-photo { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
-        .profile-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11, 12, 16, 0.85); color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; transition: 0.3s ease; font-weight: bold; }
+        .profile-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 10, 0.85); color: #fff; display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; transition: 0.3s ease; font-weight: bold; text-shadow: 0 0 10px #00d2ff;}
         .profile-pic-wrapper:hover .profile-overlay { opacity: 1; cursor: pointer; }
 
         .btn { display: inline-block; padding: 12px 28px; background-color: #e94560; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; transition: 0.3s; border: none; cursor: pointer; }
@@ -127,9 +97,9 @@
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 30px; max-width: 900px; margin: 40px auto 0; }
         
         .stat-card, .gs-skills, .flashcard-front, .flashcard-back, #chat-window { background: rgba(11, 12, 16, 0.4) !important; backdrop-filter: blur(12px) saturate(180%); -webkit-backdrop-filter: blur(12px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.08) !important; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important; border-radius: 15px; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .stat-card:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 15px 40px rgba(233, 69, 96, 0.3) !important; border-color: rgba(233, 69, 96, 0.5) !important; }
+        .stat-card:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 15px 40px rgba(0, 210, 255, 0.2) !important; border-color: rgba(0, 210, 255, 0.4) !important; }
         
-        .stat-number { font-size: 3.5rem; font-weight: 800; color: #e94560; }
+        .stat-number { font-size: 3.5rem; font-weight: 800; color: #00d2ff; text-shadow: 0 0 15px rgba(0,210,255,0.5); }
         .stat-label { font-size: 0.95rem; color: #8a8a8a; margin-top: 8px; font-weight: 600; }
 
         .content-section { padding: 80px 20px; text-align: center; max-width: 1100px; margin: 0 auto; }
@@ -141,9 +111,9 @@
         .flashcard-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .flashcard-container:hover .flashcard-inner { transform: rotateY(180deg); }
         .flashcard-front, .flashcard-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 30px; }
-        .flashcard-front { border-top: 3px solid #e94560 !important; }
-        .flashcard-back { background: rgba(233, 69, 96, 0.8) !important; color: white; transform: rotateY(180deg); }
-        .flashcard-front i { font-size: 3rem; color: #e94560; margin-bottom: 20px; }
+        .flashcard-front { border-top: 3px solid #00d2ff !important; box-shadow: 0 5px 20px rgba(0,210,255,0.1) !important;}
+        .flashcard-back { background: rgba(0, 210, 255, 0.15) !important; border: 1px solid #00d2ff !important; color: white; transform: rotateY(180deg); backdrop-filter: blur(20px);}
+        .flashcard-front i { font-size: 3rem; color: #00d2ff; margin-bottom: 20px; text-shadow: 0 0 10px rgba(0,210,255,0.5); }
         .flashcard-front h3 { color: #ffffff; font-size: 1.3rem; }
         .flashcard-front span { color: #8a8a8a; font-size: 0.85rem; margin-top: 10px; }
         .flashcard-back p { color: white; text-align: center; font-size: 1rem; line-height: 1.6; }
@@ -160,6 +130,7 @@
         .chat-header h3 { margin: 0; color: #ffffff; font-family: 'Orbitron', sans-serif; font-size: 1.1rem; }
         .chat-header span { color: #00ffcc; font-size: 0.8rem; font-family: monospace; }
         #close-chat { color: #ff0055; cursor: pointer; font-size: 1.2rem; transition: 0.3s; }
+        #close-chat:hover { text-shadow: 0 0 10px #ff0055; }
         #chat-body { padding: 20px; height: 320px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; font-family: 'Inter', sans-serif; }
         .message { max-width: 80%; padding: 10px 15px; border-radius: 10px; font-size: 0.9rem; line-height: 1.4; word-wrap: break-word; }
         .bot-message { background: rgba(255, 128, 191, 0.1); color: #c5c6c7; border-left: 2px solid #FF80BF; align-self: flex-start; }
@@ -168,25 +139,45 @@
         .chat-input-area { display: flex; padding: 15px; border-top: 1px solid rgba(0, 255, 204, 0.2); background: rgba(0, 0, 0, 0.5); }
         #chat-input { flex: 1; background: transparent; border: none; color: #fff; font-family: 'Inter', sans-serif; font-size: 0.95rem; outline: none; }
         #send-btn { background: transparent; border: none; color: #00ffcc; font-size: 1.2rem; cursor: pointer; transition: 0.3s; padding-left: 10px; }
-        @media (max-width: 768px) { .hero-container { flex-direction: column-reverse; text-align: center; } .profile-pic-wrapper { width: 220px; height: 220px; margin: 0 auto; } .stats-grid { grid-template-columns: 1fr 1fr; } .flashcard-grid { grid-template-columns: 1fr; } .scramble-text { font-size: 2rem; } }
+        @media (max-width: 768px) { .hero-container { flex-direction: column-reverse; text-align: center; } .profile-pic-wrapper { width: 220px; height: 220px; margin: 0 auto; } .stats-grid { grid-template-columns: 1fr 1fr; } .flashcard-grid { grid-template-columns: 1fr; } .jarvis-text { font-size: 1.5rem; } .hud-left, .hud-right { display: none; } }
     </style>
 </head>
 <body>
 
-    <div id="ultimate-splash">
-        <div class="hud-wrapper">
-            <div class="ring ring-1"></div>
-            <div class="ring ring-2"></div>
-            <div class="ring ring-3"></div>
-            <i class="fas fa-fingerprint hud-center-icon"></i>
+    <div id="jarvis-splash">
+        <div class="jarvis-grid"></div>
+        
+        <div class="hud-left">
+            <span id="hud-rand-1">SYS.MEM: 1024TB</span>
+            <div class="hud-line"></div>
+            <span>UPLINK: SECURE</span>
+            <div class="hud-line"></div>
+            <span>OVERRIDE: ENGAGED</span>
         </div>
-        <div class="scramble-text" id="target-name" data-value="SURYAKANT">011001010</div>
-        <div class="sys-terminal" id="term-output">
-            </div>
+
+        <div class="reactor-container">
+            <div class="r-ring r-out"></div>
+            <div class="r-ring r-mid"></div>
+            <div class="r-ring r-in"></div>
+            <div class="r-core"></div>
+        </div>
+        
+        <div class="jarvis-text">J.A.R.V.I.S.</div>
+        <div class="jarvis-subtext" id="j-status">SYSTEM INITIALIZATION...</div>
+
+        <div class="hud-right">
+            <span>CORE TEMP: STABLE</span>
+            <div class="hud-line"></div>
+            <span id="hud-rand-2">PWR: 100%</span>
+            <div class="hud-line"></div>
+            <span>TARGET: SURYAKANT</span>
+        </div>
+
+        <div class="iron-flash" id="iron-flash"></div>
     </div>
 
     <nav style="position: fixed; width: 100%; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: rgba(11, 12, 16, 0.6); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255,255,255,0.05);">
-        <div class="logo" style="font-size: 24px; font-weight: bold; color: #e94560;">Surya</div>
+        <div class="logo" style="font-size: 24px; font-weight: bold; color: #00d2ff;">Surya</div>
         <ul class="nav-links" style="list-style: none; display: flex; gap: 20px; align-items: center;">
             <li><a href="index.html" style="color: #fff; text-decoration: none;">Home</a></li>
             <li><a href="about.html" style="color: #fff; text-decoration: none;">About</a></li>
@@ -198,6 +189,7 @@
 
     <section class="hero">
         <div id="vanta-canvas"></div> 
+        
         <div class="hero-container">
             <div class="hero-content gs-reveal-hero">
                 <h1 style="font-size:2.8rem; margin-bottom:10px; color:#ffffff;">
@@ -216,8 +208,8 @@
                     <button onclick="readMoreFunc()" id="readMoreBtn" class="read-more-btn">Read More</button>
                 </p>
                 <div style="display:flex; gap:15px; flex-wrap:wrap; margin-top:25px;">
-                    <a href="projects.html" class="btn">🚀 View My Work</a>
-                    <a href="suryakant-resume.jpg" target="_blank" class="btn" style="background: transparent; border: 1px solid #e94560; color: #ffffff;">
+                    <a href="projects.html" class="btn" style="background: #00d2ff; color: #000; box-shadow: 0 0 15px rgba(0,210,255,0.5);">🚀 View My Work</a>
+                    <a href="suryakant-resume.jpg" target="_blank" class="btn" style="background: transparent; border: 1px solid #00d2ff; color: #ffffff;">
                         <i class="fas fa-file-download"></i> Download Resume
                     </a>
                 </div>
@@ -266,40 +258,40 @@
             <div style="margin-bottom:25px;">
                 <div style="display:flex; justify-content:space-between; font-weight:bold; margin-bottom:10px; color:#ffffff;">
                     <span><i class="fab fa-html5" style="color:#e34f26; margin-right:10px;"></i>HTML / CSS / JavaScript</span>
-                    <span style="color:#e94560;">90%</span>
+                    <span style="color:#00d2ff;">90%</span>
                 </div>
                 <div style="background:rgba(255,255,255,0.05); border-radius:10px; height:10px; overflow:hidden;">
-                    <div class="skill-bar-fill" data-width="90"></div>
+                    <div class="skill-bar-fill" data-width="90" style="background: #00d2ff;"></div>
                 </div>
             </div>
 
             <div style="margin-bottom:25px;">
                 <div style="display:flex; justify-content:space-between; font-weight:bold; margin-bottom:10px; color:#ffffff;">
                     <span><i class="fab fa-java" style="color:#5382a1; margin-right:10px;"></i>Native Java / Android</span>
-                    <span style="color:#e94560;">85%</span>
+                    <span style="color:#00d2ff;">85%</span>
                 </div>
                 <div style="background:rgba(255,255,255,0.05); border-radius:10px; height:10px; overflow:hidden;">
-                    <div class="skill-bar-fill" data-width="85"></div>
+                    <div class="skill-bar-fill" data-width="85" style="background: #00d2ff;"></div>
                 </div>
             </div>
 
             <div style="margin-bottom:25px;">
                 <div style="display:flex; justify-content:space-between; font-weight:bold; margin-bottom:10px; color:#ffffff;">
                     <span><i class="fab fa-python" style="color:#3776ab; margin-right:10px;"></i>Python & Voice AI</span>
-                    <span style="color:#e94560;">80%</span>
+                    <span style="color:#00d2ff;">80%</span>
                 </div>
                 <div style="background:rgba(255,255,255,0.05); border-radius:10px; height:10px; overflow:hidden;">
-                    <div class="skill-bar-fill" data-width="80"></div>
+                    <div class="skill-bar-fill" data-width="80" style="background: #00d2ff;"></div>
                 </div>
             </div>
 
             <div>
                 <div style="display:flex; justify-content:space-between; font-weight:bold; margin-bottom:10px; color:#ffffff;">
                     <span><i class="fas fa-database" style="color:#4479a1; margin-right:10px;"></i>MySQL / SQLite</span>
-                    <span style="color:#e94560;">80%</span>
+                    <span style="color:#00d2ff;">80%</span>
                 </div>
                 <div style="background:rgba(255,255,255,0.05); border-radius:10px; height:10px; overflow:hidden;">
-                    <div class="skill-bar-fill" data-width="80"></div>
+                    <div class="skill-bar-fill" data-width="80" style="background: #00d2ff;"></div>
                 </div>
             </div>
         </div>
@@ -391,89 +383,63 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.rings.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <script>
         // ==========================================
-        // IQ1000 NEURAL DECRYPTION LOGIC
+        // J.A.R.V.I.S. SPLASH SCREEN LOGIC
         // ==========================================
         window.addEventListener('load', () => {
-            const splash = document.getElementById('ultimate-splash');
-            const targetText = document.getElementById('target-name');
-            const termOutput = document.getElementById('term-output');
+            const splash = document.getElementById('jarvis-splash');
+            const flash = document.getElementById('iron-flash');
+            const statusText = document.getElementById('j-status');
+            const rand1 = document.getElementById('hud-rand-1');
+            const rand2 = document.getElementById('hud-rand-2');
             
-            const name = targetText.getAttribute('data-value');
-            const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*";
-            let iterations = 0;
+            // Side HUD fake loading numbers
+            let hudInterval = setInterval(() => {
+                rand1.innerText = "SYS.MEM: " + Math.floor(Math.random() * 9000 + 1000) + "TB";
+                rand2.innerText = "PWR: " + (Math.floor(Math.random() * 20) + 80) + "%";
+            }, 100);
+
+            // Sequence Timing
+            setTimeout(() => { statusText.innerText = "AUTHENTICATING CREATOR..."; }, 1000);
             
-            // 1. Text Scramble Matrix Effect
-            let scrambleInterval = setInterval(() => {
-                targetText.innerText = name.split("")
-                    .map((letter, index) => {
-                        if(index < iterations) return name[index];
-                        return letters[Math.floor(Math.random() * letters.length)];
-                    }).join("");
-                
-                if(iterations >= name.length) clearInterval(scrambleInterval);
-                iterations += 1/3; // Speed of decoding
-            }, 50);
+            setTimeout(() => { 
+                statusText.innerText = "WELCOME HOME, SURYAKANT."; 
+                statusText.style.color = "#fff";
+                statusText.style.textShadow = "0 0 20px #fff";
+            }, 2500);
 
-            // 2. Terminal Boot Sequence (Your actual projects!)
-            const bootSequence = [
-                { text: "> INITIALIZING KERNEL...", class: "" },
-                { text: "> CONNECTING TO LLAMA-3 NEURAL NET...", class: "sys-success" },
-                { text: "> LOADING PROJECT MJ [VOICE AI]...", class: "" },
-                { text: "> DECRYPTING RAKSHA SURAKSHA VAULTS...", class: "sys-warn" },
-                { text: "> AUTHENTICATION SUCCESSFUL. WELCOME ADMIN.", class: "sys-success" }
-            ];
-
-            let lineDelay = 800; // Start delay
-            bootSequence.forEach((cmd, index) => {
-                setTimeout(() => {
-                    const line = document.createElement('div');
-                    line.className = `sys-line ${cmd.class}`;
-                    line.innerText = cmd.text;
-                    termOutput.appendChild(line);
-                    
-                    // Keep terminal scrolled down
-                    if(termOutput.children.length > 4) {
-                        termOutput.removeChild(termOutput.firstChild);
-                    }
-                }, lineDelay);
-                lineDelay += 500; // Speed of next line
-            });
-
-            // 3. EMP Glitch Blast & Reveal
+            // The Flashbang & Reveal
             setTimeout(() => {
-                splash.classList.add('emp-blast'); // The flash bang effect
+                clearInterval(hudInterval);
+                flash.classList.add('flash-active'); // Bright white flash
                 
                 setTimeout(() => {
-                    splash.style.opacity = '0';
-                    splash.style.transform = 'scale(1.2)';
+                    splash.style.display = 'none'; // Hide jarvis entirely
+                    flash.classList.remove('flash-active');
                     
-                    // Start main site animation exactly as it fades
+                    // Start main site animation perfectly as the flash fades
                     heroTl.play();
-                    
-                    setTimeout(() => {
-                        splash.style.display = 'none';
-                        splash.classList.remove('emp-blast');
-                    }, 500);
-                }, 300); // Glitch duration
-            }, lineDelay + 500); // Triggers after last terminal line
+                }, 300); // 0.3s flash hold
+            }, 3500); // Triggers after welcome message
         });
 
-        // VANTA.NET 3D Background
-        VANTA.NET({
+        // ==========================================
+        // THE NEW IRON MAN STYLE 3D RINGS BACKGROUND
+        // ==========================================
+        VANTA.RINGS({
             el: "#vanta-canvas", mouseControls: true, touchControls: true, gyroControls: false,
             minHeight: 200.00, minWidth: 200.00, scale: 1.00, scaleMobile: 1.00,
-            color: 0xe94560, backgroundColor: 0x0b0c10, backgroundAlpha: 0, points: 12.00, maxDistance: 22.00, spacing: 18.00, showDots: true
+            color: 0x00ffcc, backgroundColor: 0x050508, backgroundAlpha: 0.8
         });
 
-        // GSAP Animations (Paused initially, played by Splash Screen Logic)
+        // GSAP Animations (Paused initially, played by JARVIS Logic)
         gsap.registerPlugin(ScrollTrigger);
-        const heroTl = gsap.timeline({ paused: true, delay: 0.1 }); 
+        const heroTl = gsap.timeline({ paused: true }); 
         heroTl.from(".gs-reveal-hero h1", { opacity: 0, y: 30, duration: 0.8, ease: "power3.out" })
               .from(".gs-reveal-hero h2", { opacity: 0, y: 30, duration: 0.8, ease: "power3.out" }, "-=0.6")
               .from(".gs-reveal-hero p", { opacity: 0, y: 30, duration: 0.8, ease: "power3.out" }, "-=0.6")
