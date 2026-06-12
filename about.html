@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+\<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -51,7 +51,7 @@
         }
         .retina-circle::before {
             content: '\f06e'; font-family: 'Font Awesome 6 Free'; font-weight: 900;
-            font-size: 4rem; color: rgba(0, 255, 204, 0.3);
+            font-size: 4rem; color: rgba(0, 255, 204, 0.3); transition: 0.3s;
         }
 
         /* The Scanning Laser */
@@ -283,7 +283,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <script>
-        // 1. BIOMETRIC SCANNER LOGIC (IQ200 LEVEL)
+        // 1. BIOMETRIC SCANNER LOGIC (FIXED)
         window.addEventListener('load', () => {
             const bioTerm = document.getElementById('bio-term');
             const splash = document.getElementById('biometric-splash');
@@ -315,12 +315,15 @@
                         setTimeout(() => {
                             flash.style.opacity = '1';
                             document.querySelector('.retina-circle').style.borderColor = "#00ffcc";
-                            document.querySelector('.retina-circle::before').style.color = "#00ffcc";
+                            // BUG CAUSING LINE WAS REMOVED HERE
                             
                             setTimeout(() => {
                                 splash.style.transform = 'scale(1.5)';
                                 splash.style.opacity = '0';
-                                setTimeout(() => splash.style.display = 'none', 600);
+                                setTimeout(() => {
+                                    splash.style.display = 'none';
+                                    flash.style.opacity = '0'; // Safety measure
+                                }, 600);
                             }, 400);
                         }, 800);
                     }
