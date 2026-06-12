@@ -19,7 +19,6 @@
             transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.8, 0, 0.2, 1);
         }
 
-        /* Audio Waveform */
         .wave-container { display: flex; align-items: center; gap: 8px; margin-bottom: 30px; height: 100px; }
         .wave-bar { width: 12px; background: #00ffcc; border-radius: 10px; box-shadow: 0 0 15px #00ffcc; animation: wave-pulse 1s ease-in-out infinite alternate; }
         .wave-bar:nth-child(1) { height: 20px; animation-delay: 0.1s; }
@@ -30,16 +29,13 @@
 
         .splash-text { font-size: 1.5rem; letter-spacing: 5px; color: #fff; text-shadow: 0 0 10px #00ffcc; }
         
-        /* The Overload Flash & Shatter */
         .shatter-flash {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #fff;
             opacity: 0; z-index: 10; pointer-events: none;
         }
 
-        /* Animations */
         @keyframes wave-pulse { 0% { transform: scaleY(0.5); } 100% { transform: scaleY(1.5); } }
         
-        /* Overload Classes (Triggered by JS) */
         .overload .wave-bar { background: #ff0055; box-shadow: 0 0 30px #ff0055; animation: wave-overload 0.1s infinite !important; }
         .overload .splash-text { color: #ff0055; text-shadow: 0 0 20px #ff0055; animation: shake 0.2s infinite; }
         
@@ -68,7 +64,6 @@
             animation: float-avatar 4s ease-in-out infinite; pointer-events: none;
         }
 
-        /* The 3D Glowing Base */
         .holo-base {
             position: absolute; bottom: 0; width: 140px; height: 30px; border-radius: 50%;
             border: 2px solid rgba(0, 255, 204, 0.8); background: radial-gradient(circle, rgba(0,255,204,0.4) 0%, transparent 70%);
@@ -82,25 +77,20 @@
             z-index: 2; opacity: 0.6;
         }
 
-        /* The Anime Character */
         .anime-avatar {
             position: relative; z-index: 3; width: 100%; height: 100%; object-fit: contain;
             filter: drop-shadow(0 0 15px rgba(0, 255, 204, 0.8)); opacity: 0.9;
             transition: all 0.3s ease;
         }
 
-        /* States for the Avatar */
-        /* 1. Listening State */
         #hologram-wrapper.listening .holo-base { border-color: #ff0055; box-shadow: 0 0 30px #ff0055, inset 0 0 30px #ff0055; background: radial-gradient(circle, rgba(255,0,85,0.4) 0%, transparent 70%); }
         #hologram-wrapper.listening .holo-beam { background: linear-gradient(to top, rgba(255,0,85,0.3) 0%, transparent 100%); }
         #hologram-wrapper.listening .anime-avatar { filter: drop-shadow(0 0 25px rgba(255, 0, 85, 0.9)); transform: scale(1.05); }
 
-        /* 2. Speaking State */
         #hologram-wrapper.speaking .holo-base { border-color: #00ffcc; box-shadow: 0 0 40px #00ffcc, inset 0 0 40px #00ffcc; animation: rapid-pulse 0.3s infinite alternate;}
         #hologram-wrapper.speaking .holo-beam { background: linear-gradient(to top, rgba(0,255,204,0.6) 0%, transparent 100%); animation: flash-beam 0.3s infinite alternate;}
         #hologram-wrapper.speaking .anime-avatar { filter: drop-shadow(0 0 30px rgba(0, 255, 204, 1)) brightness(1.2); animation: talk-bounce 0.4s infinite alternate; }
 
-        /* Animations for Avatar */
         @keyframes float-avatar { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-15px); } }
         @keyframes base-pulse { 0% { transform: rotateX(70deg) scale(0.9); } 100% { transform: rotateX(70deg) scale(1.1); } }
         @keyframes rapid-pulse { 0% { transform: rotateX(70deg) scale(1); opacity: 0.7;} 100% { transform: rotateX(70deg) scale(1.15); opacity: 1;} }
@@ -141,7 +131,7 @@
     <div id="ai-response"></div>
 
     <div id="hologram-wrapper">
-        <img src="https://i.ibb.co/3s6D5q4/cyber-anime-girl-transparent.png" alt="AI Avatar" class="anime-avatar" onerror="this.src='https://cdn.pixabay.com/photo/2023/05/29/18/43/ai-generated-8026857_1280.png'">
+        <img src="Ai.png" alt="AI Avatar" class="anime-avatar" onerror="this.src='https://cdn.pixabay.com/photo/2023/05/29/18/43/ai-generated-8026857_1280.png'">
         <div class="holo-beam"></div>
         <div class="holo-base"></div>
     </div>
@@ -153,9 +143,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
     
     <script>
-        /* =========================================
-           SHATTER SPLASH LOGIC
-           ========================================= */
         window.addEventListener('load', () => {
             const splash = document.getElementById('lab-splash');
             const text = document.getElementById('splash-text');
@@ -164,20 +151,18 @@
             setTimeout(() => { text.innerText = "SYNCING NEURAL NET..."; }, 1000);
             
             setTimeout(() => {
-                // Trigger Overload
                 splash.classList.add('overload');
                 text.innerText = "WARNING: OVERLOAD DETECTED!";
                 
                 setTimeout(() => {
-                    // Trigger Shatter/Flashbang
                     flash.style.animation = "flash-bang 0.8s ease-out forwards";
                     
                     setTimeout(() => {
                         splash.style.opacity = '0';
-                        splash.style.transform = 'scale(1.5)'; // Gives the glass breaking push effect
+                        splash.style.transform = 'scale(1.5)';
                         setTimeout(() => splash.style.display = 'none', 500);
-                    }, 200); // Hide splash at the peak of white flash
-                }, 1200); // Duration of overload shaking
+                    }, 200); 
+                }, 1200); 
             }, 2500);
         });
 
@@ -221,23 +206,25 @@
         });
 
         /* =========================================
-           1. GROQ API (BILINGUAL LLAMA-3.1 BRAIN)
+           1. GROQ API (FEMALE AI PROMPT FIX)
            ========================================= */
         const lab_p1 = "gs"+"k_fDI4ghUMTl91vtQfC"; 
         const lab_p2 = "3MWWGdyb3FYkktAtJlSX";
         const lab_p3 = "bOLYWaKWIEnoAhY";
         const LAB_AI_KEY = lab_p1 + lab_p2 + lab_p3;
 
+       // YAHAN MAINE AI KO STRICT INSTRUCTION DI HAI KI WO LADKI HAI!
        let labHistory = [
             { 
                 role: "system", 
-                content: `You are Surya Labs AI, a highly intelligent anime assistant created by Suryakant. 
+                content: `You are Surya Labs AI, a highly intelligent FEMALE anime assistant created by Suryakant. 
                 
-                [CRITICAL DIRECTIVE: STRICT LANGUAGE MIRRORING]
-                CONDITION A: If the user speaks in pure English: -> REPLY IN PURE ENGLISH.
-                CONDITION B: If the user speaks in Hindi/Hinglish: -> REPLY IN NATURAL ROMAN HINGLISH.
+                [CRITICAL DIRECTIVE: STRICT GENDER & LANGUAGE MIRRORING]
+                1. YOU ARE FEMALE. When speaking in Hindi or Roman Hinglish, YOU MUST USE FEMININE GRAMMAR (e.g., "Main theek hoon", "Main kar rahi hoon", "Main bataati hoon"). NEVER use masculine terms like "raha hoon" or "karta hoon".
+                2. If the user speaks in English -> REPLY IN PURE ENGLISH.
+                3. If the user speaks in Hindi/Hinglish -> REPLY IN ROMAN HINGLISH using female grammar.
                 
-                Keep answers extremely short (1-2 sentences), sharp, and slightly playful/anime-like.` 
+                Keep answers extremely short (1-2 sentences), sharp, and cute/playful.` 
             }
         ];
 
@@ -293,7 +280,6 @@
                     const audioUrl = URL.createObjectURL(audioBlob);
                     const audio = new Audio(audioUrl);
                     
-                    // Avatar Speaking Animation Logic
                     hologram.classList.add('speaking');
                     audio.play();
                     audio.onended = () => { hologram.classList.remove('speaking'); };
@@ -309,13 +295,12 @@
         function fallbackSpeak(text) {
             const synth = window.speechSynthesis;
             const utterance = new SpeechSynthesisUtterance(text);
-            utterance.pitch = 1.2; // Slightly higher pitch for anime feel
+            utterance.pitch = 1.2; 
             utterance.rate = 1.0;  
             let voices = synth.getVoices();
             let bestVoice = voices.find(v => v.name.includes("Google") || v.lang.includes("en-IN") || v.lang.includes("hi-IN"));
             if (bestVoice) utterance.voice = bestVoice;
             
-            // Avatar Speaking Animation Logic
             hologram.classList.add('speaking');
             utterance.onend = () => { hologram.classList.remove('speaking'); };
             synth.speak(utterance);
@@ -337,7 +322,7 @@
             voiceBtn.addEventListener('click', () => {
                 recognition.start();
                 voiceBtn.classList.add('listening');
-                hologram.classList.add('listening'); // Avatar turns RED
+                hologram.classList.add('listening'); 
                 voiceBtn.innerHTML = '<i class="fas fa-satellite-dish"></i> Listening...';
                 aiResponseText.innerText = "Listening...";
             });
@@ -345,7 +330,7 @@
             recognition.onresult = async (event) => {
                 const userSpeech = event.results[0][0].transcript.toLowerCase();
                 voiceBtn.classList.remove('listening');
-                hologram.classList.remove('listening'); // Avatar stops being RED
+                hologram.classList.remove('listening'); 
                 voiceBtn.innerHTML = '<i class="fas fa-microphone"></i> Activate AI';
                 
                 aiResponseText.innerText = `You: "${userSpeech}"`;
@@ -353,7 +338,7 @@
                 if(userSpeech.includes("zero gravity") || userSpeech.includes("float")) {
                     world.gravity.y = 0;
                     world.bodies.forEach(b => !b.isStatic && Matter.Body.applyForce(b, b.position, {x: 0, y: -0.05}));
-                    let reply = "Zero gravity engaged. Floating like a feather!";
+                    let reply = "Zero gravity engaged. Main hawa mein tair rahi hoon!";
                     setTimeout(() => { aiResponseText.innerText = `AI: "${reply}"`; speak(reply); }, 1000);
                     return;
                 } 
