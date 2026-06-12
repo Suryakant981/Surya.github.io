@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Suryakant | About Me</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=14">
     
     <style>
         /* =========================================
@@ -20,17 +20,66 @@
             overflow-x: hidden;
         }
 
-        /* MATRIX CANVAS BACKGROUND */
-        #matrix-canvas {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+        /* =========================================
+           IQ200 BIOMETRIC RETINA SCAN SPLASH
+           ========================================= */
+        #biometric-splash {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999999;
+            background: #020204 radial-gradient(circle at center, #050b14 0%, #000000 100%);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            font-family: 'Share Tech Mono', monospace; transition: all 0.6s cubic-bezier(0.8, 0, 0.2, 1);
         }
 
-        #preloader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #0b0c10; z-index: 99999; display: flex; justify-content: center; align-items: center;
-            transition: opacity 0.5s ease, visibility 0.5s;
+        .scanner-container {
+            position: relative; width: 200px; height: 200px; margin-bottom: 40px;
         }
-        .loader span { font-size: 3rem; font-weight: 800; color: #ffffff; letter-spacing: 2px; }
+
+        /* Sci-Fi Target Brackets */
+        .scan-bracket { position: absolute; width: 40px; height: 40px; border: 3px solid transparent; }
+        .top-left { top: 0; left: 0; border-top-color: #00ffcc; border-left-color: #00ffcc; }
+        .top-right { top: 0; right: 0; border-top-color: #00ffcc; border-right-color: #00ffcc; }
+        .bottom-left { bottom: 0; left: 0; border-bottom-color: #00ffcc; border-left-color: #00ffcc; }
+        .bottom-right { bottom: 0; right: 0; border-bottom-color: #00ffcc; border-right-color: #00ffcc; }
+
+        /* The Eye / Retina */
+        .retina-circle {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 140px; height: 140px; border-radius: 50%;
+            border: 2px dashed rgba(0, 255, 204, 0.4); box-shadow: 0 0 30px rgba(0,255,204,0.1);
+            overflow: hidden; display: flex; justify-content: center; align-items: center;
+            animation: pulse-ring 2s infinite;
+        }
+        .retina-circle::before {
+            content: '\f06e'; font-family: 'Font Awesome 6 Free'; font-weight: 900;
+            font-size: 4rem; color: rgba(0, 255, 204, 0.3);
+        }
+
+        /* The Scanning Laser */
+        .laser-line {
+            position: absolute; top: 0; left: 0; width: 100%; height: 3px;
+            background: #ff0055; box-shadow: 0 0 15px #ff0055, 0 0 30px #ff0055;
+            animation: scan-laser 2s linear infinite; z-index: 10;
+        }
+
+        /* Terminal Feed */
+        .terminal-feed {
+            width: 80%; max-width: 400px; height: 100px; text-align: left;
+            font-size: 1.1rem; color: #8a8a8a; display: flex; flex-direction: column;
+            justify-content: flex-end; overflow: hidden; position: relative;
+        }
+        .bio-line { margin: 4px 0; opacity: 0; transform: translateY(10px); animation: popUpLine 0.3s forwards; }
+        .bio-success { color: #00ffcc; text-shadow: 0 0 10px #00ffcc; font-weight: bold; }
+        .bio-alert { color: #ff0055; font-weight: bold; }
+
+        .unlock-flash { position: absolute; top:0; left:0; width:100%; height:100%; background:#00ffcc; z-index:99999999; opacity:0; pointer-events:none; transition: opacity 0.3s; }
+
+        /* Animations */
+        @keyframes scan-laser { 0% { top: 0; } 50% { top: 100%; } 100% { top: 0; } }
+        @keyframes pulse-ring { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.05); border-color: rgba(0, 255, 204, 0.8); } }
+        @keyframes popUpLine { to { opacity: 1; transform: translateY(0); } }
+
+        /* Matrix Canvas */
+        #matrix-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
 
         /* H2 GLOWING EFFECT CHANGED TO HACKER GREEN */
         h2 { color: #ffffff !important; font-size: 2.8rem; margin-bottom: 10px; font-family: monospace; text-shadow: 0 0 15px rgba(0, 255, 65, 0.8); }
@@ -71,19 +120,16 @@
         }
         .card-btn:hover { background: transparent; color: #0b0c10; border-color: #0b0c10; }
 
-        /* =========================================
-           PREMIUM CONTACT FORM
-           ========================================= */
+        /* Premium Contact Form */
         .contact-wrapper {
             background: rgba(11, 12, 16, 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 128, 191, 0.3); border-radius: 20px; padding: 40px;
-            max-width: 700px; margin: 0 auto; box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-            text-align: left;
+            max-width: 700px; margin: 0 auto; box-shadow: 0 15px 35px rgba(0,0,0,0.6); text-align: left;
         }
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; color: #FF80BF; margin-bottom: 8px; font-weight: bold; font-size: 0.95rem; }
         .form-control {
-            width: 100%; padding: 15px; border-radius: 10px;
+            width: 100%; padding: 15px; border-radius: 10px; box-sizing: border-box;
             background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255,255,255,0.1);
             color: #ffffff; font-family: 'Inter', sans-serif; font-size: 1rem;
             transition: border-color 0.3s, box-shadow 0.3s;
@@ -109,9 +155,23 @@
 </head>
 <body>
 
-    <canvas id="matrix-canvas"></canvas>
+    <div id="biometric-splash">
+        <div class="scanner-container">
+            <div class="scan-bracket top-left"></div>
+            <div class="scan-bracket top-right"></div>
+            <div class="scan-bracket bottom-left"></div>
+            <div class="scan-bracket bottom-right"></div>
+            
+            <div class="retina-circle">
+                <div class="laser-line"></div>
+            </div>
+        </div>
+        <div class="terminal-feed" id="bio-term">
+            </div>
+        <div class="unlock-flash" id="unlock-flash"></div>
+    </div>
 
-    <div id="preloader"><div class="loader"><span>About Me</span></div></div>
+    <canvas id="matrix-canvas"></canvas>
 
     <nav style="position: fixed; width: 100%; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: rgba(11, 12, 16, 0.85); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255, 128, 191, 0.2);">
         <div class="logo" style="font-size: 24px; font-weight: bold; color: #FF80BF;">Surya</div>
@@ -178,7 +238,6 @@
         
         <div class="contact-wrapper gs-reveal-up">
             <form action="https://api.web3forms.com/submit" method="POST">
-                
                 <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
                 
                 <div class="form-group">
@@ -224,15 +283,53 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <script>
-        // 1. Preloader Logic
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                document.getElementById('preloader').style.opacity = '0';
-                setTimeout(() => document.getElementById('preloader').style.display = 'none', 500);
-            }, 800);
+        // 1. BIOMETRIC SCANNER LOGIC (IQ200 LEVEL)
+        window.addEventListener('load', () => {
+            const bioTerm = document.getElementById('bio-term');
+            const splash = document.getElementById('biometric-splash');
+            const flash = document.getElementById('unlock-flash');
+            
+            const scanSequence = [
+                { text: "> SECURE CONNECTION ESTABLISHED.", class: "" },
+                { text: "> INITIATING BIOMETRIC SCAN...", class: "bio-alert" },
+                { text: "> ANALYZING RETINA PATTERN...", class: "" },
+                { text: "> MATCH FOUND: 99.98%", class: "bio-success" },
+                { text: "> IDENTITY CONFIRMED: SURYAKANT", class: "bio-success" },
+                { text: "> CLEARANCE LEVEL: ADMIN [ACCESS GRANTED]", class: "bio-success" }
+            ];
+
+            let delay = 600;
+            scanSequence.forEach((cmd, idx) => {
+                setTimeout(() => {
+                    const line = document.createElement('div');
+                    line.className = `bio-line ${cmd.class}`;
+                    line.innerText = cmd.text;
+                    bioTerm.appendChild(line);
+                    
+                    if(bioTerm.children.length > 4) {
+                        bioTerm.removeChild(bioTerm.firstChild);
+                    }
+                    
+                    // Final Trigger
+                    if(idx === scanSequence.length - 1) {
+                        setTimeout(() => {
+                            flash.style.opacity = '1';
+                            document.querySelector('.retina-circle').style.borderColor = "#00ffcc";
+                            document.querySelector('.retina-circle::before').style.color = "#00ffcc";
+                            
+                            setTimeout(() => {
+                                splash.style.transform = 'scale(1.5)';
+                                splash.style.opacity = '0';
+                                setTimeout(() => splash.style.display = 'none', 600);
+                            }, 400);
+                        }, 800);
+                    }
+                }, delay);
+                delay += 500;
+            });
         });
 
-        // 2. HARDCORE MATRIX RAIN EFFECT LOGIC (Color Changed to Hacker Green)
+        // 2. MATRIX RAIN EFFECT LOGIC (Hacker Green)
         const canvas = document.getElementById('matrix-canvas');
         const ctx = canvas.getContext('2d');
         
@@ -244,15 +341,12 @@
         const columns = canvas.width / fontSize;
         const drops = [];
 
-        for(let x = 0; x < columns; x++) {
-            drops[x] = 1;
-        }
+        for(let x = 0; x < columns; x++) { drops[x] = 1; }
 
         function drawMatrix() {
             ctx.fillStyle = 'rgba(11, 12, 16, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
-            // HACKER GREEN ANIMATION
             ctx.fillStyle = '#00FF41'; 
             ctx.font = fontSize + 'px monospace';
             
@@ -266,18 +360,13 @@
                 drops[i]++;
             }
         }
-        
         setInterval(drawMatrix, 35);
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
+        window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
 
         // 3. GSAP Animations
         gsap.registerPlugin(ScrollTrigger);
         gsap.utils.toArray(".gs-reveal-up").forEach(elem => {
-            gsap.fromTo(elem, { y: 50, opacity: 0 }, { scrollTrigger: { trigger: elem, start: "top 85%" }, y: 0, opacity: 1, duration: 1, ease: "power3.out" });
+            gsap.fromTo(elem, { y: 50, opacity: 0 }, { scrollTrigger: { trigger: elem, start: "top 85%" }, y: 0, opacity: 1, duration: 1, ease: "power3.out", delay: 0.2 });
         });
         gsap.fromTo(".gs-card", { y: 80, opacity: 0 }, { scrollTrigger: { trigger: ".flashcard-grid", start: "top 80%" }, y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: "back.out(1.2)" });
     </script>
