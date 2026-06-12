@@ -66,7 +66,7 @@
         const terminal = document.getElementById('terminal-screen');
         const lines = [
             "Initiating SENTINEL-X secure protocols...",
-            "Loading Local Live2D Engine...",
+            "Loading Live2D Engine...",
             "Booting Physics Engine...",
             "System is fully operational."
         ];
@@ -135,7 +135,7 @@
             });
         }
 
-        // 3. SMART LIVE2D ENGINE (AUTO-PATH FINDER)
+        // 3. SMART LIVE2D ENGINE (GOD-MODE FALLBACKS)
         window.currentLive2DModel = null;
         async function initLive2D() {
             if (typeof PIXI === 'undefined' || !PIXI.live2d) {
@@ -148,12 +148,11 @@
                 autoStart: true, transparent: true, width: 400, height: 500
             });
 
-            // Smart Path Finder: Ye khud dhoondhega ki tune folder kahan daala hai
+            // Yahan maine 4 backup raste lagaye hain. Ek fail hoga toh dusra chalega.
             const pathsToTry = [
-                'shizuku/shizuku/shizuku.model.json',
-                'shizuku/test/assets/shizuku/shizuku.model.json',
-                'shizuku/shizuku.model.json',
-                'https://cdn.jsdelivr.net/gh/guansss/pixi-live2d-display/test/assets/shizuku/shizuku.model.json'
+                'shizuku/shizuku/shizuku.model.json', // Tera upload kiya hua path
+                'https://cdn.jsdelivr.net/gh/guansss/pixi-live2d-display/test/assets/haru/haru_greeter_t03.model3.json', // Super stable backup 1 (Haru)
+                'https://cdn.jsdelivr.net/gh/guansss/pixi-live2d-display/test/assets/shizuku/shizuku.model.json' // Super stable backup 2 (Shizuku)
             ];
 
             let modelLoaded = false;
@@ -162,25 +161,34 @@
                     console.log("Trying to load Live2D from:", path);
                     const model = await PIXI.live2d.Live2DModel.from(path);
                     app.stage.addChild(model);
-                    model.scale.set(0.35); model.x = -20; model.y = 80;
-                    window.currentLive2DModel = model;
                     
+                    // Adjust scale and position based on which model loaded
+                    if(path.includes('haru')) {
+                        model.scale.set(0.25); model.x = 20; model.y = 80;
+                    } else {
+                        model.scale.set(0.35); model.x = -20; model.y = 80;
+                    }
+                    
+                    window.currentLive2DModel = model;
                     window.addEventListener('mousemove', (event) => { model.focus(event.clientX, event.clientY); });
                     modelLoaded = true;
-                    console.log("SUCCESS! Model loaded.");
+                    document.getElementById('ai-response').innerText = ""; // Clear any previous warnings
+                    console.log("SUCCESS! Model loaded from:", path);
                     break;
                 } catch(e) { console.warn("Failed at path:", path); }
             }
 
             if(!modelLoaded) {
-                document.getElementById('ai-response').innerText = "[Warning] Shizuku Model not found in paths.";
+                document.getElementById('ai-response').innerText = "GitHub is processing files. Wait 2 mins and refresh.";
             }
         }
 
         let isSpeaking = false;
         function startLipSync() {
             isSpeaking = true;
-            if(window.currentLive2DModel && window.currentLive2DModel.motion) window.currentLive2DModel.motion('tap_body');
+            if(window.currentLive2DModel && window.currentLive2DModel.motion) {
+                try { window.currentLive2DModel.motion('tap_body'); } catch(e){}
+            }
             simulateLipSync();
         }
         function stopLipSync() {
