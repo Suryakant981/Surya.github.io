@@ -7,9 +7,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <script src="https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/dcatvg/PixiJS-Live2D@master/live2d.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/6.5.2/browser/pixi.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/dcatvg/PixiJS-Live2D@master/live2d.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/pixi-live2d-display/dist/index.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
 
@@ -66,7 +65,7 @@
         const terminal = document.getElementById('terminal-screen');
         const lines = [
             "Initiating SENTINEL-X secure protocols...",
-            "Loading Live2D Engine...",
+            "Loading Native Live2D Engine...",
             "Booting Physics Engine...",
             "System is fully operational."
         ];
@@ -90,12 +89,11 @@
             setTimeout(() => { terminal.style.opacity = 0; setTimeout(() => terminal.style.display = 'none', 500); }, 300);
         }
 
-        // ISOLATED EXECUTION (CRASH PROOF)
         window.addEventListener('load', async () => {
             typeLines();
-            try { initPhysics(); console.log("Physics Loaded"); } catch(e) { console.error("Physics Error:", e); }
-            try { initAI(); console.log("Voice AI Loaded"); } catch(e) { console.error("AI Error:", e); }
-            try { await initLive2D(); console.log("Live2D Loaded"); } catch(e) { console.error("Live2D Error:", e); }
+            initPhysics(); 
+            initAI(); 
+            initLive2D(); 
         });
 
         // 2. PHYSICS ENGINE
@@ -135,11 +133,11 @@
             });
         }
 
-        // 3. SMART LIVE2D ENGINE (GOD-MODE FALLBACKS)
+        // 3. EXACT LOCAL PATH LIVE2D ENGINE
         window.currentLive2DModel = null;
         async function initLive2D() {
             if (typeof PIXI === 'undefined' || !PIXI.live2d) {
-                document.getElementById('ai-response').innerText = "Live2D library blocked by browser.";
+                document.getElementById('ai-response').innerText = "Libraries not loaded properly.";
                 return;
             }
 
@@ -148,38 +146,30 @@
                 autoStart: true, transparent: true, width: 400, height: 500
             });
 
-            // Yahan maine 4 backup raste lagaye hain. Ek fail hoga toh dusra chalega.
-            const pathsToTry = [
-                'shizuku/shizuku/shizuku.model.json', // Tera upload kiya hua path
-                'https://cdn.jsdelivr.net/gh/guansss/pixi-live2d-display/test/assets/haru/haru_greeter_t03.model3.json', // Super stable backup 1 (Haru)
-                'https://cdn.jsdelivr.net/gh/guansss/pixi-live2d-display/test/assets/shizuku/shizuku.model.json' // Super stable backup 2 (Shizuku)
-            ];
+            // EXACT PATH BASED ON YOUR UPLOADED STRUCTURE
+            const exactLocalPath = 'shizuku/test/assets/shizuku/shizuku.model.json';
+            const fallbackCDNPath = 'https://cdn.jsdelivr.net/gh/guansss/pixi-live2d-display@master/test/assets/shizuku/shizuku.model.json';
 
-            let modelLoaded = false;
-            for (let path of pathsToTry) {
+            try {
+                document.getElementById('ai-response').innerText = "Mounting Local Anime Model...";
+                const model = await PIXI.live2d.Live2DModel.from(exactLocalPath);
+                app.stage.addChild(model);
+                model.scale.set(0.35); model.x = -20; model.y = 80;
+                window.currentLive2DModel = model;
+                window.addEventListener('mousemove', (event) => { model.focus(event.clientX, event.clientY); });
+                document.getElementById('ai-response').innerText = ""; 
+            } catch(e) {
+                console.warn("Local path failed, trying CDN fallback...");
                 try {
-                    console.log("Trying to load Live2D from:", path);
-                    const model = await PIXI.live2d.Live2DModel.from(path);
-                    app.stage.addChild(model);
-                    
-                    // Adjust scale and position based on which model loaded
-                    if(path.includes('haru')) {
-                        model.scale.set(0.25); model.x = 20; model.y = 80;
-                    } else {
-                        model.scale.set(0.35); model.x = -20; model.y = 80;
-                    }
-                    
-                    window.currentLive2DModel = model;
-                    window.addEventListener('mousemove', (event) => { model.focus(event.clientX, event.clientY); });
-                    modelLoaded = true;
-                    document.getElementById('ai-response').innerText = ""; // Clear any previous warnings
-                    console.log("SUCCESS! Model loaded from:", path);
-                    break;
-                } catch(e) { console.warn("Failed at path:", path); }
-            }
-
-            if(!modelLoaded) {
-                document.getElementById('ai-response').innerText = "GitHub is processing files. Wait 2 mins and refresh.";
+                    const model2 = await PIXI.live2d.Live2DModel.from(fallbackCDNPath);
+                    app.stage.addChild(model2);
+                    model2.scale.set(0.35); model2.x = -20; model2.y = 80;
+                    window.currentLive2DModel = model2;
+                    window.addEventListener('mousemove', (event) => { model2.focus(event.clientX, event.clientY); });
+                    document.getElementById('ai-response').innerText = ""; 
+                } catch(e2) {
+                    document.getElementById('ai-response').innerText = "Model failed to load. Check paths.";
+                }
             }
         }
 
@@ -199,9 +189,7 @@
         }
         function simulateLipSync() {
             if (!isSpeaking || !window.currentLive2DModel) return;
-            try {
-                window.currentLive2DModel.internalModel.coreModel.setParamFloat('PARAM_MOUTH_OPEN_Y', Math.random() > 0.4 ? Math.random() : 0);
-            } catch(e){}
+            try { window.currentLive2DModel.internalModel.coreModel.setParamFloat('PARAM_MOUTH_OPEN_Y', Math.random() > 0.4 ? Math.random() : 0); } catch(e){}
             setTimeout(() => { requestAnimationFrame(simulateLipSync); }, 60); 
         }
 
