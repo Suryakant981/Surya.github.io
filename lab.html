@@ -7,7 +7,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/6.5.2/browser/pixi.min.js"></script>
+    <script src="https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.3.3/pixi.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/dcatvg/PixiJS-Live2D@master/live2d.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/pixi-live2d-display/dist/index.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
@@ -36,7 +37,7 @@
 
         /* LIVE2D AVATAR CANVAS */
         #live2d-canvas {
-            position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%);
+            position: absolute; bottom: 60px; left: 50%; transform: translateX(-50%);
             z-index: 15; pointer-events: none; filter: drop-shadow(0 0 20px rgba(0, 255, 204, 0.3));
         }
 
@@ -65,7 +66,7 @@
         const terminal = document.getElementById('terminal-screen');
         const lines = [
             "Initiating SENTINEL-X secure protocols...",
-            "Loading Native Live2D Engine...",
+            "Loading UNPKG Global Live2D Server...",
             "Booting Physics Engine...",
             "System is fully operational."
         ];
@@ -93,7 +94,7 @@
             typeLines();
             initPhysics(); 
             initAI(); 
-            initLive2D(); 
+            await initLive2D(); 
         });
 
         // 2. PHYSICS ENGINE
@@ -133,11 +134,11 @@
             });
         }
 
-        // 3. EXACT LOCAL PATH LIVE2D ENGINE
+        // 3. UNPKG GLOBAL LIVE2D ENGINE (NO GITHUB PAGES BLOCKING)
         window.currentLive2DModel = null;
         async function initLive2D() {
             if (typeof PIXI === 'undefined' || !PIXI.live2d) {
-                document.getElementById('ai-response').innerText = "Libraries not loaded properly.";
+                document.getElementById('ai-response').innerText = "Scripts failed to load.";
                 return;
             }
 
@@ -146,30 +147,25 @@
                 autoStart: true, transparent: true, width: 400, height: 500
             });
 
-            // EXACT PATH BASED ON YOUR UPLOADED STRUCTURE
-            const exactLocalPath = 'shizuku/test/assets/shizuku/shizuku.model.json';
-            const fallbackCDNPath = 'https://cdn.jsdelivr.net/gh/guansss/pixi-live2d-display@master/test/assets/shizuku/shizuku.model.json';
+            // GLOBAL UNPKG NPM LINK - Always Works
+            const modelUrl = 'https://unpkg.com/live2d-widget-model-shizuku@1.0.5/assets/shizuku.model.json';
 
             try {
-                document.getElementById('ai-response').innerText = "Mounting Local Anime Model...";
-                const model = await PIXI.live2d.Live2DModel.from(exactLocalPath);
+                document.getElementById('ai-response').innerText = "Deploying AI Avatar...";
+                const model = await PIXI.live2d.Live2DModel.from(modelUrl);
                 app.stage.addChild(model);
-                model.scale.set(0.35); model.x = -20; model.y = 80;
+                
+                // Unpkg scale
+                model.scale.set(0.25); 
+                model.x = 0; 
+                model.y = 50;
+                
                 window.currentLive2DModel = model;
                 window.addEventListener('mousemove', (event) => { model.focus(event.clientX, event.clientY); });
                 document.getElementById('ai-response').innerText = ""; 
             } catch(e) {
-                console.warn("Local path failed, trying CDN fallback...");
-                try {
-                    const model2 = await PIXI.live2d.Live2DModel.from(fallbackCDNPath);
-                    app.stage.addChild(model2);
-                    model2.scale.set(0.35); model2.x = -20; model2.y = 80;
-                    window.currentLive2DModel = model2;
-                    window.addEventListener('mousemove', (event) => { model2.focus(event.clientX, event.clientY); });
-                    document.getElementById('ai-response').innerText = ""; 
-                } catch(e2) {
-                    document.getElementById('ai-response').innerText = "Model failed to load. Check paths.";
-                }
+                console.error("Live2D Load Error:", e);
+                document.getElementById('ai-response').innerText = "Connection to Global Server Failed.";
             }
         }
 
