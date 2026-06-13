@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
+    <script src="https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.3.3/pixi.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/dcatvg/PixiJS-Live2D@master/live2d.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/pixi-live2d-display@0.4.0/dist/index.min.js"></script>
@@ -65,7 +66,7 @@
         const terminal = document.getElementById('terminal-screen');
         const lines = [
             "Initiating SENTINEL-X protocols...",
-            "Loading Absolute Path Engine...",
+            "Loading Global Avatar Link...",
             "Booting Physics Engine...",
             "System is ready."
         ];
@@ -133,7 +134,7 @@
             });
         }
 
-        // 3. THE ABSOLUTE PATH LIVE2D ENGINE (TERA APNA SERVER)
+        // 3. NPM GLOBAL CDN (100% BYPASSES YOUR BROKEN GITHUB FOLDER)
         window.currentLive2DModel = null;
         async function initLive2D() {
             const uiText = document.getElementById('ai-response');
@@ -148,28 +149,39 @@
                 autoStart: true, transparent: true, width: 400, height: 500
             });
 
-            // TERA EXACT GITHUB REPO KA DIRECT LINK
-            const myExactPath = "https://suryakant981.github.io/Surya.github.io/shizuku/shizuku/shizuku.model.json";
+            // Using fully bundled NPM links that contain ALL textures internally.
+            const cdnPaths = [
+                "https://cdn.jsdelivr.net/npm/live2d-widget-model-shizuku@1.0.5/assets/shizuku.model.json",
+                "https://unpkg.com/live2d-widget-model-shizuku@1.0.5/assets/shizuku.model.json"
+            ];
 
-            try {
-                uiText.innerText = "Connecting to Suryakant's Server...";
-                console.log("Loading Live2D from:", myExactPath);
-                
-                const model = await PIXI.live2d.Live2DModel.from(myExactPath);
-                
-                app.stage.addChild(model);
-                model.scale.set(0.30); 
-                model.x = -20; 
-                model.y = 50;
-                
-                window.currentLive2DModel = model;
-                window.addEventListener('mousemove', (event) => { model.focus(event.clientX, event.clientY); });
-                
-                uiText.innerText = ""; // Clear text on success
-                console.log("SUCCESS! Model loaded from your own repository!");
-            } catch(e) {
-                console.error("Live2D Error:", e);
-                uiText.innerText = "Error: Model path not found. Check your uploaded files.";
+            let loaded = false;
+
+            for (let i = 0; i < cdnPaths.length; i++) {
+                try {
+                    uiText.innerText = "Deploying Avatar...";
+                    
+                    const model = await PIXI.live2d.Live2DModel.from(cdnPaths[i]);
+                    
+                    app.stage.addChild(model);
+                    model.scale.set(0.25); 
+                    model.x = 20; 
+                    model.y = 50;
+                    
+                    window.currentLive2DModel = model;
+                    window.addEventListener('mousemove', (event) => { model.focus(event.clientX, event.clientY); });
+                    
+                    uiText.innerText = ""; 
+                    loaded = true;
+                    console.log("Avatar successfully loaded from NPM!");
+                    break; 
+                } catch(e) {
+                    console.warn(`CDN ${i + 1} Failed. Trying backup...`);
+                }
+            }
+
+            if (!loaded) {
+                uiText.innerText = "Fatal Error: Avatar CDNs blocked by ISP.";
             }
         }
 
