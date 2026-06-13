@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.3.3/pixi.min.js"></script>
-    <script src="https://rawcdn.githack.com/dcatvg/PixiJS-Live2D/master/live2d.min.js"></script>
-    <script src="https://unpkg.com/pixi-live2d-display@0.4.0/dist/index.min.js"></script>
+    <script src="https://testingcf.jsdelivr.net/gh/dcatvg/PixiJS-Live2D@master/live2d.min.js"></script>
+    <script src="https://testingcf.jsdelivr.net/npm/pixi-live2d-display@0.4.0/dist/index.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
 
     <style>
@@ -33,6 +33,8 @@
         @keyframes pulse { 0% { transform: translateX(-50%) scale(1); } 50% { transform: translateX(-50%) scale(1.05); } 100% { transform: translateX(-50%) scale(1); } }
 
         #ai-response { position: absolute; bottom: 110px; width: 100%; text-align: center; font-size: 1.5rem; color: #fff; text-shadow: 0 0 15px #e94560; z-index: 20; font-family: 'Orbitron', sans-serif; pointer-events: none; padding: 0 20px; box-sizing: border-box; }
+        
+        #error-log { position: absolute; bottom: 160px; width: 100%; text-align: center; font-size: 1rem; color: #ff4444; z-index: 20; font-family: 'Share Tech Mono', monospace; pointer-events: none; }
 
         /* LIVE2D AVATAR CANVAS */
         #live2d-canvas {
@@ -56,6 +58,7 @@
 
     <canvas id="live2d-canvas"></canvas>
     <div id="ai-response"></div>
+    <div id="error-log"></div>
     <button id="voice-btn"><i class="fas fa-microphone"></i> Activate AI</button>
 
     <div id="physics-canvas"></div>
@@ -65,8 +68,8 @@
         const terminal = document.getElementById('terminal-screen');
         const lines = [
             "Initiating SENTINEL-X protocols...",
-            "Bypassing Indian ISP Firewalls...",
-            "Loading Githack Anti-Ban Server...",
+            "Routing through Cloudflare Edge...",
+            "Booting Physics Engine...",
             "System is ready."
         ];
 
@@ -133,13 +136,14 @@
             });
         }
 
-        // 3. THE ULTIMATE ANTI-BAN LIVE2D ENGINE
+        // 3. EXTREME FALLBACK LIVE2D ENGINE + ERROR LOGGER
         window.currentLive2DModel = null;
         async function initLive2D() {
             const uiText = document.getElementById('ai-response');
+            const errLog = document.getElementById('error-log');
             
             if (typeof PIXI === 'undefined' || !PIXI.live2d) {
-                uiText.innerText = "Error: JS Libraries entirely blocked by ISP.";
+                uiText.innerText = "CRITICAL: PixiJS Framework Blocked by ISP.";
                 return;
             }
 
@@ -148,20 +152,21 @@
                 autoStart: true, transparent: true, width: 400, height: 500
             });
 
-            // 100% UNBLOCKABLE PATH: Official library creator's own GitHub Pages
-            const safePaths = [
-                "https://guansss.github.io/pixi-live2d-display/test/assets/shizuku/shizuku.model.json",
-                "https://unpkg.com/live2d-widget-model-shizuku@1.0.5/assets/shizuku.model.json"
+            const pathsToTry = [
+                "shizuku/shizuku/shizuku.model.json", 
+                "./shizuku/shizuku/shizuku.model.json",
+                "https://testingcf.jsdelivr.net/gh/guansss/pixi-live2d-display@master/test/assets/shizuku/shizuku.model.json",
+                "https://gcore.jsdelivr.net/gh/guansss/pixi-live2d-display@master/test/assets/shizuku/shizuku.model.json"
             ];
 
             let loaded = false;
+            let lastError = "";
 
-            for (let path of safePaths) {
+            for (let i = 0; i < pathsToTry.length; i++) {
                 try {
-                    uiText.innerText = "Connecting to Safe Server...";
-                    console.log("Trying path: ", path);
+                    uiText.innerText = `Injecting Model Path [${i + 1}/4]...`;
                     
-                    const model = await PIXI.live2d.Live2DModel.from(path);
+                    const model = await PIXI.live2d.Live2DModel.from(pathsToTry[i]);
                     
                     app.stage.addChild(model);
                     model.scale.set(0.25); 
@@ -172,16 +177,18 @@
                     window.addEventListener('mousemove', (event) => { model.focus(event.clientX, event.clientY); });
                     
                     uiText.innerText = ""; 
+                    errLog.innerText = "";
                     loaded = true;
-                    console.log("BOOM! Avatar Loaded Successfully.");
-                    break;
+                    break; 
                 } catch(e) {
-                    console.warn("Path Failed: ", path);
+                    lastError = e.message || e.toString();
+                    console.error(`Path ${i + 1} Failed:`, e);
                 }
             }
 
             if (!loaded) {
-                uiText.innerText = "Network Error: Switch to Mobile Data & Refresh.";
+                uiText.innerText = "Avatar deployment failed completely.";
+                errLog.innerText = `DEBUG RAW ERROR: ${lastError}`;
             }
         }
 
