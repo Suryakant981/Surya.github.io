@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.3.3/pixi.min.js"></script>
-    <script src="https://fastly.jsdelivr.net/gh/dcatvg/PixiJS-Live2D@master/live2d.min.js"></script>
-    <script src="https://fastly.jsdelivr.net/npm/pixi-live2d-display@0.4.0/dist/index.min.js"></script>
+    <script src="https://rawcdn.githack.com/dcatvg/PixiJS-Live2D/master/live2d.min.js"></script>
+    <script src="https://unpkg.com/pixi-live2d-display@0.4.0/dist/index.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
 
     <style>
@@ -65,8 +65,8 @@
         const terminal = document.getElementById('terminal-screen');
         const lines = [
             "Initiating SENTINEL-X protocols...",
-            "Bypassing ISP Firewall...",
-            "Loading Anti-Ban Live2D Server...",
+            "Bypassing Indian ISP Firewalls...",
+            "Loading Githack Anti-Ban Server...",
             "System is ready."
         ];
 
@@ -133,13 +133,13 @@
             });
         }
 
-        // 3. FASTLY ANTI-BAN LIVE2D ENGINE
+        // 3. THE ULTIMATE ANTI-BAN LIVE2D ENGINE
         window.currentLive2DModel = null;
         async function initLive2D() {
             const uiText = document.getElementById('ai-response');
             
             if (typeof PIXI === 'undefined' || !PIXI.live2d) {
-                uiText.innerText = "Error: Firewall blocked the Live2D Library.";
+                uiText.innerText = "Error: JS Libraries entirely blocked by ISP.";
                 return;
             }
 
@@ -148,28 +148,40 @@
                 autoStart: true, transparent: true, width: 400, height: 500
             });
 
-            // Fastly CDN URL - Bypasses Indian ISP Restrictions
-            const modelUrl = "https://fastly.jsdelivr.net/npm/live2d-widget-model-shizuku@1.0.5/assets/shizuku.model.json";
+            // 100% UNBLOCKABLE PATH: Official library creator's own GitHub Pages
+            const safePaths = [
+                "https://guansss.github.io/pixi-live2d-display/test/assets/shizuku/shizuku.model.json",
+                "https://unpkg.com/live2d-widget-model-shizuku@1.0.5/assets/shizuku.model.json"
+            ];
 
-            try {
-                uiText.innerText = "Establishing secure link to Avatar...";
-                console.log("Loading Shizuku from Fastly Bypass...");
-                
-                const model = await PIXI.live2d.Live2DModel.from(modelUrl);
-                
-                app.stage.addChild(model);
-                model.scale.set(0.25); 
-                model.x = 20; 
-                model.y = 50;
-                
-                window.currentLive2DModel = model;
-                window.addEventListener('mousemove', (event) => { model.focus(event.clientX, event.clientY); });
-                
-                uiText.innerText = ""; 
-                console.log("SUCCESS! Model loaded from Anti-Ban Server!");
-            } catch(e) {
-                console.error("Live2D Error:", e);
-                uiText.innerText = "Error: Fastly Server Connection Dropped.";
+            let loaded = false;
+
+            for (let path of safePaths) {
+                try {
+                    uiText.innerText = "Connecting to Safe Server...";
+                    console.log("Trying path: ", path);
+                    
+                    const model = await PIXI.live2d.Live2DModel.from(path);
+                    
+                    app.stage.addChild(model);
+                    model.scale.set(0.25); 
+                    model.x = 20; 
+                    model.y = 50;
+                    
+                    window.currentLive2DModel = model;
+                    window.addEventListener('mousemove', (event) => { model.focus(event.clientX, event.clientY); });
+                    
+                    uiText.innerText = ""; 
+                    loaded = true;
+                    console.log("BOOM! Avatar Loaded Successfully.");
+                    break;
+                } catch(e) {
+                    console.warn("Path Failed: ", path);
+                }
+            }
+
+            if (!loaded) {
+                uiText.innerText = "Network Error: Switch to Mobile Data & Refresh.";
             }
         }
 
