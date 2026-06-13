@@ -7,10 +7,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <script src="https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.3.3/pixi.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/dcatvg/PixiJS-Live2D@master/live2d.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/pixi-live2d-display/dist/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pixi-live2d-display@0.4.0/dist/index.min.js"></script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
 
     <style>
@@ -35,7 +35,7 @@
 
         #ai-response { position: absolute; bottom: 110px; width: 100%; text-align: center; font-size: 1.5rem; color: #fff; text-shadow: 0 0 15px #e94560; z-index: 20; font-family: 'Orbitron', sans-serif; pointer-events: none; padding: 0 20px; box-sizing: border-box; }
 
-        /* LIVE2D AVATAR CANVAS */
+        /* LIVE2D AVATAR CANVAS - Ghost Mode */
         #live2d-canvas {
             position: absolute; bottom: 60px; left: 50%; transform: translateX(-50%);
             z-index: 15; pointer-events: none; filter: drop-shadow(0 0 20px rgba(0, 255, 204, 0.3));
@@ -66,7 +66,7 @@
         const terminal = document.getElementById('terminal-screen');
         const lines = [
             "Initiating SENTINEL-X secure protocols...",
-            "Loading UNPKG Global Live2D Server...",
+            "Loading Optimized Live2D Core...",
             "Booting Physics Engine...",
             "System is fully operational."
         ];
@@ -94,7 +94,7 @@
             typeLines();
             initPhysics(); 
             initAI(); 
-            await initLive2D(); 
+            initLive2D(); 
         });
 
         // 2. PHYSICS ENGINE
@@ -134,11 +134,13 @@
             });
         }
 
-        // 3. UNPKG GLOBAL LIVE2D ENGINE (NO GITHUB PAGES BLOCKING)
+        // 3. BULLETPROOF LIVE2D ENGINE
         window.currentLive2DModel = null;
         async function initLive2D() {
+            const responseText = document.getElementById('ai-response');
+            
             if (typeof PIXI === 'undefined' || !PIXI.live2d) {
-                document.getElementById('ai-response').innerText = "Scripts failed to load.";
+                responseText.innerText = "Error: Core Scripts Blocked by Browser.";
                 return;
             }
 
@@ -147,25 +149,27 @@
                 autoStart: true, transparent: true, width: 400, height: 500
             });
 
-            // GLOBAL UNPKG NPM LINK - Always Works
-            const modelUrl = 'https://unpkg.com/live2d-widget-model-shizuku@1.0.5/assets/shizuku.model.json';
+            // Single, most stable NPM mirror for Shizuku
+            const modelUrl = 'https://cdn.jsdelivr.net/npm/live2d-widget-model-shizuku@1.0.5/assets/shizuku.model.json';
 
             try {
-                document.getElementById('ai-response').innerText = "Deploying AI Avatar...";
+                responseText.innerText = "Syncing Neural Core with Avatar...";
+                
                 const model = await PIXI.live2d.Live2DModel.from(modelUrl);
                 app.stage.addChild(model);
                 
-                // Unpkg scale
                 model.scale.set(0.25); 
-                model.x = 0; 
+                model.x = 20; 
                 model.y = 50;
                 
                 window.currentLive2DModel = model;
                 window.addEventListener('mousemove', (event) => { model.focus(event.clientX, event.clientY); });
-                document.getElementById('ai-response').innerText = ""; 
+                
+                responseText.innerText = ""; 
+                console.log("Live2D Successfully Loaded!");
             } catch(e) {
-                console.error("Live2D Load Error:", e);
-                document.getElementById('ai-response').innerText = "Connection to Global Server Failed.";
+                console.error("Live2D Connection Error:", e);
+                responseText.innerText = "Network Error: Could not fetch Avatar.";
             }
         }
 
@@ -179,13 +183,15 @@
         }
         function stopLipSync() {
             isSpeaking = false;
-            if(window.currentLive2DModel) {
+            if(window.currentLive2DModel && window.currentLive2DModel.internalModel) {
                 try { window.currentLive2DModel.internalModel.coreModel.setParamFloat('PARAM_MOUTH_OPEN_Y', 0); } catch(e){}
             }
         }
         function simulateLipSync() {
-            if (!isSpeaking || !window.currentLive2DModel) return;
-            try { window.currentLive2DModel.internalModel.coreModel.setParamFloat('PARAM_MOUTH_OPEN_Y', Math.random() > 0.4 ? Math.random() : 0); } catch(e){}
+            if (!isSpeaking || !window.currentLive2DModel || !window.currentLive2DModel.internalModel) return;
+            try { 
+                window.currentLive2DModel.internalModel.coreModel.setParamFloat('PARAM_MOUTH_OPEN_Y', Math.random() > 0.4 ? Math.random() : 0); 
+            } catch(e){}
             setTimeout(() => { requestAnimationFrame(simulateLipSync); }, 60); 
         }
 
