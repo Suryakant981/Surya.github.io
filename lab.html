@@ -7,10 +7,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <script src="https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.3.3/pixi.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/dcatvg/PixiJS-Live2D@master/live2d.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/pixi-live2d-display@0.4.0/dist/index.min.js"></script>
+    <script src="https://fastly.jsdelivr.net/gh/dcatvg/PixiJS-Live2D@master/live2d.min.js"></script>
+    <script src="https://fastly.jsdelivr.net/npm/pixi-live2d-display@0.4.0/dist/index.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
 
     <style>
@@ -66,8 +65,8 @@
         const terminal = document.getElementById('terminal-screen');
         const lines = [
             "Initiating SENTINEL-X protocols...",
-            "Loading Global Avatar Link...",
-            "Booting Physics Engine...",
+            "Bypassing ISP Firewall...",
+            "Loading Anti-Ban Live2D Server...",
             "System is ready."
         ];
 
@@ -134,13 +133,13 @@
             });
         }
 
-        // 3. NPM GLOBAL CDN (100% BYPASSES YOUR BROKEN GITHUB FOLDER)
+        // 3. FASTLY ANTI-BAN LIVE2D ENGINE
         window.currentLive2DModel = null;
         async function initLive2D() {
             const uiText = document.getElementById('ai-response');
             
             if (typeof PIXI === 'undefined' || !PIXI.live2d) {
-                uiText.innerText = "Error: JS Libraries failed to load.";
+                uiText.innerText = "Error: Firewall blocked the Live2D Library.";
                 return;
             }
 
@@ -149,39 +148,28 @@
                 autoStart: true, transparent: true, width: 400, height: 500
             });
 
-            // Using fully bundled NPM links that contain ALL textures internally.
-            const cdnPaths = [
-                "https://cdn.jsdelivr.net/npm/live2d-widget-model-shizuku@1.0.5/assets/shizuku.model.json",
-                "https://unpkg.com/live2d-widget-model-shizuku@1.0.5/assets/shizuku.model.json"
-            ];
+            // Fastly CDN URL - Bypasses Indian ISP Restrictions
+            const modelUrl = "https://fastly.jsdelivr.net/npm/live2d-widget-model-shizuku@1.0.5/assets/shizuku.model.json";
 
-            let loaded = false;
-
-            for (let i = 0; i < cdnPaths.length; i++) {
-                try {
-                    uiText.innerText = "Deploying Avatar...";
-                    
-                    const model = await PIXI.live2d.Live2DModel.from(cdnPaths[i]);
-                    
-                    app.stage.addChild(model);
-                    model.scale.set(0.25); 
-                    model.x = 20; 
-                    model.y = 50;
-                    
-                    window.currentLive2DModel = model;
-                    window.addEventListener('mousemove', (event) => { model.focus(event.clientX, event.clientY); });
-                    
-                    uiText.innerText = ""; 
-                    loaded = true;
-                    console.log("Avatar successfully loaded from NPM!");
-                    break; 
-                } catch(e) {
-                    console.warn(`CDN ${i + 1} Failed. Trying backup...`);
-                }
-            }
-
-            if (!loaded) {
-                uiText.innerText = "Fatal Error: Avatar CDNs blocked by ISP.";
+            try {
+                uiText.innerText = "Establishing secure link to Avatar...";
+                console.log("Loading Shizuku from Fastly Bypass...");
+                
+                const model = await PIXI.live2d.Live2DModel.from(modelUrl);
+                
+                app.stage.addChild(model);
+                model.scale.set(0.25); 
+                model.x = 20; 
+                model.y = 50;
+                
+                window.currentLive2DModel = model;
+                window.addEventListener('mousemove', (event) => { model.focus(event.clientX, event.clientY); });
+                
+                uiText.innerText = ""; 
+                console.log("SUCCESS! Model loaded from Anti-Ban Server!");
+            } catch(e) {
+                console.error("Live2D Error:", e);
+                uiText.innerText = "Error: Fastly Server Connection Dropped.";
             }
         }
 
