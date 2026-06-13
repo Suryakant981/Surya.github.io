@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <script src="https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.3.3/pixi.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/dcatvg/PixiJS-Live2D@master/live2d.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/pixi-live2d-display@0.4.0/dist/index.min.js"></script>
@@ -66,7 +65,7 @@
         const terminal = document.getElementById('terminal-screen');
         const lines = [
             "Initiating SENTINEL-X protocols...",
-            "Loading Brute-Force Path Scanner...",
+            "Loading Absolute Path Engine...",
             "Booting Physics Engine...",
             "System is ready."
         ];
@@ -134,7 +133,7 @@
             });
         }
 
-        // 3. THE BRUTE-FORCE PATH SCANNER (GOD MODE)
+        // 3. THE ABSOLUTE PATH LIVE2D ENGINE (TERA APNA SERVER)
         window.currentLive2DModel = null;
         async function initLive2D() {
             const uiText = document.getElementById('ai-response');
@@ -149,44 +148,28 @@
                 autoStart: true, transparent: true, width: 400, height: 500
             });
 
-            // YAHAN 6 ALAG ALAG RASTE HAIN. EK BHI CHALA TOH KAAM HO JAYEGA.
-            const pathsToTry = [
-                "shizuku/shizuku/shizuku.model.json",           // Local Deep
-                "shizuku/shizuku.model.json",                   // Local Direct
-                "/Surya.github.io/shizuku/shizuku.model.json",  // Local Absolute
-                "../shizuku/shizuku.model.json",                // Local Relative
-                "https://unpkg.com/live2d-widget-model-shizuku@1.0.5/assets/shizuku.model.json", // Global CDN 1
-                "https://cdn.jsdelivr.net/npm/live2d-widget-model-shizuku@1.0.5/assets/shizuku.model.json" // Global CDN 2
-            ];
+            // TERA EXACT GITHUB REPO KA DIRECT LINK
+            const myExactPath = "https://suryakant981.github.io/Surya.github.io/shizuku/shizuku/shizuku.model.json";
 
-            let loaded = false;
-
-            for (let i = 0; i < pathsToTry.length; i++) {
-                try {
-                    uiText.innerText = `[SCANNING] Checking Path ${i + 1}...`;
-                    console.log(`Trying Path ${i + 1}:`, pathsToTry[i]);
-                    
-                    const model = await PIXI.live2d.Live2DModel.from(pathsToTry[i]);
-                    
-                    app.stage.addChild(model);
-                    model.scale.set(0.25); 
-                    model.x = 20; 
-                    model.y = 50;
-                    
-                    window.currentLive2DModel = model;
-                    window.addEventListener('mousemove', (event) => { model.focus(event.clientX, event.clientY); });
-                    
-                    uiText.innerText = ""; // Clear text on success
-                    loaded = true;
-                    console.log(`SUCCESS! Loaded from Path ${i + 1}`);
-                    break; // Stop scanning, model is loaded!
-                } catch(e) {
-                    console.warn(`Path ${i + 1} Failed.`);
-                }
-            }
-
-            if (!loaded) {
-                uiText.innerText = "Fatal Error: GitHub blocked all paths.";
+            try {
+                uiText.innerText = "Connecting to Suryakant's Server...";
+                console.log("Loading Live2D from:", myExactPath);
+                
+                const model = await PIXI.live2d.Live2DModel.from(myExactPath);
+                
+                app.stage.addChild(model);
+                model.scale.set(0.30); 
+                model.x = -20; 
+                model.y = 50;
+                
+                window.currentLive2DModel = model;
+                window.addEventListener('mousemove', (event) => { model.focus(event.clientX, event.clientY); });
+                
+                uiText.innerText = ""; // Clear text on success
+                console.log("SUCCESS! Model loaded from your own repository!");
+            } catch(e) {
+                console.error("Live2D Error:", e);
+                uiText.innerText = "Error: Model path not found. Check your uploaded files.";
             }
         }
 
