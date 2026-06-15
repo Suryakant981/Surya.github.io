@@ -16,13 +16,49 @@
         @keyframes blink { 50% { border-color: transparent; } }
 
         /* INTERACTIVE PHYSICS GRAVITY ENGINE */
-        #physics-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+        #physics-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
         .overlay-ui { position: absolute; z-index: 10; top: 30px; left: 30px; pointer-events: none; }
         .overlay-ui h1 { font-family: 'Orbitron', sans-serif; font-size: 3rem; margin: 0; color: #fff; text-shadow: 0 0 20px #8a2be2, 0 0 40px #8a2be2; }
         .overlay-ui p { color: #b3b3b3; font-size: 1.1rem; }
 
+        /* PURE CSS CYBER-AVATAR (NO FILES NEEDED) */
+        #avatar-container {
+            position: absolute; bottom: 180px; left: 50%; transform: translateX(-50%);
+            z-index: 15; display: flex; flex-direction: column; align-items: center;
+            pointer-events: none;
+        }
+
+        .cyber-face {
+            width: 140px; height: 160px;
+            background: radial-gradient(circle, rgba(0,255,204,0.1) 0%, rgba(0,0,0,0.8) 100%);
+            border: 2px solid #00ffcc;
+            border-radius: 40% 40% 50% 50%;
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.4), inset 0 0 20px rgba(0, 255, 204, 0.2);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            animation: float 4s ease-in-out infinite;
+            position: relative;
+        }
+
+        .cyber-face::before { content: ''; position: absolute; top: -10px; width: 60px; height: 5px; background: #00ffcc; border-radius: 5px; box-shadow: 0 0 10px #00ffcc; }
+        .cyber-face::after { content: ''; position: absolute; bottom: -5px; width: 30px; height: 5px; background: #ff0055; border-radius: 5px; box-shadow: 0 0 10px #ff0055; }
+
+        .eyes-container { display: flex; gap: 35px; margin-bottom: 25px; margin-top: 10px;}
+        .eye { width: 35px; height: 12px; background: #00ffcc; border-radius: 10px; box-shadow: 0 0 15px #00ffcc; animation: blink-eye 4s infinite; }
+        
+        .mouth { width: 45px; height: 4px; background: #00ffcc; border-radius: 10px; box-shadow: 0 0 15px #00ffcc; transition: height 0.05s ease, border-radius 0.05s ease; }
+
+        .holo-base {
+            margin-top: 20px; width: 180px; height: 20px; border-radius: 50%;
+            border: 1px solid rgba(0, 255, 204, 0.5); background: radial-gradient(circle, rgba(0,255,204,0.3) 0%, transparent 70%);
+            box-shadow: 0 0 20px #00ffcc; transform: rotateX(75deg); animation: base-pulse 2s infinite alternate;
+        }
+
+        @keyframes blink-eye { 0%, 95%, 98%, 100% { height: 12px; transform: scaleY(1); } 96%, 99% { height: 2px; transform: scaleY(0.1); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); box-shadow: 0 0 50px rgba(0, 255, 204, 0.6), inset 0 0 30px rgba(0, 255, 204, 0.3); } }
+        @keyframes base-pulse { 0% { transform: rotateX(75deg) scale(0.9); opacity: 0.5; } 100% { transform: rotateX(75deg) scale(1.1); opacity: 1; } }
+
         /* LIVE WEB-BASED VOICE AI BUTTON */
-        #voice-btn { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 20; background: transparent; border: 2px solid #00ffcc; color: #00ffcc; padding: 15px 40px; font-size: 1.2rem; font-family: 'Orbitron', sans-serif; font-weight: bold; border-radius: 50px; cursor: pointer; box-shadow: 0 0 20px rgba(0, 255, 204, 0.4); transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 2px; pointer-events: auto; }
+        #voice-btn { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 20; background: #050508; border: 2px solid #00ffcc; color: #00ffcc; padding: 15px 40px; font-size: 1.2rem; font-family: 'Orbitron', sans-serif; font-weight: bold; border-radius: 50px; cursor: pointer; box-shadow: 0 0 20px rgba(0, 255, 204, 0.4); transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 2px; pointer-events: auto; }
         #voice-btn:hover { background: #00ffcc; color: #000; box-shadow: 0 0 40px rgba(0, 255, 204, 0.8); }
         #voice-btn.listening { border-color: #ff0055; color: #ff0055; box-shadow: 0 0 40px rgba(255, 0, 85, 0.8); animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { transform: translateX(-50%) scale(1); } 50% { transform: translateX(-50%) scale(1.05); } 100% { transform: translateX(-50%) scale(1); } }
@@ -45,6 +81,17 @@
     
     <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Exit Lab</a>
 
+    <div id="avatar-container">
+        <div class="cyber-face">
+            <div class="eyes-container">
+                <div class="eye left-eye"></div>
+                <div class="eye right-eye"></div>
+            </div>
+            <div class="mouth" id="cyber-mouth"></div>
+        </div>
+        <div class="holo-base"></div>
+    </div>
+
     <div id="ai-response"></div>
     <button id="voice-btn"><i class="fas fa-microphone"></i> Activate AI</button>
 
@@ -59,8 +106,7 @@
         const terminal = document.getElementById('terminal-screen');
         const lines = [
             "Initiating SENTINEL-X secure protocols...",
-            "Bypassing mainframe security... [OK]",
-            "Loading Neural Core offline packages... [OK]",
+            "Loading Cyber-Avatar Matrix... [OK]",
             "Booting Matter.js 2D Physics Engine... [OK]",
             "Initializing Web Speech API Voice Recognition... [OK]",
             "Establishing Secure Uplink to ElevenLabs & Llama-3.1... [OK]",
@@ -130,7 +176,8 @@
             World.add(world, box);
         }
 
-        const mouse = Mouse.create(render.canvas);
+        // Bind mouse to document body so it works everywhere
+        const mouse = Mouse.create(document.body);
         const mouseConstraint = MouseConstraint.create(engine, { mouse: mouse, constraint: { stiffness: 0.2, render: { visible: false } } });
         World.add(world, mouseConstraint); render.mouse = mouse;
 
@@ -140,15 +187,44 @@
         });
 
         /* =========================================
+           AVATAR LIP SYNC ENGINE
+           ========================================= */
+        let isSpeaking = false;
+        const cyberMouth = document.getElementById('cyber-mouth');
+
+        function startLipSync() {
+            isSpeaking = true;
+            simulateLipSync();
+        }
+        
+        function stopLipSync() {
+            isSpeaking = false;
+            if(cyberMouth) {
+                cyberMouth.style.height = '4px';
+                cyberMouth.style.borderRadius = '10px';
+            }
+        }
+
+        function simulateLipSync() {
+            if (!isSpeaking) return;
+            const isOpen = Math.random() > 0.4;
+            if (isOpen && cyberMouth) {
+                const height = Math.floor(Math.random() * 20) + 10; 
+                cyberMouth.style.height = `${height}px`;
+                cyberMouth.style.borderRadius = '50%'; 
+            } else if (cyberMouth) {
+                cyberMouth.style.height = '4px';
+                cyberMouth.style.borderRadius = '10px';
+            }
+            setTimeout(() => { requestAnimationFrame(simulateLipSync); }, 80); 
+        }
+
+        /* =========================================
            1. GROQ API (BILINGUAL LLAMA-3.1 BRAIN)
            ========================================= */
-        
-        // 👇👇 YAHAN APNI GROQ API KEY KE 3 TUKDE DAALO 👇👇
         const lab_p1 = "gs"+"k_fDI4ghUMTl91vtQfC"; 
         const lab_p2 = "3MWWGdyb3FYkktAtJlSX";
         const lab_p3 = "bOLYWaKWIEnoAhY";
-        // 👆👆 YAHAN UPDATE KARNA 👆👆
-
         const LAB_AI_KEY = lab_p1 + lab_p2 + lab_p3;
 
        let labHistory = [
@@ -159,10 +235,10 @@
                 [CRITICAL DIRECTIVE: STRICT LANGUAGE MIRRORING]
                 You must dynamically detect the language of the user's input and match it 100%.
                 
-                CONDITION A: If the user speaks in pure English (e.g., "What is gravity?", "Who are you?"):
+                CONDITION A: If the user speaks in pure English:
                 -> YOU MUST REPLY IN 100% PURE, PROFESSIONAL ENGLISH. NO HINDI. NO HINGLISH.
                 
-                CONDITION B: If the user speaks in Hindi or Roman Hinglish (e.g., "bhai kaise ho", "kya kar rahe ho"):
+                CONDITION B: If the user speaks in Hindi or Roman Hinglish:
                 -> YOU MUST REPLY IN FULL NATURAL LIKE HUMAN BEING TALKS ROMAN HINGLISH.
                 
                 Keep your answers extremely short (1-2 sentences), sharp, and scientific.` 
@@ -199,15 +275,11 @@
         /* =========================================
            2. ELEVENLABS NATURAL VOICE (MULTILINGUAL)
            ========================================= */
-        
-        // 👇👇 YAHAN APNI ELEVENLABS KI KEY KE 3 TUKDE DAALO 👇👇
         const el_p1 = "sk_30c24e569c81d"; 
         const el_p2 = "da0ef80bac0eeafbf67";
         const el_p3 = "caf94b2b8059eeb0";
-        // 👆👆 YAHAN UPDATE KARNA 👆👆
-
         const ELEVENLABS_API_KEY = el_p1 + el_p2 + el_p3;
-        const VOICE_ID = "EXAVITQu4vr4xnSDxMaL"; // Bella Voice ID
+        const VOICE_ID = "EXAVITQu4vr4xnSDxMaL"; 
 
        async function speak(text) {
             if (ELEVENLABS_API_KEY.includes("YOUR_ELEVEN_KEY")) {
@@ -226,7 +298,6 @@
                     body: JSON.stringify({
                         text: text,
                         model_id: "eleven_multilingual_v2", 
-                        // Stability kam karne se aawaz zyada natural aur expressive (human) lagti hai
                         voice_settings: { stability: 0.35, similarity_boost: 0.85 }
                     })
                 });
@@ -235,12 +306,14 @@
                     const audioBlob = await response.blob();
                     const audioUrl = URL.createObjectURL(audioBlob);
                     const audio = new Audio(audioUrl);
+                    
+                    audio.onplay = () => { startLipSync(); };
+                    audio.onended = () => { stopLipSync(); };
+                    
                     audio.play();
                 } else {
-                    // Agar fail hua toh asli error console me print karega
                     const errData = await response.json();
-                    console.error("🚨 ElevenLabs Asli Error:", errData);
-                    alert("ElevenLabs API Fail: " + (errData.detail.status || errData.detail.message));
+                    console.error("🚨 ElevenLabs Error:", errData);
                     fallbackSpeak(text);
                 }
             } catch (error) {
@@ -248,7 +321,7 @@
                 fallbackSpeak(text);
             }
         }
-        // Backup voice if ElevenLabs fails or API key is missing
+        
         function fallbackSpeak(text) {
             const synth = window.speechSynthesis;
             const utterance = new SpeechSynthesisUtterance(text);
@@ -257,6 +330,10 @@
             let voices = synth.getVoices();
             let bestVoice = voices.find(v => v.name.includes("Google") || v.lang.includes("en-IN") || v.lang.includes("hi-IN"));
             if (bestVoice) utterance.voice = bestVoice;
+            
+            utterance.onstart = () => { startLipSync(); };
+            utterance.onend = () => { stopLipSync(); };
+            
             synth.speak(utterance);
         }
 
@@ -272,7 +349,7 @@
         if (SpeechRecognition) {
             const recognition = new SpeechRecognition();
             recognition.continuous = false;
-            recognition.lang = 'en-IN'; // Set to Indian English for better Hinglish detection
+            recognition.lang = 'en-IN'; 
 
             voiceBtn.addEventListener('click', () => {
                 recognition.start();
@@ -288,7 +365,6 @@
                 
                 aiResponseText.innerText = `You: "${userSpeech}"`;
 
-                // Handle Hardware Engine Commands First
                 if(userSpeech.includes("zero gravity") || userSpeech.includes("float")) {
                     world.gravity.y = 0;
                     world.bodies.forEach(b => !b.isStatic && Matter.Body.applyForce(b, b.position, {x: 0, y: -0.05}));
@@ -303,7 +379,6 @@
                     return;
                 }
 
-                // Call the Dynamic Llama-3.1 AI
                 const reply = await fetchDynamicAI(userSpeech);
                 
                 setTimeout(() => {
