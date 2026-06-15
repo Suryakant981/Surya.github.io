@@ -34,80 +34,89 @@
         #physics-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
 
         /* =========================================
-           CSS STYLIZED AVATAR (AI.PNG THEME)
+           STANDARD FULL BODY CSS AVATAR
            ========================================= */
         #avatar-container {
-            position: absolute; bottom: 180px; left: 50%; transform: translateX(-50%);
-            z-index: 15; display: flex; flex-direction: column; align-items: center;
+            position: absolute; bottom: 120px; left: 50%; transform: translateX(-50%);
+            z-index: 15; width: 250px; height: 500px;
+            display: flex; flex-direction: column; align-items: center;
             pointer-events: none; animation: float 4s ease-in-out infinite;
         }
 
-        /* Hair Background */
-        .hair-back {
-            position: absolute; top: -15px; width: 160px; height: 210px;
-            background: #27140c; /* Dark brown hair */
-            border-radius: 45% 45% 20% 20%; z-index: 1;
-            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        /* 1. Head Unit */
+        .head {
+            width: 80px; height: 95px; background: rgba(0,0,0,0.8);
+            border: 2px solid #00ffcc; border-radius: 40% 40% 50% 50%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.3), inset 0 0 10px rgba(0, 255, 204, 0.2);
+            margin-bottom: 10px; position: relative; z-index: 5;
         }
+        .head::after { content: ''; position: absolute; top: -5px; width: 30px; height: 3px; background: #8a2be2; box-shadow: 0 0 10px #8a2be2; border-radius: 2px;}
 
-        /* Face Base */
-        .face {
-            width: 120px; height: 145px; 
-            background: linear-gradient(135deg, #fceddf 0%, #efc2a3 100%); /* Fair skin tone */
-            border-radius: 40% 40% 55% 55%; position: relative; z-index: 2;
-            display: flex; flex-direction: column; align-items: center;
-            box-shadow: inset 0 -10px 15px rgba(200, 140, 110, 0.4);
-        }
-
-        /* Bindi */
-        .bindi { width: 5px; height: 5px; background: #222; border-radius: 50%; margin-top: 35px; }
-
-        /* Eyes */
-        .eyes-container { display: flex; gap: 25px; margin-top: 8px; }
+        .eyes-container { display: flex; gap: 20px; margin-bottom: 12px; }
         .eye { 
-            width: 28px; height: 16px; background: #fff; border-radius: 50%; 
-            position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center;
-            animation: blink-eye 4s infinite; border: 1px solid #d4a383;
-            box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+            width: 22px; height: 8px; background: #00ffcc; 
+            border-radius: 2px; box-shadow: 0 0 10px #00ffcc; 
+            animation: blink 5s infinite; 
         }
-        .pupil { width: 14px; height: 14px; background: #4a2810; border-radius: 50%; position: relative; }
-        .pupil::after { content: ''; position: absolute; top: 2px; left: 2px; width: 4px; height: 4px; background: #fff; border-radius: 50%; }
-
-        /* Blush */
-        .blush-container { display: flex; gap: 50px; margin-top: 5px; width: 100%; justify-content: center; position: absolute; top: 75px;}
-        .blush { width: 20px; height: 8px; background: rgba(255, 100, 100, 0.4); border-radius: 50%; filter: blur(3px); }
-
-        /* Mouth (Lip Sync Target) */
+        
+        /* standard Mouth Bar (Explicit sync target) */
         .mouth { 
-            width: 25px; height: 4px; background: #a84b4b; border-radius: 10px; 
-            margin-top: 25px; transition: height 0.05s ease, border-radius 0.05s ease; 
+            width: 30px; height: 3px; background: #ff0055; 
+            border-radius: 10px; box-shadow: 0 0 15px #ff0055; 
+            transition: height 0.05s ease, border-radius 0.05s ease;
         }
 
-        /* White Kurti / Dress */
-        .dress {
-            width: 170px; height: 70px; background: #fdfdfd; 
-            border-radius: 40% 40% 10% 10%; position: relative; z-index: 1; margin-top: -15px;
-            box-shadow: 0 -5px 15px rgba(0,0,0,0.2), inset 0 0 20px rgba(200,200,200,0.3);
-            display: flex; justify-content: center;
-            border-top: 1px solid #e0e0e0;
-        }
-        .dress-neck { width: 40px; height: 25px; background: #efc2a3; border-radius: 0 0 50% 50%; box-shadow: inset 0 8px 10px rgba(0,0,0,0.1); }
+        /* 2. Neck & Shoulders */
+        .neck { width: 25px; height: 15px; background: #222; border: 2px solid #333; border-radius: 5px;}
+        .shoulders { display: flex; gap: 90px; }
+        .shoulder-joint { width: 25px; height: 25px; background: #111; border: 2px solid #00ffcc; border-radius: 50%; box-shadow: 0 0 10px rgba(0,255,204,0.3); margin-top: -10px;}
 
-        /* Hologram Base below the character */
+        /* 3. Torso / Armored Body */
+        .torso-container {
+            width: 100px; height: 130px; background: linear-gradient(180deg, #111 0%, rgba(138,43,226,0.1) 50%, #000 100%);
+            border: 2px solid #00ffcc; border-radius: 20px 20px 40px 40px;
+            display: flex; flex-direction: column; align-items: center; justify-content: space-around;
+            padding: 15px; box-sizing: border-box; margin-top: -15px; position: relative; z-index: 4;
+            box-shadow: 0 0 20px rgba(138,43,226,0.3), inset 0 0 15px rgba(138,43,226,0.2);
+        }
+        .body-plate { width: 80%; height: 5px; background: rgba(0,255,204,0.2); border-radius: 10px; }
+        .core-reactor { width: 30px; height: 30px; background: radial-gradient(circle, #8a2be2 0%, transparent 70%); border: 2px solid #8a2be2; border-radius: 50%; box-shadow: 0 0 25px #8a2be2, inset 0 0 10px #8a2be2;}
+
+        /* 4. Arms */
+        .arms-container { display: flex; width: 100%; justify-content: center; position: absolute; top: 120px; z-index: 3;}
+        .arm { display: flex; flex-direction: column; align-items: center; width: 25px;}
+        .arm-segment { width: 15px; background: #222; border: 2px solid #333; border-radius: 10px; margin-bottom: 5px;}
+        .upper { height: 70px;} .lower { height: 60px;}
+        .elbow { width: 15px; height: 15px; background: #111; border: 2px solid #8a2be2; border-radius: 50%; margin: -5px 0; box-shadow: 0 0 10px rgba(138,43,226,0.3);}
+        .hand { width: 20px; height: 20px; background: #000; border: 2px solid #00ffcc; border-radius: 10px; box-shadow: 0 0 10px rgba(0,255,204,0.3);}
+        .left-arm { transform: translateX(-65px);} .right-arm { transform: translateX(65px);}
+
+        /* 5. Waist & Legs */
+        .waist-belt { width: 105px; height: 15px; background: #000; border: 2px solid #8a2be2; border-radius: 20px; margin-top: -5px; position: relative; z-index: 4;}
+        .legs-container { display: flex; gap: 30px; margin-top: -5px; }
+        .leg { display: flex; flex-direction: column; align-items: center; }
+        .leg-segment { width: 20px; background: #111; border: 2px solid #00ffcc; border-radius: 10px; margin-bottom: 5px; }
+        .leg.upper { height: 80px;} .leg.lower { height: 70px;}
+        .knee { width: 20px; height: 20px; background: #000; border: 2px solid #8a2be2; border-radius: 50%; margin: -5px 0; box-shadow: 0 0 10px rgba(138,43,226,0.3);}
+        .foot { width: 40px; height: 15px; background: #000; border: 2px solid #00ffcc; border-radius: 5px 5px 15px 15px; box-shadow: 0 0 10px rgba(0,255,204,0.3);}
+
+        /* 6. standard Hologram standard Base */
         .holo-base {
-            position: absolute; bottom: -40px; width: 200px; height: 25px; border-radius: 50%;
-            border: 1px solid rgba(0, 255, 204, 0.5); background: radial-gradient(circle, rgba(0,255,204,0.2) 0%, transparent 70%);
-            box-shadow: 0 0 20px #00ffcc; transform: rotateX(75deg); animation: base-pulse 2s infinite alternate; z-index: 0;
+            margin-top: 25px; width: 280px; height: 30px; border-radius: 50%;
+            border: 2px solid rgba(0, 255, 204, 0.4); background: radial-gradient(circle, rgba(0,255,204,0.2) 0%, transparent 70%);
+            box-shadow: 0 0 30px #00ffcc, inset 0 0 20px #00ffcc; transform: rotateX(75deg); animation: base-pulse 2s infinite alternate;
         }
 
-        /* Active Speaking Effects */
-        #avatar-container.speaking .holo-base { border-color: #00ffcc; box-shadow: 0 0 40px #00ffcc, inset 0 0 40px #00ffcc; animation: rapid-pulse 0.3s infinite alternate;}
-        #avatar-container.speaking { filter: drop-shadow(0 0 15px rgba(0, 255, 204, 0.5)); }
+        /* Active Speaking Effects standard Glow standard Bounce */
+        #avatar-container.speaking .holo-base { border-color: #ff0055; box-shadow: 0 0 40px #ff0055, inset 0 0 40px #ff0055; animation: rapid-pulse 0.3s infinite alternate;}
+        #avatar-container.speaking .head, #avatar-container.speaking .torso-container { border-color: #ff0055; box-shadow: 0 0 25px #ff0055; }
+        #avatar-container.speaking .core-reactor { animation: rapid-pulse 0.3s infinite alternate; }
 
-        @keyframes blink-eye { 0%, 95%, 98%, 100% { height: 16px; margin-top: 0; } 96%, 99% { height: 2px; margin-top: 7px; } }
-        @keyframes float { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-10px); } }
+        @keyframes blink { 0%, 95%, 98%, 100% { height: 8px; transform: scaleY(1); } 96%, 99% { height: 2px; transform: scaleY(0.1); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
         @keyframes base-pulse { 0% { transform: rotateX(75deg) scale(0.9); opacity: 0.5; } 100% { transform: rotateX(75deg) scale(1.1); opacity: 1; } }
-        @keyframes rapid-pulse { 0% { transform: rotateX(75deg) scale(1); opacity: 0.7;} 100% { transform: rotateX(75deg) scale(1.15); opacity: 1;} }
+        @keyframes rapid-pulse { 0% { transform: scale(1); opacity: 0.7;} 100% { transform: scale(1.05); opacity: 1;} }
     </style>
 </head>
 <body>
@@ -122,20 +131,57 @@
     <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Exit Lab</a>
 
     <div id="avatar-container">
-        <div class="hair-back"></div>
-        <div class="face">
-            <div class="bindi"></div>
+        <div class="head">
             <div class="eyes-container">
-                <div class="eye left-eye"><div class="pupil"></div></div>
-                <div class="eye right-eye"><div class="pupil"></div></div>
-            </div>
-            <div class="blush-container">
-                <div class="blush"></div>
-                <div class="blush"></div>
+                <div class="eye left-eye"></div>
+                <div class="eye right-eye"></div>
             </div>
             <div class="mouth" id="cyber-mouth"></div>
         </div>
-        <div class="dress"><div class="dress-neck"></div></div>
+        
+        <div class="neck"></div>
+        <div class="shoulders">
+            <div class="shoulder-joint"></div>
+            <div class="shoulder-joint"></div>
+        </div>
+
+        <div class="torso-container">
+            <div class="body-plate"></div>
+            <div class="core-reactor"></div>
+            <div class="body-plate"></div>
+        </div>
+
+        <div class="arms-container">
+            <div class="arm left-arm">
+                <div class="arm-segment upper"></div>
+                <div class="elbow"></div>
+                <div class="arm-segment lower"></div>
+                <div class="hand"></div>
+            </div>
+            <div class="arm right-arm">
+                <div class="arm-segment upper"></div>
+                <div class="elbow"></div>
+                <div class="arm-segment lower"></div>
+                <div class="hand"></div>
+            </div>
+        </div>
+
+        <div class="waist-belt"></div>
+        <div class="legs-container">
+            <div class="leg">
+                <div class="leg-segment leg upper"></div>
+                <div class="knee"></div>
+                <div class="leg-segment leg lower"></div>
+                <div class="foot"></div>
+            </div>
+            <div class="leg">
+                <div class="leg-segment leg upper"></div>
+                <div class="knee"></div>
+                <div class="leg-segment leg lower"></div>
+                <div class="foot"></div>
+            </div>
+        </div>
+
         <div class="holo-base"></div>
     </div>
 
@@ -149,7 +195,7 @@
         const terminal = document.getElementById('terminal-screen');
         const lines = [
             "Initiating SENTINEL-X secure protocols...",
-            "Compiling Character CSS Vectors... [OK]",
+            "Loading Full Body CSS Matrix... [OK]",
             "Booting Matter.js 2D Physics... [OK]",
             "Initializing Neural Voice Uplink... [OK]",
             "Welcome back, Suryakant. System is fully operational."
@@ -164,7 +210,7 @@
                 await typeText(lineDiv, lines[i], 30);
                 lineDiv.classList.remove('typing');
                 lineDiv.style.borderRight = "none";
-                await new Promise(r => setTimeout(r, 300));
+                await new Promise(r => setTimeout(r, 100));
             }
             setTimeout(() => { terminal.style.opacity = 0; setTimeout(() => terminal.style.display = 'none', 800); }, 800);
         }
@@ -180,40 +226,47 @@
         }
         window.onload = typeLines;
 
-        // 2. PHYSICS ENGINE
-        const Engine = Matter.Engine, Render = Matter.Render, Runner = Matter.Runner,
-              MouseConstraint = Matter.MouseConstraint, Mouse = Matter.Mouse, World = Matter.World, Bodies = Matter.Bodies;
-        const engine = Engine.create(); const world = engine.world; world.gravity.y = 1;
+        // 2. PHYSICS ENGINE (Standard Stable Configuration)
+        let world;
+        function initPhysics() {
+            const Engine = Matter.Engine, Render = Matter.Render, Runner = Matter.Runner,
+                  MouseConstraint = Matter.MouseConstraint, Mouse = Matter.Mouse, World = Matter.World, Bodies = Matter.Bodies;
 
-        const render = Render.create({
-            element: document.getElementById('physics-canvas'), engine: engine,
-            options: { width: window.innerWidth, height: window.innerHeight, wireframes: false, background: 'transparent' }
-        });
-        Render.run(render); Runner.run(Runner.create(), engine);
+            const engine = Engine.create(); world = engine.world; world.gravity.y = 1;
 
-        const wallOptions = { isStatic: true, render: { fillStyle: 'rgba(0, 255, 204, 0.2)' } };
-        World.add(world, [
-            Bodies.rectangle(window.innerWidth/2, window.innerHeight + 25, window.innerWidth, 50, wallOptions),
-            Bodies.rectangle(-25, window.innerHeight/2, 50, window.innerHeight, wallOptions),
-            Bodies.rectangle(window.innerWidth + 25, window.innerHeight/2, 50, window.innerHeight, wallOptions)
-        ]);
+            const render = Render.create({
+                element: document.getElementById('physics-canvas'), engine: engine,
+                options: { width: window.innerWidth, height: window.innerHeight, wireframes: false, background: 'transparent' }
+            });
+            Render.run(render); Runner.run(Runner.create(), engine);
 
-        for (let i = 0; i < 20; i++) {
-            World.add(world, Bodies.rectangle(Math.random() * window.innerWidth, Math.random() * -500, Math.random() * 40 + 30, Math.random() * 40 + 30, 
-                { restitution: 0.9, render: { fillStyle: i % 2 === 0 ? '#00ffcc' : '#e94560' } }
-            ));
+            const wallOptions = { isStatic: true, render: { fillStyle: 'rgba(0, 255, 204, 0.2)' } };
+            World.add(world, [
+                Bodies.rectangle(window.innerWidth/2, window.innerHeight + 25, window.innerWidth, 50, wallOptions),
+                Bodies.rectangle(-25, window.innerHeight/2, 50, window.innerHeight, wallOptions),
+                Bodies.rectangle(window.innerWidth + 25, window.innerHeight/2, 50, window.innerHeight, wallOptions)
+            ]);
+
+            for (let i = 0; i < 20; i++) {
+                World.add(world, Bodies.rectangle(Math.random() * window.innerWidth, Math.random() * -500, Math.random() * 40 + 30, Math.random() * 40 + 30, 
+                    { restitution: 0.9, render: { fillStyle: i % 2 === 0 ? '#00ffcc' : '#e94560', strokeStyle: '#ffffff', lineWidth: 2 } }
+                ));
+            }
+
+            const mouse = Mouse.create(document.body);
+            const mouseConstraint = MouseConstraint.create(engine, { mouse: mouse, constraint: { stiffness: 0.2, render: { visible: false } } });
+            World.add(world, mouseConstraint); render.mouse = mouse;
+
+            window.addEventListener('resize', () => {
+                render.canvas.width = window.innerWidth; render.canvas.height = window.innerHeight;
+                Matter.Body.setPosition(world.bodies[0], { x: window.innerWidth / 2, y: window.innerHeight + 25 });
+            });
         }
+        initPhysics();
 
-        const mouse = Mouse.create(document.body);
-        const mouseConstraint = MouseConstraint.create(engine, { mouse: mouse, constraint: { stiffness: 0.2, render: { visible: false } } });
-        World.add(world, mouseConstraint); render.mouse = mouse;
-
-        window.addEventListener('resize', () => {
-            render.canvas.width = window.innerWidth; render.canvas.height = window.innerHeight;
-            Matter.Body.setPosition(world.bodies[0], { x: window.innerWidth / 2, y: window.innerHeight + 25 });
-        });
-
-        // 3. AVATAR LIP SYNC ENGINE
+        /* =========================================
+           3. STANDARD AVATAR LIP SYNC ENGINE (File-Proof)
+           ========================================= */
         let isSpeaking = false;
         const cyberMouth = document.getElementById('cyber-mouth');
         const avatarContainer = document.getElementById('avatar-container');
@@ -228,24 +281,21 @@
             isSpeaking = false;
             avatarContainer.classList.remove('speaking');
             if(cyberMouth) {
-                cyberMouth.style.height = '4px';
+                cyberMouth.style.height = '3px';
                 cyberMouth.style.borderRadius = '10px';
-                cyberMouth.style.width = '25px';
             }
         }
 
         function simulateLipSync() {
             if (!isSpeaking) return;
+            // Randomly open and close mouth to simulate talkingwaves
             const isOpen = Math.random() > 0.4;
             if (isOpen && cyberMouth) {
                 const height = Math.floor(Math.random() * 15) + 5; 
-                const width = Math.floor(Math.random() * 10) + 20; 
                 cyberMouth.style.height = `${height}px`;
-                cyberMouth.style.width = `${width}px`;
                 cyberMouth.style.borderRadius = '50%'; 
             } else if (cyberMouth) {
-                cyberMouth.style.height = '4px';
-                cyberMouth.style.width = '25px';
+                cyberMouth.style.height = '3px';
                 cyberMouth.style.borderRadius = '10px';
             }
             setTimeout(() => { requestAnimationFrame(simulateLipSync); }, 80); 
@@ -255,7 +305,7 @@
         const lab_p1 = "gs"+"k_fDI4ghUMTl91vtQfC"; const lab_p2 = "3MWWGdyb3FYkktAtJlSX"; const lab_p3 = "bOLYWaKWIEnoAhY";
         const LAB_AI_KEY = lab_p1 + lab_p2 + lab_p3;
 
-        let labHistory = [{ role: "system", content: `You are Surya Labs AI, a highly intelligent assistant created by Suryakant. [CRITICAL DIRECTIVE]: If user speaks English -> REPLY IN ENGLISH. If Hindi/Hinglish -> REPLY IN ROMAN HINGLISH using female grammar ("Main kar rahi hu"). Call him "Suryakant" or "Boss". Keep it under 2 sentences.` }];
+       let labHistory = [{ role: "system", content: `You are Surya Labs AI, a highly intelligent female assistant created by Suryakant.. condition: If user speaks English -> REPLY IN ENGLISH. If Hindi/Hinglish -> REPLY IN ROMAN HINGLISH using female grammar ("Main kar rahi hu"). Call him "Suryakant" or "Boss". No "Beta". Keep it under 2 sentences.` }];
 
         async function fetchDynamicAI(userQuestion) {
             labHistory.push({ role: "user", content: userQuestion });
@@ -270,15 +320,15 @@
                     labHistory.push({ role: "assistant", content: aiReply });
                     return aiReply;
                 } return "Brain disconnected.";
-            } catch (error) { return "Network Error."; }
+            } catch (error) { return "Network Error. Connection dropped."; }
         }
 
-        // 5. ELEVENLABS NATURAL VOICE
+        // 5. ELEVENLABS NATURAL VOICE + AVATAR SYNC
         const el_p1 = "sk_30c24e569c81d"; const el_p2 = "da0ef80bac0eeafbf67"; const el_p3 = "caf94b2b8059eeb0";
         const ELEVENLABS_API_KEY = el_p1 + el_p2 + el_p3;
         const VOICE_ID = "EXAVITQu4vr4xnSDxMaL"; 
 
-        async function speak(text) {
+       async function speak(text) {
             try {
                 const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}?optimize_streaming_latency=1`, {
                     method: 'POST', headers: { 'xi-api-key': ELEVENLABS_API_KEY, 'Content-Type': 'application/json' },
@@ -295,15 +345,16 @@
         
         function fallbackSpeak(text) {
             const synth = window.speechSynthesis; const utterance = new SpeechSynthesisUtterance(text);
-            utterance.pitch = 1.0; utterance.rate = 1.0;  
+            utterance.pitch = 1.2; utterance.rate = 1.0;  
             let bestVoice = synth.getVoices().find(v => v.name.includes("Google") || v.lang.includes("en-IN") || v.lang.includes("hi-IN"));
             if (bestVoice) utterance.voice = bestVoice;
             utterance.onstart = () => { startLipSync(); };
             utterance.onend = () => { stopLipSync(); };
             synth.speak(utterance);
         }
+        window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
 
-        // 6. VOICE RECOGNITION
+        // 6. VOICE RECOGNITION (Standard Active State)
         const voiceBtn = document.getElementById('voice-btn');
         const aiResponseText = document.getElementById('ai-response');
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -328,7 +379,7 @@
                     world.gravity.y = 0; world.bodies.forEach(b => !b.isStatic && Matter.Body.applyForce(b, b.position, {x: 0, y: -0.05}));
                     let reply = "Zero gravity engaged.";
                     setTimeout(() => { aiResponseText.innerText = `AI: "${reply}"`; speak(reply); }, 1000); return;
-                } else if(userSpeech.includes("normal gravity") || userSpeech.includes("restore")) {
+                } else if(userSpeech.includes("normal gravity") || userSpeech.includes("restore gravity")) {
                     world.gravity.y = 1; let reply = "Normal gravity restored.";
                     setTimeout(() => { aiResponseText.innerText = `AI: "${reply}"`; speak(reply); }, 1000); return;
                 }
@@ -341,6 +392,9 @@
                 voiceBtn.classList.remove('listening'); voiceBtn.innerHTML = '<i class="fas fa-microphone"></i> Activate AI';
                 aiResponseText.innerText = "Error reading voice. Check permissions.";
             };
+        } else {
+            voiceBtn.style.display = 'none';
+            aiResponseText.innerText = "Voice API is not supported in this browser.";
         }
     </script>
 </body>
